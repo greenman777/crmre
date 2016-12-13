@@ -1,0 +1,183 @@
+{% spaceless %}
+{% load filters_extras %}
+<?xml version="1.0"?>
+<Ads target="Portal_rn43" formatVersion="2">
+  {% for offer in offers %}
+  <Order>
+    <Index>{{offer.index}}</Index>
+	<Description>{{offer.description|cleanhtml}}</Description>
+	<ModificationDate>{{offer.modification_date}}</ModificationDate>
+	<ManagerId>{{offer.performer.id}}</ManagerId>
+	<ManagerName>{{offer.performer.first_name}}</ManagerName>
+	<ManagerFamily>{{offer.performer.last_name}}</ManagerFamily>
+	<ManagerPhone>+{{offer.performer.phone}}</ManagerPhone>
+	<ManagerEmail>{{offer.performer.email}}</ManagerEmail>
+	<ManagerPhoto url="http://office.rn43.ru/media{{MEDIA_ROOT}}/{{offer.performer.photo}}"></ManagerPhoto>
+    <ObjectCategory>{{offer.object_category}}</ObjectCategory>
+    <ObjectType>{{offer.object_type}}</ObjectType>
+    {% if offer.coordinates_label %}<CoordinatesLabel>{{offer.coordinates_label}}</CoordinatesLabel>{% endif %}
+    {% if offer.city %}<City>{{offer.city}}</City>{% endif %}
+    {% if offer.district %}<District>{{offer.district}}</District>{% endif %}
+    {% if offer.microdistrict %}<Microdistrict>{{offer.microdistrict}}</Microdistrict>{% endif %}
+    {% if offer.street %}<Street>{{offer.street}}</Street>{% endif %}
+    {% if offer.house_number %}<HouseNumber>{{offer.house_number}}</HouseNumber>{% endif %}
+    {% if offer.number_rooms %}<Rooms>{{offer.number_rooms}}</Rooms>{% endif%}
+    {% if offer.floor %}<Floor>{{offer.floor}}</Floor>{% endif%}
+    {% if offer.floors %}<Floors>{{offer.floors}}</Floors>{% endif%}
+    {% if offer.material_walls %}<WallsType>{{offer.material_walls}}</WallsType>{% endif %}
+    <LuxuryHousing>{% if offer.luxury_housing %}Элитное жилье{% else %}Стандартное жилье{% endif %}</LuxuryHousing>
+    <HotOffer>{{ offer.hot_offer }}</HotOffer>
+    
+    <LandArea>{% widthratio offer.landplot_space 100 1 %}</LandArea>    
+    <DistanceToCity>{% if offer.remoteness_center %}{{offer.remoteness_center|floatformat}}{% else %}0{% endif %}</DistanceToCity>
+    <OperationType>{% if offer.transaction_type %}Продам{% else %}Сдам{% endif %}</OperationType>
+    <Price>{{offer.price|floatformat}}</Price>
+    <Square>{{offer.total_space|floatformat}}</Square>
+    {% if offer.developmentid %}<DevelopmentId>{{offer.developmentid}}</DevelopmentId>{% endif%}
+    {% if offer.living_space %}<LivingSpace>{{offer.living_space|floatformat}}</LivingSpace>{% endif%}
+    {% if offer.kitchen_space %}<KitchenSpace>{{offer.kitchen_space|floatformat}}</KitchenSpace>{% endif%}
+    {% if offer.planishing %}<Planishing>{{offer.planishing}}</Planishing>{% endif%}
+    {% if offer.layout_rooms %}<LayoutRooms>{{offer.layout_rooms}}</LayoutRooms>{% endif%}
+    {% if offer.refinishing %}<Refinishing>{{offer.refinishing}}</Refinishing>{% endif%}
+    {% if offer.condition %}<Condition>{{offer.condition}}</Condition>{% endif%}
+    {% if offer.heating %}<Heating>{{offer.heating}}</Heating>{% endif%}
+    {% if offer.bathroom %}<Bathroom>{{offer.bathroom}}</Bathroom>{% endif%}
+    {% if offer.balcony %}<Balcony>{{offer.balcony}}</Balcony>{% endif%}
+    {% if offer.flooring %}<Flooring>{{offer.flooring}}</Flooring>{% endif%}
+    {% if offer.windows %}<Windows>{{offer.windows}}</Windows>{% endif%}
+    {% if offer.property %}<Property>{{offer.property}}</Property>{% endif%}
+    {% if offer.environment %}<Environment>{{offer.environment}}</Environment>{% endif%}
+    <ConstructionStage>{% if offer.construction_stage %}готовый{% else %}строящийся{% endif %}</ConstructionStage>
+    {% if offer.delivery_period %}<DeliveryPeriod>{{offer.delivery_period}}</DeliveryPeriod>{% endif%}
+    {% if offer.category_earth %}<CategoryEarth>{{offer.category_earth}}</CategoryEarth>{% endif%}
+    {% if offer.road %}<Road>{{offer.road}}</Road>{% endif%}
+    {% if offer.green_plantings %}<GreenPlantings>{{offer.green_plantings}}</GreenPlantings>{% endif%}
+    {% if offer.constructions %}<Constructions>{{offer.constructions}}</Constructions>{% endif%}
+    {% if offer.fencing %}<Fencing>{{offer.fencing}}</Fencing>{% endif%}
+    {% if offer.gasification %}<Gasification>газификация</Gasification>{% endif%}
+    {% if offer.plumbing %}<plumbing>водопровод</plumbing>{% endif%}
+    {% if offer.well %}<Well>скважина</Well>{% endif%}
+    {% if offer.sewerage %}<Sewerage>канализация</Sewerage>{% endif%}
+    {% if offer.reclamation %}<Reclamation>мелиорация</Reclamation>{% endif%}
+    {% if offer.pond %}<Pond>водоем</Pond>{% endif%}
+    {% if offer.ceiling_height %}<CeilingHeight>{{offer.ceiling_height|floatformat}}</CeilingHeight>{% endif%}
+    {% if offer.hot_water %}<HotWater>{{offer.hot_water}}</HotWater>{% endif%}
+    {% if offer.access_redline %}<AccessRedline>выход на красную линию</AccessRedline>{% endif%}
+    {% if offer.landplot_property %}<LandplotProperty>земельный участок</LandplotProperty>{% endif%}
+    {% if offer.comment %}<Comment>{{offer.comment}}</Comment>{% endif%}
+    {% if offer.resources %}<Resources>{{offer.resources}}</Resources>{% endif%}
+    {% if offer.tour3d %}<Tour3d>{{offer.tour3d}}</Tour3d>{% endif%}
+    <Images>
+        {% for photo in offer.photos_set.all %}
+            <Image url="http://office.rn43.ru/media{{MEDIA_ROOT}}/{{photo.photo}}"></Image>
+        {% endfor %}          
+    </Images>
+  </Order>
+  {% endfor %}
+  {% for building in buildings %}
+  <Building>
+    <Index>{{building.index}}</Index>
+	<Heading>{{building.heading}}</Heading>
+	<Description>{{building.description}}</Description>
+	<ModificationDate>{{building.modification_date}}</ModificationDate>
+	<ManagerId>{{building.performer.id}}</ManagerId>
+	<ManagerName>{{building.performer.first_name}}</ManagerName>
+	<ManagerFamily>{{building.performer.last_name}}</ManagerFamily>
+	<ManagerPhone>+{{building.performer.phone}}</ManagerPhone>
+	<ManagerEmail>{{building.performer.email}}</ManagerEmail>
+	<ManagerPhoto url="http://office.rn43.ru/media{{MEDIA_ROOT}}/{{building.performer.photo}}"></ManagerPhoto>
+    {% if building.developmentid %}<DevelopmentId>{{building.developmentid}}</DevelopmentId>{% endif%}
+    {% if building.apartments %}<Apartments>{{building.apartments}}</Apartments>{% endif%}
+    {% if building.coordinates_label %}<CoordinatesLabel>{{building.coordinates_label}}</CoordinatesLabel>{% endif %}
+	{% if building.city %}<City>{{building.city}}</City>{% endif %}
+    {% if building.district %}<District>{{building.district}}</District>{% endif %}
+    {% if building.microdistrict %}<Microdistrict>{{building.microdistrict}}</Microdistrict>{% endif %}
+    {% if building.street %}<Street>{{building.street}}</Street>{% endif %}
+    {% if building.house_number %}<HouseNumber>{{building.house_number}}</HouseNumber>{% endif %}
+    {% if building.floors %}<Floors>{{building.floors}}</Floors>{% endif%}
+    {% if building.construction_organization %}<ConstructionOrganization>{{building.construction_organization}}</ConstructionOrganization>{% endif%}
+    {% if building.construction_stage %}<ConstructionStage>{{building.construction_stage}}</ConstructionStage>{% endif%}
+    {% if building.delivery_period %}<DeliveryPeriod>{{building.delivery_period}}</DeliveryPeriod>{% endif%}
+    {% if building.number_entrances %}<NumberEntrances>{{building.number_entrances}}</NumberEntrances>{% endif%}
+    {% if building.material_walls %}<MaterialWalls>{{building.material_walls}}</MaterialWalls>{% endif%}
+    {% if building.purpose %}<Purpose>{{building.purpose}}</Purpose>{% endif%}
+    {% if building.technology %}<Technology>{{building.technology}}</Technology>{% endif%}
+    {% if building.finish %}<Finish>{{building.finish}}</Finish>{% endif%}
+    {% if building.communication %}<Communication>{{building.communication}}</Communication>{% endif%}
+    {% if building.accessibility %}<Accessibility>{{building.accessibility}}</Accessibility>{% endif%}
+    {% if building.infrastructure %}<Infrastructure>{{building.infrastructure}}</Infrastructure>{% endif%}
+    {% if building.features %}<Features>{{building.features}}</Features>{% endif%}
+    {% if building.caption1 %}<Caption1>{{building.caption1}}</Caption1>{% endif%}
+    {% if building.caption2 %}<Caption2>{{building.caption2}}</Caption2>{% endif%}
+    {% if building.tour3d %}<Tour3d>{{building.tour3d}}</Tour3d>{% endif%}
+    {% if building.reclame1 %}<Reclame1>{{building.reclame1}}</Reclame1>{% endif%}
+    {% if building.reclame2 %}<Reclame2>{{building.reclame2}}</Reclame2>{% endif%}
+    {% if building.reclame3 %}<Reclame3>{{building.reclame3}}</Reclame3>{% endif%}
+    <Stamp1>{{ building.stamp1 }}</Stamp1>
+    <Stamp2>{{ building.stamp2 }}</Stamp2>
+    <HotOffer>{{ building.hot_offer }}</HotOffer>
+    {% if building.priority %}<Priority>{{building.priority}}</Priority>{% endif%}
+    <BuildingImages>
+        {% for photo in building.buildingphotos_set.all %}
+            <Image url="http://office.rn43.ru/media{{MEDIA_ROOT}}/{{photo.photo}}"></Image>
+        {% endfor %}          
+    </BuildingImages>
+    <BuildingPlan>
+    	{% for plan in building.plan_set.all %}
+    	<Plan>
+    		{% if plan.number_rooms %}<NumberRooms>{{plan.number_rooms}}</NumberRooms>{% endif%}
+    		{% if plan.space|floatformat %}<Space>{{plan.space}}</Space>{% endif%}
+    		{% if plan.floor %}<Floor>{{plan.floor}}</Floor>{% endif%}
+    		{% if plan.entrance %}<Entrance>{{plan.entrance}}</Entrance>{% endif%}
+    		{% if plan.price|floatformat %}<Price>{{plan.price}}</Price>{% endif%}
+    		{% if plan.tour3d %}<Tour3d>{{plan.tour3d}}</Tour3d>{% endif%}
+            {% if plan.prompt %}<Prompt>{{plan.prompt}}</Prompt>{% endif%}
+            {% if plan.commission|floatformat %}<Commission>{{plan.commission}}</Commission>{% endif%}
+    		<PlanImages>
+		        {% for photo in plan.planphotos_set.all %}
+		            <Image url="http://office.rn43.ru/media{{MEDIA_ROOT}}/{{photo.photo}}"></Image>
+		        {% endfor %}          
+		    </PlanImages>
+    	</Plan>	
+        {% endfor %}	
+    </BuildingPlan>
+  </Building>
+  {% endfor %}
+  {% for offer_buy in offers_buy %}
+  <OrderBuy>
+    <Index>{{offer_buy.index}}</Index>
+	<Description>{{offer_buy.description}}</Description>
+	<ModificationDate>{{offer_buy.modification_date}}</ModificationDate>
+	<ManagerId>{{offer_buy.performer.id}}</ManagerId>
+	<ManagerName>{{offer_buy.performer.first_name}}</ManagerName>
+	<ManagerFamily>{{offer_buy.performer.last_name}}</ManagerFamily>
+	<ManagerPhone>+{{offer_buy.performer.phone}}</ManagerPhone>
+	<ManagerEmail>{{offer_buy.performer.email}}</ManagerEmail>
+	<ManagerPhoto url="http://office.rn43.ru/media{{MEDIA_ROOT}}/{{offer_buy.performer.photo}}"></ManagerPhoto>
+    <ObjectCategory>{{offer_buy.object_category}}</ObjectCategory>
+    {% if offer_buy.comment %}<Comment>{{offer_buy.comment}}</Comment>{% endif%}
+    {% if offer_buy.price_from %}<PriceFrom>{{offer_buy.price_from}}</PriceFrom>{% endif%}
+    {% if offer_buy.price_to %}<PriceTo>{{offer_buy.price_to}}</PriceTo>{% endif%}
+    {% if offer_buy.space_from %}<SpaceFrom>{{offer_buy.space_from}}</SpaceFrom>{% endif%}
+    {% if offer_buy.space_to %}<SpaceTo>{{offer_buy.space_to}}</SpaceTo>{% endif%}
+    {% if offer_buy.remoteness_from %}<RemotenessFrom>{{offer_buy.remoteness_from}}</RemotenessFrom>{% endif%}
+    {% if offer_buy.remoteness_to %}<RemotenessTo>{{offer_buy.remoteness_to}}</RemotenessTo>{% endif%}
+	{% for object_type in offer_buy.listobjecttype_set.all %}
+		<ObjectType>{% if object_type.object_type %}{{object_type.object_type}}{% endif%}</ObjectType>	
+    {% endfor %}	
+	{% for district in offer_buy.listdistrict_set.all %}
+		<District>{% if district.district %}{{district.district}}{% endif%}</District>	
+    {% endfor %}	
+	{% for city in offer_buy.listcity_set.all %}
+		<City>{% if city.city %}{{city.city}}{% endif%}</City>	
+    {% endfor %}	
+	{% for microdistrict in offer_buy.listmicrodistrict_set.all %}
+		<Microdistrict>{% if microdistrict.microdistrict %}{{microdistrict.microdistrict}}{% endif%}</Microdistrict>	
+    {% endfor %}	
+	{% for street in offer_buy.liststreet_set.all %}
+		<Street>{% if street.street %}{{street.street}}{% endif%}</Street>	
+    {% endfor %}	
+  </OrderBuy>
+  {% endfor %}
+</Ads>
+{% endspaceless %}

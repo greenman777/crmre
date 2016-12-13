@@ -1,0 +1,251 @@
+.x-mask.splashscreen {
+    background-color: white;
+    opacity: 1;
+}
+
+.x-mask-msg.splashscreen,
+.x-mask-msg.splashscreen div {
+    font-size: 16px;
+    padding: 30px 5px 5px 5px;
+    border: none;
+    background-color: transparent;
+    background-position: top center;
+}
+
+.x-message-box .x-window-body .x-box-inner {
+    min-height: 110px !important;
+}
+
+.x-splash-icon {
+    background-image: url(../images/logo_admin.png) !important;
+    background-repeat: no-repeat;
+    margin-top: -30px;
+    margin-bottom: 10px;
+}
+.red-overdue .x-grid-cell { 
+    color: #A52A2A; 
+} 
+
+.grey-overdue .x-grid-cell { 
+    color: #808080; 
+}
+
+.green-overdue .x-grid-cell { 
+    color: #9ACD32; 
+}
+
+.blue-overdue .x-grid-cell { 
+    color: #4682B4; 
+}
+
+.purple-overdue .x-grid-cell { 
+    color: #990066; 
+}
+
+.icon-user {
+    background-image: url(../images/user.png) !important;
+}
+.icon-user-add {
+    background-image: url(../images/user_add.gif) !important;
+}
+.icon-save {
+    background-image: url(../images/save.gif) !important;
+}
+.icon-reset {
+    background-image: url(../images/stop.png) !important;
+}
+.icon-grid {
+    background-image: url(../images/grid.png) !important;
+}
+.icon-add {
+    background-image: url(../images/add.png) !important;
+}
+.icon-delete {
+    background-image: url(../images/delete.png) !important;
+}
+.icon-objects {
+    background-image: url(../images/objects.png) !important;
+}
+.icon-orders-sale {
+    background-image: url(../images/orders_sale.png) !important;
+}
+.icon-orders-buy {
+    background-image: url(../images/orders_buy.png) !important;
+}
+.icon-tasks {
+    background-image: url(../images/tasks.png) !important;
+}
+.icon-task_add {
+    background-image: url(../images/task_add.png) !important;
+}
+.icon-comments_add {
+    background-image: url(../images/comments_add.png) !important;
+}
+.icon-task_history_add {
+    background-image: url(../images/task_history_add.png) !important;
+}
+.icon-users {
+    background-image: url(../images/users.png) !important;
+}
+.icon-directory {
+    background-image: url(../images/directory.png) !important;
+}
+.icon-calendar {
+    background-image: url(../images/calendar.png) !important;
+}
+.icon-notifications {
+    background-image: url(../images/notifications.png) !important;
+}
+.icon-clients {
+    background-image: url(../images/clients.png) !important;
+}
+.icon-client_make {
+    background-image: url(../images/client_make.png) !important;
+}
+.icon-reports {
+    background-image: url(../images/reports.png) !important;
+}
+.icon-change-password {
+    background-image: url(../images/change_password.png) !important;
+}
+.icon-exit {
+    background-image: url(../images/exit.png) !important;
+}
+.icon-edit {
+    background-image: url(../images/edit.png) !important;
+}
+.icon-search {
+    background-image: url(../images/search.png) !important;
+}
+.icon-search_orders {
+    background-image: url(../images/search_orders.png) !important;
+}
+.icon-search_orders_my {
+    background-image: url(../images/search_orders_my.png) !important;
+}
+.icon-photos {
+    background-image: url(../images/photos.png) !important;
+}
+.icon-upload {
+    background-image: url(../images/upload.png) !important;
+}
+.icon-update {
+    background-image: url(../images/update.png) !important;
+}
+.icon-save {
+    background-image: url(../images/save.png) !important;
+}
+.icon-tasks_complet {
+    background-image: url(../images/tasks_complet.png) !important;
+}
+.icon-client_add {
+    background-image: url(../images/client_add.png) !important;
+}
+.icon-client_add_32 {
+    background-image: url(../images/client_add_32.png) !important;
+}
+.icon-order_buy_add {
+    background-image: url(../images/order_buy_add.png) !important;
+}
+.icon-order_sale_add {
+    background-image: url(../images/order_sale_add.png) !important;
+}
+.icon-user_change {
+    background-image: url(../images/user_change.png) !important;
+}
+.icon-buildings {
+    background-image: url(../images/buildings.png) !important;
+}
+.icon-building_add {
+    background-image: url(../images/building_add.png) !important;
+}
+.icon-email_send {
+    background-image: url(../images/email_send.png) !important;
+}
+.icon-photos_add {
+    background-image: url(../images/photos_add.png) !important;
+}
+.icon-reaction {
+    background-image: url(../images/reaction.png) !important;
+}
+.icon-show {
+    background-image: url(../images/show.png) !important;
+}
+.icon-service {
+    background-image: url(../images/service.png) !important;
+}
+.icon-open_report {
+    background-image: url(../images/report.png) !important;
+}
+.icon-lock {
+    background-image: url(../images/lock.png) !important;
+}
+.icon-lock_open {
+    background-image: url(../images/lock_open.png) !important;
+}
+.icon-orders_buy_info {
+    background-image: url(../images/orders_buy_info.png) !important;
+}
+.icon-orders_sale_info {
+    background-image: url(../images/orders_sale_info.png) !important;
+}
+.icon-info {
+    background-image: url(../images/info.png) !important;
+}
+.icon-client_info {
+    background-image: url(../images/client_info.png) !important;
+}
+.icon-filter {
+    background-image: url(../images/filter.png) !important;
+}
+.icon-filter_add {
+    background-image: url(../images/filter_add.png) !important;
+}
+.icon-filter_delete {
+    background-image: url(../images/filter_delete.png) !important;
+}
+.icon-copy_record {
+    background-image: url(../images/copy_record.png) !important;
+}
+.icon-to_archive {
+    background-image: url(../images/to_archive.png) !important;
+}
+.icon-close_order {
+    background-image: url(../images/close_order.png) !important;
+}
+.icon-uploading {
+    background-image: url(../images/uploading.png) !important;
+}
+.icon-send_messages {
+    background-image: url(../images/send_messages.png) !important;
+}
+.icon-rating {
+    background-image: url(../images/rating.png) !important;
+}
+.icon-message_add {
+    background-image: url(../images/message_add.png) !important;
+}
+.icon-info_client {
+    background-image: url(../images/info_client.png) !important;
+}
+.icon-plan_add {
+    background-image: url(../images/plan_add.png) !important;
+}
+.icon-return_active {
+    background-image: url(../images/return_active.png) !important;
+}
+.icon-coordinates {
+    background-image: url(../images/coordinates.png) !important;
+}
+.icon-templatesdoc {
+    background-image: url(../images/templatesdoc.png) !important;
+}
+.icon-documents_add {
+    background-image: url(../images/documents_add.png) !important;
+}
+.icon-documents {
+    background-image: url(../images/documents.png) !important;
+}
+.icon-regulations {
+    background-image: url(../images/regulations.png) !important;
+}

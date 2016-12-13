@@ -1,0 +1,10 @@
+{% if obj.city %}{% if obj.city.name != 'Киров' %}{{obj.city}}, {% endif %}{% endif %}
+{% if obj.street%}ул.{{obj.street}}, {% endif %}{% if obj.house_number%}д.{{obj.house_number}}, {% endif %}
+{% if obj.floor%}{{obj.floor}}{% else %}-{% endif %}/{% if obj.floors%}{{obj.floors}}{% else %}-{% endif %}{% if obj.number_rooms%}. Количество комнат: {{obj.number_rooms}}, {% endif %} {% if obj.material_walls%}{{obj.material_walls}}, {% endif %}площадь {% if obj.total_space%}{{obj.total_space|floatformat}}{% else %}-{% endif %}/{% if obj.living_space%}{{obj.living_space|floatformat}}{% else %}-{% endif %}/{% if obj.kitchen_space%}{{obj.kitchen_space|floatformat}}{% else %}-{% endif %}, 
+{% if obj.planishing %}планировка {{obj.planishing}}, {% endif %}{% if obj.layout_rooms %}расположение комнат {{obj.layout_rooms}}, {% endif %}{% if obj.refinishing %}отделка {{obj.refinishing}}, {% endif %}{% if obj.condition %}состояние {{obj.condition}}, {% endif %}{% if obj.heating %}отопление {{obj.heating}}, {% endif %}{% if obj.hot_water %}горячая вода {{obj.hot_water}}, {% endif %}{% if obj.bathroom %}санузел {{obj.bathroom}}, {% endif %}{% if obj.balcony %}{{obj.balcony}}, {% endif %}{% if obj.ceiling_height %}высота потолка: {{obj.ceiling_height}}, {% endif %} 
+{% if obj.landplot_property %}земля в собственности, {% endif %}{% if obj.landplot_space %}площадь земельного участка, кв.м.: {{obj.landplot_space}}, {% endif %}
+{% if obj.rampant %}пандус, {% endif %}{% if obj.parking %}парковка, {% endif %}{% if obj.area_maneuvering %}плащадка для маневрирования, {% endif %}{% if obj.plumbing%}водопровод, {% endif %}{% if obj.sewerage %}канализация, {% endif %}{% if obj.electric_power %}, эл.мощность, кВт: {{obj.electric_power|floatformat}}(кВт), {% endif %}
+{% if obj.property %}Имущество: {{obj.property}}, {% endif %}{% if obj.environment %}Окружение: {{obj.environment}}, {% endif %}
+{% if obj.delivery_period %} год постройки: {{obj.delivery_period}}, {% endif %}
+{% if obj.price %}Цена: {{obj.price|floatformat}} руб., {% endif %}
++{{obj.performer.phone}}, {{obj.performer.last_name}} {{obj.performer.first_name}}

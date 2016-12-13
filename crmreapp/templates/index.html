@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+    	<div id="user_id" style="display: none">{{ user.id|escapejs }}</div>
+    	<div id="user_firstname" style="display: none">{{ user.first_name|escapejs }}</div>
+    	<div id="user_lastname" style="display: none">{{ user.last_name|escapejs }}</div>
+    	<div id="user_perms" style="display: none">{{ user.get_all_permissions }}</div>
+    	<div id="user_groups" style="display: none">{{ user_groups }}</div>
+    	<div id="csrf_token" style="display: none">{{ csrf_token }}</div>
+    	<div id="media_url" style="display: none">{{ MEDIA_URL }}</div>
+    	
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>CRMRE</title>
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/ext/resources/css/ext-all-debug.css">
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/data-view.css">
+		
+    	<script type="text/javascript" src="{{ STATIC_URL }}js/ext/ext-all-dev.js"></script>
+    	<script type="text/javascript" src="{{ STATIC_URL }}js/ext/locale/ext-lang-ru.js"></script>
+    	
+    	<!-- BoxSelect Source -->
+    	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/app/plugins/BoxSelect.css">
+    	<script type="text/javascript" src="{{ STATIC_URL }}js/app/plugins/BoxSelect.js"></script>
+    	
+		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/app.css">
+    	<script type="text/javascript" src="{{ STATIC_URL }}js/app/app.js"></script>
+    	<script type="text/javascript">
+			Ext.onReady(function() {
+				Ext.require(["Ext.util.Cookies", "Ext.Ajax"], function(){
+					// Add csrf token to every ajax request
+					var token = Ext.util.Cookies.get('csrftoken');
+					if(!token){
+						Ext.Error.raise("Missing csrftoken cookie");
+					} else {
+						Ext.Ajax.defaultHeaders = Ext.apply(Ext.Ajax.defaultHeaders || {}, {
+							'X-CSRFToken': token
+						});
+					};
+				});
+			});
+		</script>
+	</head>
+	<body>
+    </body>
+</html>

@@ -1,0 +1,89 @@
+{% spaceless %}
+{% load filters_extras %}
+<?xml version="1.0"?>
+<Ads target="Avito.ru" formatVersion="3">
+  {% for offer in offers %}
+  <Ad>
+    <Id>{{offer.index}}</Id>
+    <Category>{{offer.object_type.avito_category}}</Category>
+    <Region>Кировская область</Region>
+    <City>{% if offer.city.name in avito_city %}{{offer.city}}{% else %}Киров{% endif %}</City>
+    {% if offer.district.name in avito_district %}<District>{{offer.district}}</District>{% endif %}
+    <Description>{{offer.description|avitohtml}}</Description>
+    {% if offer.coordinates_label %}<Latitude>{{offer.coordinates_label|splitstr:","|first}}</Latitude>{% endif %}
+    {% if offer.coordinates_label %}<Longitude>{{offer.coordinates_label|splitstr:","|last}}</Longitude>{% endif %}
+    <Price>{{offer.price|floatformat}}</Price>
+    <CompanyName>ООО "Руснедвижимость"</CompanyName>
+    <ManagerName>{{offer.performer.first_name}}</ManagerName>
+    <EMail>{{offer.performer.email}}</EMail>
+    <ContactPhone>+{{offer.performer.phone}}</ContactPhone>
+    <AdStatus>Free</AdStatus>
+    <OperationType>{% if offer.transaction_type %}Продам{% else %}Сдам{% endif %}</OperationType>
+    <PropertyRights>Посредник</PropertyRights>
+    {% if not offer.transaction_type %}<LeaseDeposit>Без залога</LeaseDeposit><LeaseType>На длительный срок</LeaseType><LeaseCommissionSize>0</LeaseCommissionSize>{% endif %}
+    <Images>
+        {% for photo in offer.photos_set.all|slice:":20" %}
+            <Image url="http://office.rn43.ru/media{{MEDIA_ROOT}}/{{photo.photo}}"></Image>
+        {% endfor %}          
+    </Images>
+    {% if offer.object_type.avito_category.name == "Комнаты" %}
+    	{% if offer.street %}<Street>{% if offer.city.name not in avito_city %}{{offer.city}}, {% endif %}{{offer.street}}{% if offer.house_number %} {{offer.house_number}}{% endif %}</Street>{% endif %}
+        {% if offer.number_rooms %}<SaleRooms>{{offer.number_rooms}}</SaleRooms>{% endif%}
+        {% if offer.number_rooms %}<Rooms>{{offer.number_rooms}}</Rooms>{% endif%}
+        <Square>{{offer.total_space|floatformat}}</Square>
+        {% if offer.floor %}<Floor>{{offer.floor}}</Floor>{% endif%}
+        {% if offer.floors %}<Floors>{{offer.floors}}</Floors>{% endif%}
+        {% if offer.material_walls.avito_housetype %}<HouseType>{{offer.material_walls.avito_housetype}}</HouseType>{% endif %}
+    {% endif %}
+    {% if offer.object_type.avito_category.name == "Квартиры" %}
+        {% if offer.street %}<Street>{% if offer.city.name not in avito_city %}{{offer.city}}, {% endif %}{{offer.street}}{% if offer.house_number %} {{offer.house_number}}{% endif %}</Street>{% endif %}
+        {% if offer.number_rooms %}
+            {% if offer.number_rooms == 1 and  offer.planishing.name == "квартира-студия" %}
+                <Rooms>Студия</Rooms>
+            {% else %}
+                <Rooms>{{offer.number_rooms}}</Rooms>
+            {% endif%}
+        {% endif%}
+        {% if offer.developmentid %}<DevelopmentId>{{offer.developmentid}}</DevelopmentId>{% endif%}
+        <Square>{{offer.total_space|floatformat}}</Square>
+        {% if offer.floor %}<Floor>{{offer.floor}}</Floor>{% endif%}
+        {% if offer.floors %}<Floors>{{offer.floors}}</Floors>{% endif%}
+        {% if offer.material_walls.avito_housetype %}<HouseType>{{offer.material_walls.avito_housetype}}</HouseType>{% endif %}
+        {% if offer.transaction_type %}
+            <MarketType>{% if offer.object_type.name == "квартира в новостройке" %}Новостройка{% else %}Вторичка{% endif %}</MarketType>
+        {% else %}
+            <LeaseType>Долгосрочная</LeaseType>
+        {% endif %}
+    {% endif %}
+    {% if offer.object_type.avito_category.name == "Дома, дачи, коттеджи" %}
+        {% if offer.street %}<Street>{% if offer.city.name not in avito_city %}{{offer.city}}, {% endif %}{{offer.street}}</Street>{% endif %}
+        <Square>{{offer.total_space|floatformat}}</Square>
+        <ObjectType>{{offer.object_type.avito_type}}</ObjectType>
+        <LandArea>{% widthratio offer.landplot_space 100 1 %}</LandArea>
+        <DistanceToCity>{% if offer.remoteness_center %}{{offer.remoteness_center|floatformat}}{% else %}0{% endif %}</DistanceToCity>
+        {% if offer.material_walls.avito_wallstype %}<WallsType>{{offer.material_walls.avito_wallstype}}</WallsType>{% endif %}
+        {% if offer.floors %}<Floors>{{offer.floors}}</Floors>{% endif%}
+        {% if not offer.transaction_type %}
+            <LeaseType>Долгосрочная</LeaseType>
+        {% endif %}
+    {% endif %}
+    {% if offer.object_type.avito_category.name == "Земельные участки" %}
+        {% if offer.street %}<Street>{% if offer.city.name not in avito_city %}{{offer.city}}, {% endif %}{{offer.street}}</Street>{% endif %}
+        <ObjectType>{{offer.object_type.avito_type}}</ObjectType>
+        <LandArea>{% widthratio offer.total_space 100 1 %}</LandArea>
+        <DistanceToCity>{% if offer.remoteness_center %}{{offer.remoteness_center|floatformat}}{% else %}0{% endif %}</DistanceToCity>
+    {% endif %}
+    {% if offer.object_type.avito_category.name == "Гаражи и стоянки" %}
+        {% if offer.street %}<Street>{% if offer.city.name not in avito_city %}{{offer.city}}, {% endif %}{{offer.street}}</Street>{% endif %}
+        <ObjectType>{{offer.object_type.avito_type}}</ObjectType>
+        <Square>{{offer.total_space|floatformat}}</Square>
+    {% endif %}
+    {% if offer.object_type.avito_category.name == "Коммерческая недвижимость" %}
+        {% if offer.street %}<Street>{% if offer.city.name not in avito_city %}{{offer.city}}, {% endif %}{{offer.street}}</Street>{% endif %}
+        <ObjectType>{{offer.object_type.avito_type}}</ObjectType>
+        <Square>{{offer.total_space|floatformat}}</Square>
+    {% endif %}
+  </Ad>
+  {% endfor %}
+</Ads>
+{% endspaceless %}
