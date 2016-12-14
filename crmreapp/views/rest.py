@@ -657,6 +657,17 @@ class OrdersBuyViewSet(viewsets.ModelViewSet):
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        page_size = self.paginator.page_size
+
+        queryset = self.queryset.filter(self.get_filter(request)).distinct()
+        page_number = (list(queryset.values_list('id', flat=True)).index(serializer.data['id']))/page_size+1
+        return Response({'results': serializer.data, 'page': page_number}, status=status.HTTP_201_CREATED, headers=headers)
+
 class OfferViewSet(viewsets.ModelViewSet):
     queryset = models.Offer.objects.all()
     serializer_class = serializers.OfferSerializer

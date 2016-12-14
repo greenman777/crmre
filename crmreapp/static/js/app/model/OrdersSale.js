@@ -14,8 +14,8 @@ Ext.define('CRMRE.model.OrdersSale', {
     	{name: 'object_accessory', type:'auto'},//принадлежность объекта
     	{name: 'status', type:'auto'},//статус объекта
     	{name: 'client', type:'auto'},//клиент
-            {name: 'client_name', type:'string'},//клиент - имя
-            {name: 'represent', type:'string'},//клиент - представитель
+        {name: 'client_name', type:'string'},//клиент - имя
+        {name: 'represent_name', type:'string'},//клиент - представитель
     	{name: 'total_space', type:'float'},//общая площадь
         {name: 'price',type:'float'},//цена
         {name: 'only_support', type:'boolean'},

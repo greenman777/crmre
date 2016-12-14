@@ -438,13 +438,13 @@ Ext.define('CRMRE.controller.OrdersBuy', {
 		                });
                         if (Ext.getCmp('tabpanel').getActiveTab().title=='Свободные заявки на покупку') {
 					        store_orders_buy.clearFilter(true);
-				            store_orders_buy.filter(function(r) {
-				                var value = r.get('status');
-				                return (value == store_status.findRecord('name','свободная').getId());
-				            });
-					        record_last = store_orders_buy.last();
-					        if (record_last != undefined) {
-					            grid_orders_buy.getSelectionModel().select(record_last);
+					        var filters = [];
+                            filters.push({ property: 'status', value: store_status.findRecord('name','свободная').getId(), exactMatch: true});
+                            store_orders_buy.filter(filters);
+					        record_first = store_orders_buy.first();
+					        if (record_first != undefined) {
+					            grid_orders_buy.getSelectionModel().select(record_first);
+					            grid_orders_buy.getView().focusRow(record_first);
 					        }   
 	                    }
                     }
@@ -582,11 +582,16 @@ Ext.define('CRMRE.controller.OrdersBuy', {
 	                    if (record.get('street')) this.saveNewLocal(record.getId(),record.get('street'),'ListStreet','street');
 	                    if (record.get('number_rooms')) this.saveNewLocal(record.getId(),record.get('number_rooms'),'ListRooms','number_rooms');
 	    			    if (record.get('performer')) {
-	    			    	var store_clients = Ext.data.StoreManager.lookup('Clients');
-                        	client = store_clients.getById(record.get('client'));
-                        	var message = 'Вам новая заявка № '+record.get('index')+": "+record.get('heading')+", от "+client.get('represent')+" т."+client.get('phone_represent');
-                            my.fireEvent('addNotifications',record.get('performer'),message);
-                            //my.fireEvent('addTask',record.get('performer'),'Отработать заявку № '+record.get('index'),'Посмотреть, сфотографировать, заполнить данные заявки');    
+	    			        Ext.create('CRMRE.store.Clients').load({params:{client_id: record.get('client')}, callback: function(records, options, success) {
+                                if (success) {
+                                    client = records[0];
+                                    var message = 'Вам новая заявка № '+record.get('index')+": "+record.get('heading')+", от "+client.get('represent')+" т."+client.get('phone_represent');
+                                    my.fireEvent('addNotifications',record.get('performer'),message);
+                                    var message = 'Вам новая заявка № '+record.get('index')+": "+record.get('heading')+", от "+client.get('represent')+" т."+client.get('phone_represent');
+                                    my.fireEvent('addNotifications',record.get('performer'),message);
+                                    //my.fireEvent('addTask',record.get('performer'),'Отработать заявку № '+record.get('index'),'Посмотреть, сфотографировать, заполнить данные заявки');
+                                }
+                            }});
                         }
                         if (record.get('mortgage')) {
                             Ext.Ajax.request({
@@ -621,7 +626,7 @@ Ext.define('CRMRE.controller.OrdersBuy', {
     /*Создаем новые значения местоположения
      *поиска для вновь создаваемой записи*/
     saveNewLocal: function(order_id,arr_new,store_name,field){
-    	
+    	console.log(order_id,arr_new,store_name,field);
     	var store_list = Ext.data.StoreManager.lookup(store_name);
     	arr_new.forEach(function(item, index) {
             var record = Ext.create('CRMRE.model.'+store_name);
@@ -792,13 +797,14 @@ Ext.define('CRMRE.controller.OrdersBuy', {
 	                    store.sync({
 	                        success : function(data_batch,controller) {
 	                            store.clearFilter(true);
-	                            store.filter(function(r) {
-	                                var value = r.get('status');
-	                                return ((value == store_status.findRecord('name','активная').getId())||(value == store_status.findRecord('name','выход на сделку').getId()));
-	                            });
-	                            record_last = store.last();
-	                            if (record_last != undefined) {
-	                                grid.getSelectionModel().select(record_last);
+	                            var filters = [];
+                                filters.push({ property: 'status', value: store_status.findRecord('name','активная').getId(), exactMatch: true});
+                                filters.push({ property: 'status', value: store_status.findRecord('name','выход на сделку').getId(), exactMatch: true});
+                                store.filter(filters);
+	                            record_first = store.first();
+	                            if (record_first != undefined) {
+	                                grid.getSelectionModel().select(record_first);
+	                                grid.getView().focusRow(record_first);
 	                            }   
 	                        },
                             failure: function (proxy, operations) {
@@ -835,13 +841,14 @@ Ext.define('CRMRE.controller.OrdersBuy', {
 	                        success : function(data_batch,controller) {
 	                            if (Ext.getCmp('tabpanel').getActiveTab().title=='Завершенные заявки на покупку') {
 		                            store.clearFilter(true);
-		                            store.filter(function(r) {
-		                                var value = r.get('status');
-		                                return ((value == store_status.findRecord('name','сделка завершена').getId())||(value == store_status.findRecord('name','отказная').getId()));
-		                            });
-		                            record_last = store.last();
-		                            if (record_last != undefined) {
-		                                grid.getSelectionModel().select(record_last);
+		                            var filters = [];
+                                    filters.push({ property: 'status', value: store_status.findRecord('name','сделка завершена').getId(), exactMatch: true});
+                                    filters.push({ property: 'status', value: store_status.findRecord('name','отказная').getId(), exactMatch: true});
+                                    store.filter(filters);
+		                            record_first = store.first();
+		                            if (record_first != undefined) {
+		                                grid.getSelectionModel().select(record_first);
+		                                grid.getView().focusRow(record_first);
 		                            }   
 		                        }
 	                        },
@@ -879,13 +886,14 @@ Ext.define('CRMRE.controller.OrdersBuy', {
 	                        success : function(data_batch,controller) {
 	                            if (Ext.getCmp('tabpanel').getActiveTab().title=='Завершенные заявки на покупку') {
 		                            store.clearFilter(true);
-		                            store.filter(function(r) {
-		                                var value = r.get('status');
-		                                return ((value == store_status.findRecord('name','сделка завершена').getId())||(value == store_status.findRecord('name','отказная').getId()));
-		                            });
-		                            record_last = store.last();
-		                            if (record_last != undefined) {
-		                                grid.getSelectionModel().select(record_last);
+		                            var filters = [];
+                                    filters.push({ property: 'status', value: store_status.findRecord('name','сделка завершена').getId(), exactMatch: true});
+                                    filters.push({ property: 'status', value: store_status.findRecord('name','отказная').getId(), exactMatch: true});
+                                    store.filter(filters);
+		                            record_first = store.first();
+		                            if (record_first != undefined) {
+		                                grid.getSelectionModel().select(record_first);
+		                                grid.getView().focusRow(record_first);
 		                            }
 		                        }
 	                        },

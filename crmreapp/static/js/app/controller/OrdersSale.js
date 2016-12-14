@@ -574,20 +574,22 @@ Ext.define('CRMRE.controller.OrdersSale', {
                         selection_orders_sale[0].set('status',store_status.findRecord('name','активная').getId());
                         store_orders_sale.sync({
                             success : function(data_batch,controller) {
-                            	var store_clients = Ext.data.StoreManager.lookup('Clients');
-	                        	client = store_clients.getById(selection_orders_sale[0].get('client'));
-	                        	var message = 'Вам новая заявка № '+selection_orders_sale[0].get('index')+": "+selection_orders_sale[0].get('heading')+", от "+client.get('represent')+" т."+client.get('phone_represent');
-                                my.fireEvent('addNotifications',performer,message);
-                                //my.fireEvent('addTask',performer,'Отработать заявку № '+selection_orders_sale[0].get('index'),'Посмотреть, сфотографировать, заполнить данные заявки');
+	                        	Ext.create('CRMRE.store.Clients').load({params:{client_id: selection_orders_sale[0].get('client')}, callback: function(records, options, success) {
+                                    if (success) {
+                                        client = records[0];
+                                        var message = 'Вам новая заявка № '+selection_orders_sale[0].get('index')+": "+selection_orders_sale[0].get('heading')+", от "+client.get('represent')+" т."+client.get('phone_represent');
+                                        my.fireEvent('addNotifications',performer,message);
+                                        //my.fireEvent('addTask',performer,'Отработать заявку № '+selection_orders_sale[0].get('index'),'Посмотреть, сфотографировать, заполнить данные заявки');
+                                    }
+                                }});
                             },
                             scope: this            
                         });
                         if (Ext.getCmp('tabpanel').getActiveTab().title=='Свободные заявки на продажу') {
                             store_orders_sale.clearFilter(true);
-                            store_orders_sale.filter(function(r) {
-                                var value = r.get('status');
-                                return (value == store_status.findRecord('name','свободная').getId());
-                            });
+                            var filters = [];
+                            filters.push({ property: 'status', value: store_status.findRecord('name','свободная').getId(), exactMatch: true});
+                            store_orders_sale.filter(filters);
                             record_last = store_orders_sale.last();
                             if (record_last != undefined) {
                                 grid_orders_sale.getSelectionModel().select(record_last);
@@ -597,11 +599,14 @@ Ext.define('CRMRE.controller.OrdersSale', {
                     else {
                         store_orders_sale.sync({
                             success : function(data_batch,controller) {
-                            	var store_clients = Ext.data.StoreManager.lookup('Clients');
-	                        	client = store_clients.getById(selection_orders_sale[0].get('client'));
-	                        	var message = 'Вам новая заявка № '+selection_orders_sale[0].get('index')+": "+selection_orders_sale[0].get('heading')+", от "+client.get('represent')+" т."+client.get('phone_represent');
-                                my.fireEvent('addNotifications',performer,message);
-                                //my.fireEvent('addTask',performer,'Отработать заявку № '+selection_orders_sale[0].get('index'),'Посмотреть, сфотографировать, заполнить данные заявки');
+	                        	Ext.create('CRMRE.store.Clients').load({params:{client_id: selection_orders_sale[0].get('client')}, callback: function(records, options, success) {
+                                    if (success) {
+                                        client = records[0];
+                                        var message = 'Вам новая заявка № '+selection_orders_sale[0].get('index')+": "+selection_orders_sale[0].get('heading')+", от "+client.get('represent')+" т."+client.get('phone_represent');
+                                        my.fireEvent('addNotifications',performer,message);
+                                        //my.fireEvent('addTask',performer,'Отработать заявку № '+selection_orders_sale[0].get('index'),'Посмотреть, сфотографировать, заполнить данные заявки');
+                                    }
+                                }});
                             },
                             scope: this            
                         });
@@ -879,10 +884,10 @@ Ext.define('CRMRE.controller.OrdersSale', {
 	                        success : function(data_batch,controller) {
 	                            if (Ext.getCmp('tabpanel').getActiveTab().title=='Завершенные заявки на продажу') {
 	                                store.clearFilter(true);
-	                                store.filter(function(r) {
-	                                    var value = r.get('status');
-	                                    return ((value == store_status.findRecord('name','сделка завершена').getId())||(value == store_status.findRecord('name','отказная').getId()));
-	                                });
+	                                var filters = [];
+                                    filters.push({ property: 'status', value: store_status.findRecord('name','сделка завершена').getId(), exactMatch: true});
+                                    filters.push({ property: 'status', value: store_status.findRecord('name','отказная').getId(), exactMatch: true});
+                                    store.filter(filters);
 	                                record_last = store.last();
 	                                if (record_last != undefined) {
 	                                    grid.getSelectionModel().select(record_last);
@@ -923,10 +928,10 @@ Ext.define('CRMRE.controller.OrdersSale', {
 	                        success : function(data_batch,controller) {
 	                            if (Ext.getCmp('tabpanel').getActiveTab().title=='Завершенные заявки на продажу') {
 	                                store.clearFilter(true);
-	                                store.filter(function(r) {
-	                                    var value = r.get('status');
-	                                    return ((value == store_status.findRecord('name','сделка завершена').getId())||(value == store_status.findRecord('name','отказная').getId()));
-	                                });
+	                                var filters = [];
+                                    filters.push({ property: 'status', value: store_status.findRecord('name','сделка завершена').getId(), exactMatch: true});
+                                    filters.push({ property: 'status', value: store_status.findRecord('name','отказная').getId(), exactMatch: true});
+                                    store.filter(filters);
 	                                record_last = store.last();
 	                                if (record_last != undefined) {
 	                                    grid.getSelectionModel().select(record_last);
