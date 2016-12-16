@@ -360,8 +360,6 @@ Ext.define('CRMRE.controller.Clients', {
                 store.sync({
                     success : function(batch, options) {
                         if (flag_select) {
-                            console.log(grid.up('tabpanel').getActiveTab().typeapp);
-                            console.log(record.get('is_client'));
 	                        store.currentPage = store.proxy.reader.rawData.page;
 	                        id = record.getId();
                             store.load({
