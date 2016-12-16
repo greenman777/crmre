@@ -424,11 +424,14 @@ Ext.define('CRMRE.controller.OrdersBuy', {
                         selection_orders_buy[0].set('status',store_status.findRecord('name','активная').getId());
                         store_orders_buy.sync({
 		                    success : function(data_batch,controller) {
-		                    	var store_clients = Ext.data.StoreManager.lookup('Clients');
-	                        	client = store_clients.getById(selection_orders_buy[0].get('client'));
-	                        	var message = 'Вам новая заявка № '+selection_orders_buy[0].get('index')+": "+selection_orders_buy[0].get('heading')+", от "+client.get('represent')+" т."+client.get('phone_represent');
-                                my.fireEvent('addNotifications',performer,message);
-                                //my.fireEvent('addTask',performer,'Отработать заявку № '+selection_orders_buy[0].get('index'),'Посмотреть, сфотографировать, заполнить данные заявки');
+		                        Ext.create('CRMRE.store.Clients').load({params:{client_id: selection_orders_buy[0].get('client')}, callback: function(records, options, success) {
+                                    if (success) {
+                                        client = records[0];
+                                        var message = 'Вам новая заявка № '+selection_orders_buy[0].get('index')+": "+selection_orders_buy[0].get('heading')+", от "+client.get('represent')+" т."+client.get('phone_represent');
+                                        my.fireEvent('addNotifications',performer,message);
+                                        //my.fireEvent('addTask',performer,'Отработать заявку № '+selection_orders_buy[0].get('index'),'Посмотреть, сфотографировать, заполнить данные заявки');
+                                    }
+                                }});
 		                    },
                             failure: function (proxy, operations) {
 		                        // resume records
@@ -451,10 +454,13 @@ Ext.define('CRMRE.controller.OrdersBuy', {
                     else {
                         store_orders_buy.sync({
                             success : function(data_batch,controller) {
-                            	var store_clients = Ext.data.StoreManager.lookup('Clients');
-	                        	client = store_clients.getById(selection_orders_buy[0].get('client'));
-	                        	var message = 'Вам новая заявка № '+selection_orders_buy[0].get('index')+": "+selection_orders_buy[0].get('heading')+", от "+client.get('represent')+" т."+client.get('phone_represent');
-                                my.fireEvent('addNotifications',performer,message);
+                                Ext.create('CRMRE.store.Clients').load({params:{client_id: selection_orders_buy[0].get('client')}, callback: function(records, options, success) {
+                                    if (success) {
+                                        client = records[0];
+                                        var message = 'Вам новая заявка № '+selection_orders_buy[0].get('index')+": "+selection_orders_buy[0].get('heading')+", от "+client.get('represent')+" т."+client.get('phone_represent');
+                                        my.fireEvent('addNotifications',performer,message);
+                                    }
+                                }});
                             },
                             failure: function (proxy, operations) {
 		                        // resume records
