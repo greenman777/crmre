@@ -218,10 +218,9 @@ Ext.define('CRMRE.controller.Clients', {
 		                store_clients.sync({
 			                success : function(data_batch,controller) {
 		                        store_clients.clearFilter(true);
-				                store_clients.filter(function(r) {
-				                    var value = r.get('is_client');
-				                    return (value == false);
-				                });
+                                var filters = [];
+                                filters.push({ property: 'is_client', value: false, exactMatch: true});
+                                store_clients.filter(filters);
 				                record_last = store_clients.last();
 				                if (record_last != undefined) {
 				                    grid_clients.getSelectionModel().select(record_last);
@@ -346,10 +345,21 @@ Ext.define('CRMRE.controller.Clients', {
             } else {
                 var record = Ext.create('CRMRE.model.Clients');
                 record.set(values);
+                if (grid){
+                    typeapp = grid.up('tabpanel').getActiveTab().typeapp;
+                };
+                if ((grid)&&(((record.get('is_client')==true)&&(typeapp=='clients_view'))
+                            ||((record.get('is_client')==false)&&(typeapp=='partners_view')))) {
+                    flag_select = true;
+                }
+                else {
+                    var store = Ext.data.StoreManager.lookup('Clients');
+                    flag_select = false;
+                }
                 store.add(record);
                 store.sync({
                     success : function(batch, options) {
-                        if (grid) {
+                        if (flag_select) {
 	                        store.currentPage = store.proxy.reader.rawData.page;
 	                        id = record.getId();
                             store.load({
