@@ -62,9 +62,9 @@ Ext.define('CRMRE.controller.HystoryService', {
 		        };
                 //если выбрано предложение, то открываем форму для добавления реакции
                 //и заполняем обязательными данными
-                if ((selection_offer.length > 0) && (selection_offer[0].get("informed"))) {
+                if ((selection_offer.length > 0) && (selection_offer.slice(-1).pop().get("informed"))) {
                     var form = view.down('form');
-                    form.getForm().setValues({offer: selection_offer[0].getId(),date: new Date()});
+                    form.getForm().setValues({offer: selection_offer.slice(-1).pop().getId(),date: new Date()});
                     view.show();
                 }
                 else {
@@ -87,15 +87,11 @@ Ext.define('CRMRE.controller.HystoryService', {
         var store = grid.getStore();
         var grid_offer = Ext.getCmp('tabpanel').getActiveTab().down('#OfferList');
         var store_offer = grid_offer.getStore();
-        var my = this;
         var store_operation = Ext.data.StoreManager.lookup('directory.OperationType');
         var store_result = Ext.data.StoreManager.lookup('directory.ResultOperation');
         var store_status = Ext.data.StoreManager.lookup('directory.OrderStatus');
         var status_complet = store_status.findRecord('name','сделка завершена').getId();
         var status_active = store_status.findRecord('name','активная').getId();
-        var status_output = store_status.findRecord('name','выход на сделку').getId();
-        var store_buy = Ext.data.StoreManager.lookup('OrdersBuy');
-        var store_sale = Ext.data.StoreManager.lookup('OrdersSale');
         //если форма заполнена корректно
         if (form.isValid()) {
             //если запись существует, изменяем запись
@@ -112,56 +108,62 @@ Ext.define('CRMRE.controller.HystoryService', {
                 success : function(data_batch,controller) {
                     grid.getView().focusRow(record);  
                     grid.getSelectionModel().select(record);
-                    operation = store_operation.getById(record.get('operation')).get('name');
-                    result = store_result.getById(record.get('result_operation')).get('name');
+                    var operation = store_operation.getById(record.get('operation')).get('name');
+                    var result = store_result.getById(record.get('result_operation')).get('name');
+
+                    var record_offer = store_offer.getById(record.get('offer'));
+                    var grid_order = Ext.getCmp('tabpanel').getActiveTab().down('grid');
+                    var store_order = grid_order.getStore();
+                    var select_order = grid_order.getSelectionModel().getSelection();
+
                     if (operation=="4. регистрация") {
-                    	record_offer = store_offer.getById(record.get('offer'));
-                    	record_buy = store_buy.getById(record_offer.get('order_buy'));
-                        record_sale = store_sale.getById(record_offer.get('order_sale'));
-                        grid_order = Ext.getCmp('tabpanel').getActiveTab().down('grid');
-                        store_order = grid_order.getStore();
-                        select_order = grid_order.getSelectionModel().getSelection();
-                        if (result=="успешная") {
-                    		record_offer.set("stage",4);
+                        if (result == "успешная") {
+                            record_offer.set("stage", 4);
+                            store_offer.sync();
+                            var status_order = status_complet;
                             if (select_order.length) {
-                            	select_order[0].set("status",status_complet);
+                                select_order.slice(-1).pop().set("status", status_order);
                                 store_order.sync({
-	                                success : function(data_batch,controller) {
-	                                    store_order.clearFilter(true);
-	                                    store_order.filter(function(r) {
-	                                        var value = r.get('status');
-	                                        return ((value == status_active)||(value == status_output));
-	                                    });
-	                                    record_last = store_order.last();
-	                                    if (record_last != undefined) {
-	                                        grid_order.getSelectionModel().select(record_last);
-	                                        grid_order.view.bufferedRenderer.scrollTo(store_order.indexOf(record_last),true);
-	                                    }   
-	                                },
-	                                failure: function (proxy, operations) {
-	                                    // resume records
-	                                    store_order.rejectChanges();
-	                                },
-	                                scope: this            
-	                            });
-                            };
-                            record_buy.set("status",status_complet);
-                        	record_sale.set("status",status_complet);
-                    	};
-                    	if (result=="отказная") {
-                        	record_offer.set("stage",0);
+                                    success : function(data_batch,controller) {
+                                        store_order.reload();
+                                    }
+                                });
+                            }
+                        };
+                        if (result == "неуспешная") {
+                            record_offer.set("stage", 0);
+                            store_offer.sync();
+                            var status_order = status_active;
                             if (select_order.length) {
-                                select_order[0].set("status",status_active);
+                                select_order.slice(-1).pop().set("status", status_order);
                                 store_order.sync();
                             }
-                            record_buy.set("status",status_active);
-                            record_sale.set("status",status_active);
-                        }
-                        if (result!="в работе") {
-                            store_buy.sync();
-                            store_sale.sync();
+
                         };
-                        store_offer.sync();
+                        if (result != "в работе") {
+                            store_order_buy = Ext.create('CRMRE.store.OrdersBuy');
+                            store_order_buy.load({
+                                params: {id: record_offer.get('order_buy')},
+                                callback: function (records, options, success) {
+                                    if (success) {
+                                        record_order_buy = records[0];
+                                        record_order_buy.set("status", status_order);
+                                        store_order_buy.sync();
+                                    }
+                                }
+                            });
+                            store_order_sale = Ext.create('CRMRE.store.OrdersSale');
+                            store_order_sale.load({
+                                params: {id: record_offer.get('order_sale')},
+                                callback: function (records, options, success) {
+                                    if (success) {
+                                        record_order_sale = records[0];
+                                        record_order_sale.set("status", status_order);
+                                        store_order_sale.sync();
+                                    }
+                                }
+                            });
+                        }
                     }
                 },
                 failure: function(rec, op){

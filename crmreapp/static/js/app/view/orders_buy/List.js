@@ -474,6 +474,7 @@ Ext.define('CRMRE.view.orders_buy.List' ,{
             xtype: 'pagingtoolbar',
             store: this.store,
             dock: 'bottom',
+            itemId: 'orderbuy_pagingtoolbar',
             displayInfo: true,
             beforePageText: 'Страница',
             afterPageText: 'из {0}',

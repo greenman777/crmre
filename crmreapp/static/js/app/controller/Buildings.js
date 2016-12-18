@@ -57,7 +57,7 @@ Ext.define('CRMRE.controller.Buildings', {
                         	grid_plan.getSelectionModel().select(0);	
                     	}
                     	else{
-                    		Ext.getStore('PlanPhotos').removeAll();
+                    		Ext.getStore('PlanPhotos').loadData([],false);
                     	}
                     		
                     }
@@ -174,7 +174,7 @@ Ext.define('CRMRE.controller.Buildings', {
                     store.sync({
                         success : function(data_batch,controller) {
                             var store_plan = Ext.getCmp('tabpanel').getActiveTab().down('appPlanList').getStore();
-                            store_plan.removeAll();
+                            store_plan.loadData([],false);
                             var record_last = store.last();
                             if (record_last != undefined) {
                                 gridview.focusRow(record_last);  

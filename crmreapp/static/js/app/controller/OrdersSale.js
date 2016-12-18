@@ -240,10 +240,10 @@ Ext.define('CRMRE.controller.OrdersSale', {
                 var store_hyst_offer = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryOfferList').getStore();
                 var store_hyst_show = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryShowList').getStore();
                 var store_hyst_service = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryServiceList').getStore();
-                store_offer.removeAll();
-                store_hyst_offer.removeAll();
-                store_hyst_show.removeAll();
-                store_hyst_service.removeAll();
+                store_offer.loadData([],false);
+                store_hyst_offer.loadData([],false);
+                store_hyst_show.loadData([],false);
+                store_hyst_service.loadData([],false);
             }
         }
         else {
@@ -261,9 +261,9 @@ Ext.define('CRMRE.controller.OrdersSale', {
         var store_hyst_offer = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryOfferList').getStore();
         var store_hyst_show = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryShowList').getStore();
         var store_hyst_service = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryServiceList').getStore();
-        store_hyst_offer.removeAll();
-        store_hyst_show.removeAll();
-        store_hyst_service.removeAll();
+        store_hyst_offer.loadData([],false);
+        store_hyst_show.loadData([],false);
+        store_hyst_service.loadData([],false);
         
         if (select_order.length) {
             var order_id = select_order[0].get('id');
@@ -756,10 +756,10 @@ Ext.define('CRMRE.controller.OrdersSale', {
                             var store_hyst_offer = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryOfferList').getStore();
                             var store_hyst_show = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryShowList').getStore();
                             var store_hyst_service = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryServiceList').getStore();
-                            store_offer.removeAll();
-                            store_hyst_offer.removeAll();
-                            store_hyst_show.removeAll();
-                            store_hyst_service.removeAll();
+                            store_offer.loadData([],false);
+                            store_hyst_offer.loadData([],false);
+                            store_hyst_show.loadData([],false);
+                            store_hyst_service.loadData([],false);
                             var record_last = store.last();
                             if (record_last != undefined) {
                                 gridview.focusRow(record_last);  

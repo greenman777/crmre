@@ -83,15 +83,10 @@ Ext.define('CRMRE.view.orders_buy.EditFilter', {
                 valueField: 'id',
                 store: 'Users'
             },{
-                xtype: 'comboboxselect',
-                "multiSelect": false,
-                fieldLabel: 'Клиент',
-                name: 'client',
-                autoSelect: true,
-                queryMode: 'remote',
-                displayField: 'client_name',
-                valueField: 'id',
-                store: 'Clients'
+                name: 'client_index',
+                fieldLabel: 'Номер клиента',
+                vtype: 'alphanum',
+                maxLength: 9
             }]
         }];
         this.buttons = [{

@@ -62,9 +62,9 @@ Ext.define('CRMRE.controller.HystoryOffer', {
         };
         //если выбрано предложение, то открываем форму для добавления реакции
         //и заполняем обязательными данными
-        if ((selection_offer.length > 0) && (selection_offer[0].get("informed"))) {
+        if ((selection_offer.length > 0) && (selection_offer.slice(-1).pop().get("informed"))) {
             var form = view.down('form');
-            form.getForm().setValues({offer: selection_offer[0].getId(),date: new Date()});
+            form.getForm().setValues({offer: selection_offer.slice(-1).pop().getId(),date: new Date()});
             view.show();
         }
         else {
@@ -99,23 +99,14 @@ Ext.define('CRMRE.controller.HystoryOffer', {
                         grid.getSelectionModel().select(record);
                         
                         var store_result = Ext.data.StoreManager.lookup('directory.ResultSentence');
-                        var store_orders_buy = Ext.data.StoreManager.lookup('OrdersBuy');
-                        var store_orders_sale = Ext.data.StoreManager.lookup('OrdersSale');
                         var store_offer = Ext.getCmp('tabpanel').getActiveTab().down('#OfferList').getStore();
-                        
 			            store_result.clearFilter(true);
 			            var result_name = store_result.getById(record.data.result).get('name');
                         var record_offer = store_offer.getById(record.data.offer);
-                        var orders_sale_id = record_offer.get('order_sale');
-                        var orders_buy_id = record_offer.get('order_buy');
-                        var record_order_sale = store_orders_sale.getById(orders_sale_id);
-                        var record_order_buy = store_orders_buy.getById(orders_buy_id);
-                        var performer_sale = record_order_sale.get('performer');
-                        var performer_buy = record_order_buy.get('performer');
                         if (result_name == 'клиент заинтересовался'){
-                            my.fireEvent('addNotifications',performer_sale,'Заявкой №'+record_order_sale.get('index')+" заинтересовались, сделайте просмотр");
-                            if (performer_sale != performer_buy) {
-                                my.fireEvent('addNotifications',performer_buy,'Заявкой №'+record_order_sale.get('index')+" заинтересовались, сделайте просмотр");
+                            my.fireEvent('addNotifications',record_offer.get('order_sale_performer_id'),'Заявкой №'+record_offer.get('order_sale_index')+" заинтересовались, сделайте просмотр");
+                            if (record_offer.get('order_sale_performer_id') != record_offer.get('order_buy_performer_id')) {
+                                my.fireEvent('addNotifications',record_offer.get('order_buy_performer_id'),'Заявкой №'+record_offer.get('order_sale_index')+" заинтересовались, сделайте просмотр");
                             };
                             record_offer.set("stage",2);
                         };

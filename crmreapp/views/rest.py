@@ -505,7 +505,6 @@ class OrdersSaleViewSet(viewsets.ModelViewSet):
                 if filter['property'] == 'contract_type':
                     order_sale_filter = order_sale_filter & Q(contract_type=filter['value'])
                 if filter['property'] == 'transaction_type':
-                    print(filter['value'])
                     order_sale_filter = order_sale_filter & Q(transaction_type=filter['value'])
                 if filter['property'] == 'district':
                     order_sale_filter = order_sale_filter & Q(district=filter['value'])
@@ -644,6 +643,20 @@ class OrdersBuyViewSet(viewsets.ModelViewSet):
             for filter in filters:
                 if filter['property'] == 'index':
                     order_buy_filter = order_buy_filter & Q(index__contains=filter['value'])
+                if filter['property'] == 'transaction_type':
+                    order_buy_filter = order_buy_filter & Q(transaction_type=filter['value'])
+                if filter['property'] == 'status':
+                    order_buy_filter = order_buy_filter & Q(status=filter['value'])
+                if filter['property'] == 'days_mod':
+                    delta = timedelta(days=int(filter['value']))
+                    now_date = datetime.now() - delta
+                    order_buy_filter = order_buy_filter & Q(modification_date__lte=now_date)
+                if filter['property'] == 'performer':
+                    order_buy_filter = order_buy_filter & Q(performer=filter['value'])
+                if filter['property'] == 'author':
+                    order_buy_filter = order_buy_filter & Q(author=filter['value'])
+                if filter['property'] == 'client_index':
+                    order_buy_filter = order_buy_filter & Q(client__index__contains=filter['value'])
 
         return order_buy_filter
 

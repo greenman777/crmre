@@ -39,6 +39,8 @@ from rapidsms.router import send, lookup_connections
 from crmreapp.utils.num2t4ru import num2text, decimal2text
 import urllib2
 
+from crmreapp import serializers
+
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -547,7 +549,6 @@ def building_photo_upload(request):
         response = JSONResponse({'success':True,'message': u'Фотография загружена!'})
         return response
 
-
 """
 Поиск объектов для заявки (спрос)
 """
@@ -557,7 +558,6 @@ def offer_news(request):
         order_id =  getparams.get('order_id')
         order_type =  getparams.get('order_type')
         search_my = json.loads(getparams.get('search_my'))
-        print search_my
         if order_id != None:
             filter_Q = Q()
             user_groups = request.user.groups.values_list('name',flat=True)
@@ -574,7 +574,8 @@ def offer_news(request):
                     filter_Q = filter_Q & Q(performer = object_search.performer)
 
                 offer_my = models.Offer.objects.filter(order_buy=order_id)#список предложений
-                offer_new = list(offer_my.values('id','order_buy','order_sale','informed','stage'))
+                offer_new = [dict(element) for element in serializers.OfferSerializer(offer_my, many=True).data]
+
                 object_type_list = [obj.object_type for obj in object_search.listobjecttype_set.all()]#список типов объектов для поиска
 
                 if len(object_type_list):
@@ -636,10 +637,23 @@ def offer_news(request):
                 #перебираем все найденные объекты и если их нет в предложении, добавляем
                 for order in orders_sale:
                     if offer_my.filter(order_sale=order.id).count() <= 0:
-                        offer_new += [{"order_buy": object_search.id, "order_sale": order.id,
-                                       "order_sale_client_name":order.client.client_name,
-                                       "order_buy_client_name": object_search.client.client_name,
-                                       "informed": False, "stage": 1}]
+                        offer_new += [{
+                            "order_buy": object_search.id, "order_sale": order.id,
+                            "informed": False, "stage": 1,
+                            "order_sale_client_name": order.client.client_name,
+                            "order_sale_heading":order.heading,
+                            "order_sale_street_name": order.street.name if order.street else "",
+                            "order_sale_house_number": order.house_number,
+                            "order_sale_microdistrict_name": order.microdistrict.name if order.microdistrict else "",
+                            "order_sale_city_name": order.city.name if order.city else "",
+                            "order_sale_space": order.total_space,
+                            "order_sale_price": order.price,
+                            "order_sale_object_type_name": order.object_type.name if order.object_type else "",
+                            "order_buy_performer_id": order.performer.id,
+                            "order_sale_performer_name": " ".join((order.performer.last_name, order.performer.first_name)),
+                            "order_sale_create_date": order.create_date,
+                            "order_sale_index": order.index,
+                        }]
 
             if order_type == 'appOfferSaleList':
                 """
@@ -652,7 +666,7 @@ def offer_news(request):
                     filter_Q = filter_Q & Q(performer = object_search.performer)
 
                 offer_my = models.Offer.objects.filter(order_sale=order_id)#список предложений
-                offer_new = list(offer_my.values('id','order_buy','order_sale','informed','stage'))
+                offer_new = [dict(element) for element in serializers.OfferSerializer(offer_my, many=True).data]
 
                 price = object_search.price
                 if (price):
@@ -698,10 +712,21 @@ def offer_news(request):
                 #перебираем все найденные объекты и если их нет в предложении, добавляем
                 for order in orders_buy:
                     if offer_my.filter(order_buy=order.id).count() <= 0:
-                        offer_new += [{"order_sale": object_search.id, "order_buy": order.id,
-                                       "order_sale_client_name": object_search.client.client_name,
-                                       "order_buy_client_name": order.client.client_name,
-                                       "informed": False, "stage": 1}]
+                        offer_new += [{
+                            "order_sale": object_search.id, "order_buy": order.id,
+                            "informed": False, "stage": 1,
+                            "order_buy_client_name": order.client.client_name,
+                            "order_buy_heading":order.heading,
+                            "order_buy_space": (" ".join(('от', str(order.space_from))) if order.space_from else "") +
+                                               (" ".join(('до', str(order.space_to))) if order.space_to else ""),
+                            "order_buy_price": (" ".join(('от', str(order.price_from))) if order.price_from else "") +
+                                               (" ".join(('до', str(order.price_to))) if order.price_to else ""),
+                            "order_buy_performer_id": order.performer.id,
+                            "order_buy_performer_name": " ".join((order.performer.last_name, order.performer.first_name)),
+                            "order_buy_create_date": order.create_date,
+                            "order_buy_index": order.index,
+                        }]
+
             return JSONResponse(offer_new)
 
 

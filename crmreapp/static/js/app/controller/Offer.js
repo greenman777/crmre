@@ -97,12 +97,13 @@ Ext.define('CRMRE.controller.Offer', {
         var store_hyst_show = grid_hyst_show.getStore();
         var store_hyst_service = grid_hyst_service.getStore();
         var select_offer = selections.getSelection();
-        store_hyst_offer.removeAll();
-        store_hyst_show.removeAll();
-        store_hyst_service.removeAll();
+        store_hyst_offer.loadData([],false);
+        store_hyst_show.loadData([],false);
+        store_hyst_service.loadData([],false);
+
         if (select_offer.length) {
-            if (select_offer[0].get("informed")){
-	            offer_id = select_offer[0].getId();
+            if (select_offer.slice(-1).pop().get("informed")){
+	            offer_id = select_offer.slice(-1).pop().getId();
 	            store_hyst_offer.getProxy().extraParams = {offer_id: offer_id};
                 store_hyst_show.getProxy().extraParams = {offer_id: offer_id};
                 store_hyst_service.getProxy().extraParams = {offer_id: offer_id};
@@ -196,12 +197,14 @@ Ext.define('CRMRE.controller.Offer', {
                         		var record = operation.records[0];
                         		record.setId(id);
                                 if (grid.getXType()=="appOfferSaleList"){
-	                                var store_orders_buy = Ext.data.StoreManager.lookup('OrdersBuy');
-	                                var orders_buy_id = record.get('order_buy');
-	                                var record_order_buy = store_orders_buy.getById(orders_buy_id);
-	                                var performer_buy = record_order_buy.get('performer');
-	                                var index_buy = record_order_buy.get('index');
-	                                my.fireEvent('addNotifications',performer_buy,'Для Вашей заявки № '+index_buy + ' есть новое предложение!');   
+                                    Ext.create('CRMRE.store.OrdersBuy').load({params:{id: record.get('order_buy')}, callback: function(records, options, success) {
+                                        if (success) {
+                                            record_order_buy = records[0];
+                                            var performer_buy = record_order_buy.get('performer');
+                                            var index_buy = record_order_buy.get('index');
+                                            my.fireEvent('addNotifications',performer_buy,'Для Вашей заявки № '+index_buy + ' есть новое предложение!');
+                                        }
+                                    }});
 	                            }
                         	});
                             store.getProxy().actionMethods = {create:'POST',read:'GET',update:'PUT',destroy:'DELETE'};
@@ -264,13 +267,13 @@ Ext.define('CRMRE.controller.Offer', {
 			if (btn == 'yes') {
 				if (rec.get("informed")) {
 					store.remove(rec);
-	    			store.sync();	
-                    var store_hyst_offer = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryOfferList').getStore();
-			        var store_hyst_show = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryShowList').getStore();
-			        var store_hyst_service = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryServiceList').getStore();
-			        store_hyst_offer.removeAll();
-			        store_hyst_show.removeAll();
-			        store_hyst_service.removeAll();
+	    			store.sync();
+	    			var grid_hyst_offer = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryOfferList');
+	    			var grid_hyst_show = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryShowList');
+	    			var grid_hyst_service = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryServiceList')
+			        grid_hyst_offer.getStore().loadData([],false);
+			        grid_hyst_show.getStore().loadData([],false);
+			        grid_hyst_service.getStore().loadData([],false);
 				}
 				else {
 					Ext.Msg.alert('Предупреждение', 'Это предложение еще не отправлено!');	
