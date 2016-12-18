@@ -95,11 +95,18 @@ Ext.define('CRMRE.controller.OrdersBuy', {
             },
             'appChangeOrdersBuyRating button[action=cancel]': {
                 click: this.closeForm
+            },
+            'appOrdersBuyList pagingtoolbar': {
+                change: this.changePage
             }
         });
         this.callParent(arguments);
-    }, 
-    
+    },
+
+    changePage: function(pagingtoolbar, pageData, eOpts) {
+        pagingtoolbar.up('grid').getSelectionModel().select(0);
+    },
+
     initOrdersBuy: function(view, eOpts) {
         var type = view.typeapp;
         if (type.indexOf('_free') >= 0 || type.indexOf('_archive') >= 0 || type.indexOf('_activ') >= 0 || type.indexOf('_brigadier') >= 0){
@@ -201,10 +208,10 @@ Ext.define('CRMRE.controller.OrdersBuy', {
                 var store_hyst_offer = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryOfferList').getStore();
                 var store_hyst_show = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryShowList').getStore();
                 var store_hyst_service = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryServiceList').getStore();
-                store_offer.removeAll();
-                store_hyst_offer.removeAll();
-                store_hyst_show.removeAll();
-                store_hyst_service.removeAll();
+                store_offer.loadData([],false);
+                store_hyst_offer.loadData([],false);
+                store_hyst_show.loadData([],false);
+                store_hyst_service.loadData([],false);
             }
         } 
         else {
@@ -221,9 +228,9 @@ Ext.define('CRMRE.controller.OrdersBuy', {
         var store_hyst_offer = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryOfferList').getStore();
         var store_hyst_show = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryShowList').getStore();
         var store_hyst_service = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryServiceList').getStore();
-        store_hyst_offer.removeAll();
-        store_hyst_show.removeAll();
-        store_hyst_service.removeAll();
+        store_hyst_offer.loadData([],false);
+        store_hyst_show.loadData([],false);
+        store_hyst_service.loadData([],false);
         
         if (select_order.length) {
             order_id = select_order[0].get('id');
@@ -711,10 +718,10 @@ Ext.define('CRMRE.controller.OrdersBuy', {
                             var store_hyst_offer = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryOfferList').getStore();
 					        var store_hyst_show = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryShowList').getStore();
 					        var store_hyst_service = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryServiceList').getStore();
-					        store_offer.removeAll();
-                            store_hyst_offer.removeAll();
-					        store_hyst_show.removeAll();
-					        store_hyst_service.removeAll();
+					        store_offer.loadData([],false);
+                            store_hyst_offer.loadData([],false);
+					        store_hyst_show.loadData([],false);
+					        store_hyst_service.loadData([],false);
                             var record_last = store.last();
                             if (record_last != undefined) {
                                 gridview.focusRow(record_last);  

@@ -137,6 +137,7 @@ class OfferSerializer(serializers.ModelSerializer):
         price_to = models.OrdersBuy.objects.get(pk=ret['order_buy']).price_to
         ret['order_buy_price'] = " ".join((ret['order_buy_price'], 'до', str(price_to))) if price_to else ret['order_buy_price']
         performer = models.OrdersBuy.objects.get(pk=ret['order_buy']).performer
+        ret['order_buy_performer_id'] = performer.id
         ret['order_buy_performer_name'] = " ".join((performer.last_name, performer.first_name))
         ret['order_buy_create_date'] = models.OrdersBuy.objects.get(pk=ret['order_buy']).create_date
         ret['order_buy_index'] = models.OrdersBuy.objects.get(pk=ret['order_buy']).index
@@ -163,6 +164,7 @@ class OfferSerializer(serializers.ModelSerializer):
         except:
             ret['order_sale_object_type_name'] = ""
         performer = models.OrdersSale.objects.get(pk=ret['order_sale']).performer
+        ret['order_sale_performer_id'] = performer.id
         ret['order_sale_performer_name'] = " ".join((performer.last_name, performer.first_name))
         ret['order_sale_create_date'] = models.OrdersSale.objects.get(pk=ret['order_sale']).create_date
         ret['order_sale_index'] = models.OrdersSale.objects.get(pk=ret['order_sale']).index

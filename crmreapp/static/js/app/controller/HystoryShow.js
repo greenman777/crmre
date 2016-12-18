@@ -66,9 +66,9 @@ Ext.define('CRMRE.controller.HystoryShow', {
 		        };
                 //если выбрано предложение, то открываем форму для добавления реакции
                 //и заполняем обязательными данными
-                if ((selection_offer.length > 0) && (selection_offer[0].get("informed"))) {
+                if ((selection_offer.length > 0) && (selection_offer.slice(-1).pop().get("informed"))) {
                     var form = view.down('form');
-                    form.getForm().setValues({offer: selection_offer[0].getId(),date: new Date()});
+                    form.getForm().setValues({offer: selection_offer.slice(-1).pop().getId(),date: new Date()});
                     view.show();
                 }
                 else {
@@ -94,9 +94,7 @@ Ext.define('CRMRE.controller.HystoryShow', {
         var my = this;
         var store_status = Ext.data.StoreManager.lookup('directory.OrderStatus');
         var store_result = Ext.data.StoreManager.lookup('directory.ResultShow');
-        var store_buy = Ext.data.StoreManager.lookup('OrdersBuy');
-        var store_sale = Ext.data.StoreManager.lookup('OrdersSale');
-        
+
         var my = this;
         //если форма заполнена корректно
         if (form.isValid()) {
@@ -111,19 +109,31 @@ Ext.define('CRMRE.controller.HystoryShow', {
                         if (result=="клиент одобрил"){
                             record_offer = store_offer.getById(record.get('offer'));
                             record_offer.set("stage",3);
-			    record_buy = store_buy.getById(record_offer.get('order_buy'));
-                            record_sale = store_sale.getById(record_offer.get('order_sale'));
-                            record_buy.set("status",store_status.findRecord('name','выход на сделку').getId());
-                            record_sale.set("status",store_status.findRecord('name','выход на сделку').getId());
+
+                            store_order_buy = Ext.create('CRMRE.store.OrdersBuy');
+                            store_order_buy.load({params:{id: record_offer.get('order_buy')}, callback: function(records, options, success) {
+                                if (success) {
+                                    record_order_buy = records[0];
+                                    record_order_buy.set("status",store_status.findRecord('name','выход на сделку').getId());
+                                    store_order_buy.sync();
+                                }
+                            }});
+                            store_order_sale = Ext.create('CRMRE.store.OrdersSale');
+                            store_order_sale.load({params:{id: record_offer.get('order_sale')}, callback: function(records, options, success) {
+                                if (success) {
+                                    record_order_sale = records[0];
+                                    record_order_sale.set("status",store_status.findRecord('name','выход на сделку').getId());
+                                    store_order_sale.sync();
+                                }
+                            }});
+
                             grid_order = Ext.getCmp('tabpanel').getActiveTab().down('grid');
                             store_order = grid_order.getStore();
                             select_order = grid_order.getSelectionModel().getSelection();
                             if (select_order.length) {
-                            	select_order[0].set("status",store_status.findRecord('name','выход на сделку').getId());
+                            	select_order.slice(-1).pop().set("status",store_status.findRecord('name','выход на сделку').getId());
                             	store_order.sync();
                             }
-                            store_buy.sync();
-                            store_sale.sync();
                         };
                         if (result=="клиент отказался"){
                             record_offer.set("stage",0);
@@ -148,19 +158,29 @@ Ext.define('CRMRE.controller.HystoryShow', {
                         record_offer = store_offer.getById(record.get('offer'));
                         if (result=="клиент одобрил"){
                         	record_offer.set("stage",3);
-                            record_buy = store_buy.getById(record_offer.get('order_buy'));
-                            record_sale = store_sale.getById(record_offer.get('order_sale'));
-                            record_buy.set("status",store_status.findRecord('name','выход на сделку').getId());
-                            record_sale.set("status",store_status.findRecord('name','выход на сделку').getId());
+                        	store_order_buy = Ext.create('CRMRE.store.OrdersBuy');
+                            store_order_buy.load({params:{id: record_offer.get('order_buy')}, callback: function(records, options, success) {
+                                if (success) {
+                                    record_order_buy = records[0];
+                                    record_order_buy.set("status",store_status.findRecord('name','выход на сделку').getId());
+                                    store_order_buy.sync();
+                                }
+                            }});
+                            store_order_sale = Ext.create('CRMRE.store.OrdersSale');
+                            store_order_sale.load({params:{id: record_offer.get('order_sale')}, callback: function(records, options, success) {
+                                if (success) {
+                                    record_order_sale = records[0];
+                                    record_order_sale.set("status",store_status.findRecord('name','выход на сделку').getId());
+                                    store_order_sale.sync();
+                                }
+                            }});
                             grid_order = Ext.getCmp('tabpanel').getActiveTab().down('grid');
                             store_order = grid_order.getStore();
                             select_order = grid_order.getSelectionModel().getSelection();
                             if (select_order.length) {
-                            	select_order[0].set("status",store_status.findRecord('name','выход на сделку').getId());
+                            	select_order.slice(-1).pop().set("status",store_status.findRecord('name','выход на сделку').getId());
                             	store_order.sync();
                             }
-                            store_buy.sync();
-                            store_sale.sync();
                         }
                         if (result=="клиент отказался"){
                             record_offer.set("stage",0);

@@ -80,8 +80,8 @@ Ext.define('CRMRE.controller.Tasks', {
                 if (success) {
                     var store_hyst = Ext.getCmp('tabpanel').getActiveTab().down('appTaskHistoryList').getStore();
                     var store_comm = Ext.getCmp('tabpanel').getActiveTab().down('appTaskCommentsList').getStore();
-                    store_hyst.removeAll();
-                    store_comm.removeAll();
+                    store_hyst.loadData([],false);
+                    store_comm.loadData([],false);
                     if (selection.length > 0) {
                         var record_id = selection[0].getId();
                         var record_select = store.getById(record_id);
@@ -186,8 +186,8 @@ Ext.define('CRMRE.controller.Tasks', {
                     success : function(data_batch,controller) {
                         var store_hyst = Ext.getCmp('tabpanel').getActiveTab().down('appTaskHistoryList').getStore();
                         var store_comm = Ext.getCmp('tabpanel').getActiveTab().down('appTaskCommentsList').getStore();
-                        store_hyst.removeAll();
-                        store_comm.removeAll();
+                        store_hyst.loadData([],false);
+                        store_comm.loadData([],false);
                         var record_last = store.last();
                         if (record_last != undefined) {
                             gridview.focusRow(record_last);  
@@ -260,8 +260,8 @@ Ext.define('CRMRE.controller.Tasks', {
         else {
             var store_hyst = grid.up('tabpanel').down('appTaskHistoryList').getStore();
             var store_comm = grid.up('tabpanel').down('appTaskCommentsList').getStore();
-            store_hyst.removeAll();
-            store_comm.removeAll();
+            store_hyst.loadData([],false);
+            store_comm.loadData([],false);
         }
     },
     //возвращаем id статуса задачи по названию

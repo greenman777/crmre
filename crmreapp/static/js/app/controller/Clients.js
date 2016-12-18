@@ -408,7 +408,7 @@ Ext.define('CRMRE.controller.Clients', {
 		    		store.sync({
 	                    success : function(data_batch,controller) {
 	                        var store_comm = Ext.getCmp('tabpanel').getActiveTab().down('appClientCommentsList').getStore();
-	                        store_comm.removeAll();
+	                        store_comm.loadData([],false);
 	                        var record_last = store.last();
 	                        if (record_last != undefined) {
 	                            gridview.focusRow(record_last);  
