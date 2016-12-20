@@ -13,7 +13,6 @@ from tinymce.models import HTMLField
 from django.utils.crypto import get_random_string
 import re
 from rapidsms.router import send, lookup_connections
-from simple_history.models import HistoricalRecords
 
 TRANSACTION_TYPE = (
     (True, u"Продажа"),
