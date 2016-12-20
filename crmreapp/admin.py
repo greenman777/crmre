@@ -7,7 +7,6 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from crmreapp import models
 from crmreauth.models import User
-from simple_history.admin import SimpleHistoryAdmin
 
 class MyUserCreationForm(UserCreationForm):
     def clean_username(self):
@@ -123,7 +122,3 @@ admin.site.register(models.AvitoDistrict)
 admin.site.register(models.MessageType)
 admin.site.register(models.TemplatesDoc)
 admin.site.register(models.Regulations)
-
-admin.site.register(models.HystoryOffer, SimpleHistoryAdmin)
-admin.site.register(models.HystoryShow, SimpleHistoryAdmin)
-admin.site.register(models.HystoryService, SimpleHistoryAdmin)

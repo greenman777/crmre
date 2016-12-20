@@ -120,7 +120,7 @@ urlpatterns = [
     url(r'^uploading_portal/$', main.upload_portal),
     url(r'^request_portal/$', main.request_portal),
     url(r'^test_portal/$', main.test_portal),
-    url(r'^svg_to_png/$', main.svg_to_png),
+    #url(r'^svg_to_png/$', main.svg_to_png),
     url(r'^favicon\.ico$', RedirectView.as_view(url='/media/favicon.ico',permanent=False)),
 ]
 

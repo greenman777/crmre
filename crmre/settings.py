@@ -5,7 +5,7 @@ import socket
 import os
 from datetime import timedelta
 
-if socket.gethostname() == 'develop' or socket.gethostname() == 'asus_m50' or socket.gethostname() == 'Home' or socket.gethostname() == 'packer-virtualbox-iso-1411922062':
+if socket.gethostname() == 'develop' or socket.gethostname() == 'asus_m50' or socket.gethostname() == 'Home' or socket.gethostname() == 'packer-virtualbox-iso-1411922062' or socket.gethostbyname()=='SHRKI-Tech':
     DEBUG = True
     EMAIL_CONG = {'DEFAULT_FROM_EMAIL':'chaos777@mail.ru','EMAIL_HOST':'smtp.mail.ru',
              'EMAIL_HOST_USER':'chaos777@mail.ru','EMAIL_HOST_PASSWORD':'****','EMAIL_PORT':25}
@@ -161,7 +161,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'simple_history.middleware.HistoryRequestMiddleware',
 )
 
 ROOT_URLCONF = 'crmre.urls'
@@ -172,7 +171,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(os.path.split(PROJECT_PATH)[0],"mscstatapp/templates")
+            os.path.join(os.path.split(PROJECT_PATH)[0],"crmreapp/templates")
         ],
         #'APP_DIRS': True,
         'OPTIONS': {
@@ -212,7 +211,6 @@ INSTALLED_APPS = (
     'crmreauth',
     'rapidsms',
     'rapidsms.router.db',
-    'simple_history',
     'crmreapp',
     'smsapp',
 
