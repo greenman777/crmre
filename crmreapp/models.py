@@ -36,8 +36,8 @@ ORDERS_TYPE = (
 )
 
 COMMISSION_TYPE = (
-    (True, u"Процент"),
-    (False, u"Фиксированный"),
+    (False, u"Процент"),
+    (True, u"Фиксированный"),
 )
 """
 Start models directory
