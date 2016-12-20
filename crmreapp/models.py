@@ -13,7 +13,6 @@ from tinymce.models import HTMLField
 from django.utils.crypto import get_random_string
 import re
 from rapidsms.router import send, lookup_connections
-from simple_history.models import HistoricalRecords
 
 TRANSACTION_TYPE = (
     (True, u"Продажа"),
@@ -1079,7 +1078,6 @@ class HystoryOffer(models.Model):
     offer = models.ForeignKey(Offer,verbose_name=u'Предложение')
     result = models.ForeignKey(ResultSentence,verbose_name=u'Результат предложения')
     comment = models.CharField(max_length=100,verbose_name=u'Комментарий',blank=True)
-    history = HistoricalRecords()
     def __unicode__(self):
         return self.comment
     class Meta:
@@ -1092,7 +1090,6 @@ class HystoryShow(models.Model):
     offer = models.ForeignKey(Offer,verbose_name=u'Предложение')
     result = models.ForeignKey(ResultShow,verbose_name=u'Результат показа',blank=True,null=True)
     comment = models.CharField(max_length=100,verbose_name=u'Комментарий',blank=True)
-    history = HistoricalRecords()
     def __unicode__(self):
         return self.comment
     class Meta:
@@ -1105,7 +1102,6 @@ class HystoryService(models.Model):
     operation = models.ForeignKey(OperationType,verbose_name=u'Тип операции')
     comment = models.CharField(max_length=100,verbose_name=u'Комментарий',blank=True) 
     result_operation = models.ForeignKey(ResultOperation,verbose_name=u'Результат операции')
-    history = HistoricalRecords()
     def __unicode__(self):
         return self.comment
     class Meta:

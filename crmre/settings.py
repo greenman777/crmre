@@ -161,7 +161,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'simple_history.middleware.HistoryRequestMiddleware',
 )
 
 ROOT_URLCONF = 'crmre.urls'
@@ -212,7 +211,6 @@ INSTALLED_APPS = (
     'crmreauth',
     'rapidsms',
     'rapidsms.router.db',
-    'simple_history',
     'crmreapp',
     'smsapp',
 

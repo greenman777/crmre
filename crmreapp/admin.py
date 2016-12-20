@@ -123,7 +123,3 @@ admin.site.register(models.AvitoDistrict)
 admin.site.register(models.MessageType)
 admin.site.register(models.TemplatesDoc)
 admin.site.register(models.Regulations)
-
-admin.site.register(models.HystoryOffer, SimpleHistoryAdmin)
-admin.site.register(models.HystoryShow, SimpleHistoryAdmin)
-admin.site.register(models.HystoryService, SimpleHistoryAdmin)

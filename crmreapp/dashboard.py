@@ -95,12 +95,6 @@ class CustomIndexDashboard(Dashboard):
                             'crmreapp.models.ResultOperation',)
                 ),
                 modules.ModelList(
-                    title=u'История предложений',
-                    models=('crmreapp.models.HystoryOffer',
-                            'crmreapp.models.HystoryShow',
-                            'crmreapp.models.HystoryService')
-                ),
-                modules.ModelList(
                     title=u'Avito/Yandex',
                     models=('crmreapp.models.AvitoCategory',
                             'crmreapp.models.YandexCategory',
