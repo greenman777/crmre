@@ -970,18 +970,18 @@ Ext.define('CRMRE.controller.OrdersSale', {
 			            if (((record.get('author')==parseInt(CRMRE.global.Vars.user_id))||
                             (rec.get('performer')==parseInt(CRMRE.global.Vars.user_id))||
                             (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'view_hidden_fields_clients')!=-1))||
-                            (rec.get('status') == store_status.findRecord('name','свободная').getId())){
-			                form = view.down('form');
-			                form.down('#client_name').setFieldLabel('Клиент');
-			                if (Ext.getCmp('tabpanel').getActiveTab().typeapp.indexOf('_my') == -1) {
-			                    view.down('#client_save').setVisible(false);
-                            }
-                            else {
-                                view.down('#client_save').action = "save_performer";
-                            };
-                            form.loadRecord(record);
-                            view.setTitle('Данные по клиенту');
-			                view.show();
+                            (rec.get('status') == store_status.findRecord('name','свободная').getId())) {
+                                form = view.down('form');
+                                form.down('#client_name').setFieldLabel('Клиент');
+                                if (Ext.getCmp('tabpanel').getActiveTab().typeapp.indexOf('_my') == -1) {
+                                    view.down('#client_save').setVisible(false);
+                                }
+                                else {
+                                    view.down('#client_save').action = "save_performer";
+                                };
+                                form.loadRecord(record);
+                                view.setTitle('Данные по клиенту');
+                                view.show();
 			            }
 			            else {
 			                Ext.Msg.alert('Предупреждение', 'У Вас нет полномочий на просмотр данных о клиенте!');
