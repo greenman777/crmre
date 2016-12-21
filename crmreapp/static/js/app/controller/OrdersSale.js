@@ -186,19 +186,7 @@ Ext.define('CRMRE.controller.OrdersSale', {
     },
     
     onFilter: function (button) {
-        var grid = button.up('appOrdersSaleList');
-        var store = grid.getStore();
         var win = this.getFilterWindow();
-        var form = win.down('form');
-        var selection = grid.getSelectionModel().getSelection();
-        var typeapp = Ext.getCmp('tabpanel').getActiveTab().typeapp;
-        if (selection.length) {
-            if (typeapp.indexOf('_activ') < 0) {
-	            var object_category_id = selection[0].get('object_category');
-	            form.getForm().setValues({object_category: object_category_id});
-	            form.down('#filter_object_category').setVisible(false);
-            }
-        };
         win.show();
     },
     
