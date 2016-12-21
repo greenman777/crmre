@@ -395,6 +395,15 @@ class ClientsViewSet(viewsets.ModelViewSet):
         page_number = (list(queryset.values_list('id', flat=True)).index(serializer.data['id']))/page_size+1
         return Response({'results': serializer.data, 'page': page_number}, status=status.HTTP_201_CREATED, headers=headers)
 
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', True)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response({'results': serializer.data})
+
+
 class ClientCommentsViewSet(viewsets.ModelViewSet):
     queryset = models.ClientComments.objects.all()
     serializer_class = serializers.ClientCommentsSerializer
@@ -583,10 +592,18 @@ class OrdersSaleViewSet(viewsets.ModelViewSet):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         page_size = self.paginator.page_size
-
         queryset = self.queryset.filter(self.get_filter(request)).distinct()
         page_number = (list(queryset.values_list('id', flat=True)).index(serializer.data['id']))/page_size+1
         return Response({'results': serializer.data, 'page': page_number}, status=status.HTTP_201_CREATED, headers=headers)
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', True)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response({'results': serializer.data})
+
 
 class PhotosViewSet(viewsets.ModelViewSet):
     queryset = models.Photos.objects.all()
@@ -680,6 +697,14 @@ class OrdersBuyViewSet(viewsets.ModelViewSet):
         queryset = self.queryset.filter(self.get_filter(request)).distinct()
         page_number = (list(queryset.values_list('id', flat=True)).index(serializer.data['id']))/page_size+1
         return Response({'results': serializer.data, 'page': page_number}, status=status.HTTP_201_CREATED, headers=headers)
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', True)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response({'results': serializer.data})
 
 class OfferViewSet(viewsets.ModelViewSet):
     queryset = models.Offer.objects.all()
