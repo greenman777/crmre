@@ -5,7 +5,7 @@ import socket
 import os
 from datetime import timedelta
 
-if socket.gethostname() == 'develop' or socket.gethostname() == 'asus_m50' or socket.gethostname() == 'Home' or socket.gethostname() == 'packer-virtualbox-iso-1411922062' or socket.gethostbyname()=='SHRKI-Tech':
+if socket.gethostname() == 'develop' or socket.gethostname() == 'asus_m50' or socket.gethostname() == 'Home' or socket.gethostname() == 'packer-virtualbox-iso-1411922062' or socket.gethostname() == 'SHRKI-Tech':
     DEBUG = True
     EMAIL_CONG = {'DEFAULT_FROM_EMAIL':'chaos777@mail.ru','EMAIL_HOST':'smtp.mail.ru',
              'EMAIL_HOST_USER':'chaos777@mail.ru','EMAIL_HOST_PASSWORD':'****','EMAIL_PORT':25}
