@@ -186,19 +186,7 @@ Ext.define('CRMRE.controller.OrdersSale', {
     },
     
     onFilter: function (button) {
-        var grid = button.up('appOrdersSaleList');
-        var store = grid.getStore();
         var win = this.getFilterWindow();
-        var form = win.down('form');
-        var selection = grid.getSelectionModel().getSelection();
-        var typeapp = Ext.getCmp('tabpanel').getActiveTab().typeapp;
-        if (selection.length) {
-            if (typeapp.indexOf('_activ') < 0) {
-	            var object_category_id = selection[0].get('object_category');
-	            form.getForm().setValues({object_category: object_category_id});
-	            form.down('#filter_object_category').setVisible(false);
-            }
-        };
         win.show();
     },
     
@@ -970,18 +958,18 @@ Ext.define('CRMRE.controller.OrdersSale', {
 			            if (((record.get('author')==parseInt(CRMRE.global.Vars.user_id))||
                             (rec.get('performer')==parseInt(CRMRE.global.Vars.user_id))||
                             (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'view_hidden_fields_clients')!=-1))||
-                            (rec.get('status') == store_status.findRecord('name','свободная').getId())){
-			                form = view.down('form');
-			                form.down('#client_name').setFieldLabel('Клиент');
-			                if (Ext.getCmp('tabpanel').getActiveTab().typeapp.indexOf('_my') == -1) {
-			                    view.down('#client_save').setVisible(false);
-                            }
-                            else {
-                                view.down('#client_save').action = "save_performer";
-                            };
-                            form.loadRecord(record);
-                            view.setTitle('Данные по клиенту');
-			                view.show();
+                            (rec.get('status') == store_status.findRecord('name','свободная').getId())) {
+                                form = view.down('form');
+                                form.down('#client_name').setFieldLabel('Клиент');
+                                if (Ext.getCmp('tabpanel').getActiveTab().typeapp.indexOf('_my') == -1) {
+                                    view.down('#client_save').setVisible(false);
+                                }
+                                else {
+                                    view.down('#client_save').action = "save_performer";
+                                };
+                                form.loadRecord(record);
+                                view.setTitle('Данные по клиенту');
+                                view.show();
 			            }
 			            else {
 			                Ext.Msg.alert('Предупреждение', 'У Вас нет полномочий на просмотр данных о клиенте!');

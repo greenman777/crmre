@@ -837,7 +837,7 @@ class OrdersSale(models.Model):
     def __unicode__(self):
         return self.heading
     class Meta:
-        ordering = ['create_date']
+        ordering = ['-create_date']
         verbose_name_plural = u"Заявки на продажу"
         permissions = (
             ("view_all_orders-sale", "View all Orders Sale"),
@@ -977,7 +977,7 @@ class OrdersBuy(models.Model):
     def __unicode__(self):
         return self.heading
     class Meta:
-        ordering = ['create_date']
+        ordering = ['-create_date']
         verbose_name_plural = u"Заявки на покупку"
         permissions = (
             ("view_all_orders-buy", "View all Orders Buy"),

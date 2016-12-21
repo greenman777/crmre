@@ -52,10 +52,10 @@ Ext.define('CRMRE.view.orders_sale.List' ,{
                 listeners: {
                     scope:this,
                     'afterrender': function(action){
-                        var typeapp = Ext.getCmp('tabpanel').getActiveTab().typeapp; 
-                        if ((typeapp.indexOf('_activ') >= 0)||(typeapp.indexOf('_brigadier') >= 0)||(typeapp.indexOf('_complet') >= 0)) {
-                            action.hidden = true;
-                        }
+                        // var typeapp = Ext.getCmp('tabpanel').getActiveTab().typeapp;
+                        // if ((typeapp.indexOf('_activ') >= 0)||(typeapp.indexOf('_brigadier') >= 0)||(typeapp.indexOf('_complet') >= 0)) {
+                        //     action.hidden = true;
+                        // }
                     }
                 }
             },{
@@ -354,6 +354,12 @@ Ext.define('CRMRE.view.orders_sale.List' ,{
                 renderer: function(value) {
                     return "<input type='checkbox'" + (value ? "checked='checked'" : "") + ">";
                 }
+            },{
+                header: 'Дата модификации',
+                width: 85,
+                stateId: 'column_orders_sale_modification_date',
+                dataIndex: 'modification_date',
+                renderer: Ext.util.Format.dateRenderer('Y-m-d H:i')
             },{
                 xtype:'actioncolumn',
                 width:22,

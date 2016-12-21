@@ -385,20 +385,29 @@ Ext.define('CRMRE.controller.Clients', {
             };
         }
 	},
+
     saveRecordPerformer: function(button) {
         var win = button.up('window');
         var form = win.down('form');
         var values = form.getValues();
-        var store = Ext.data.StoreManager.lookup('Clients');
         if (form.isValid()) {
             if (values.id > 0) {
-                record = store.getById(values.id);
-                record.set(values);
-                store.sync();
+                var store = Ext.create('CRMRE.store.Clients');
+                store.load({params:{client_id: values.id}, callback: function(records, options, success) {
+                    if (success) {
+                        record = records[0];
+                        record.set(values);
+                        store.sync({
+                            callback: function() {
+                                win.close();
+                            }
+                        })
+                    };
+                }});
             };
-            win.close();
-        }
+        };
     },
+
 	deleteRecord: function(gridview, el, rowIndex, colIndex, e, rec, rowEl) {
 		if (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'delete_clients')!=-1) {
 	    	store = gridview.getStore();
