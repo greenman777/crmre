@@ -16,6 +16,7 @@ else:
              'EMAIL_HOST_USER':'noreplay@rn43.ru','EMAIL_HOST_PASSWORD':'noreplay2013','EMAIL_PORT':25}
     DBASE_HOST = '127.0.0.1'
 
+#разрешаем доступ для всех узлов
 ALLOWED_HOSTS = ['*']
 
 ADMINS = (
