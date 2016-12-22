@@ -22,11 +22,22 @@ Ext.define('CRMRE.view.orders_buy.EditFilter', {
             },
             items: [
             {  
-                    name: 'index',
-                    fieldLabel: 'Номер заявки',
-                    vtype: 'alphanum',
-                    maxLength: 9
-            },{   
+                name: 'index',
+                fieldLabel: 'Номер заявки',
+                vtype: 'alphanum',
+                maxLength: 9
+            },{
+                xtype: 'comboboxselect',
+                "multiSelect": false,
+                name : 'object_category',
+                fieldLabel: 'Категория объекта',
+                autoSelect: true,
+                queryMode: 'local',
+                displayField: 'name',
+                valueField: 'id',
+                itemId: 'filter_object_category',
+                store: 'directory.ObjectCategory'
+        	},{
                 xtype: 'comboboxselect',
                 "multiSelect": false,
                 fieldLabel: 'Тип сделки',

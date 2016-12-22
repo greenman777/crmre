@@ -660,6 +660,8 @@ class OrdersBuyViewSet(viewsets.ModelViewSet):
             for filter in filters:
                 if filter['property'] == 'index':
                     order_buy_filter = order_buy_filter & Q(index__contains=filter['value'])
+                if filter['property'] == 'object_category':
+                    order_buy_filter = order_buy_filter & Q(object_category=filter['value'])
                 if filter['property'] == 'transaction_type':
                     order_buy_filter = order_buy_filter & Q(transaction_type=filter['value'])
                 if filter['property'] == 'status':
