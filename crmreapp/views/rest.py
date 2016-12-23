@@ -15,7 +15,7 @@ import json
 from datetime import datetime,timedelta
 
 class StandardResultsSetPagination(PageNumberPagination):
-    page_size = 10
+    page_size = 50
 
 class PriorityViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.Priority.objects.all()
