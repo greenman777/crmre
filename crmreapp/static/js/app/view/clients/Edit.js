@@ -314,7 +314,7 @@ Ext.define('CRMRE.view.clients.Edit', {
                 			fieldLabel: 'Серия',
                 			name: 'passport_series',
                             vtype: 'alphanum',
-                            maxLength: 150,
+                            maxLength: 4,
                 			margin: '0 5 0 0'
             			},{
                 			fieldLabel: 'Номер',

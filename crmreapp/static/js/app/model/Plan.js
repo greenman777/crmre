@@ -10,6 +10,7 @@ Ext.define('CRMRE.model.Plan', {
     	{name: 'price', type: 'float' },
     	{name: 'tour3d', type:'auto'},
 		{name: 'prompt', type:'string'},
-		{name: 'commission', type: 'float' }
+		{name: 'commission', type: 'float' },
+		{name: 'modification_date', dateFormat: 'Y-m-d H:i', type:"datetime"}
    ]
 });

@@ -348,8 +348,8 @@ Ext.define('CRMRE.controller.Clients', {
                 if (grid){
                     typeapp = grid.up('tabpanel').getActiveTab().typeapp;
                 };
-                if ((grid)&&(((record.get('is_client')==true)&&(typeapp=='clients_view'))
-                            ||((record.get('is_client')==false)&&(typeapp=='partners_view')))) {
+                if ((grid)&&(((record.get('is_client')==true)&&((typeapp=='clients_view')||(typeapp=='clients_view_my')))
+                            ||((record.get('is_client')==false)&&((typeapp=='partners_view')||(typeapp=='partners_view_my'))))) {
                     flag_select = true;
                 }
                 else {

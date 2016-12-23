@@ -121,6 +121,18 @@ Ext.define('CRMRE.view.buildings.BuildingsList' ,{
 				    width: 70,
                     dataIndex: 'priority'
                 },{
+					header: 'Дата создания',
+					width: 85,
+					stateId: 'column_buildings_create_date',
+					dataIndex: 'create_date',
+					renderer: Ext.util.Format.dateRenderer('Y-m-d H:i')
+				},{
+					header: 'Дата модификации',
+					width: 85,
+					stateId: 'column_buildings_modification_date',
+					dataIndex: 'modification_date',
+					renderer: Ext.util.Format.dateRenderer('Y-m-d H:i')
+				},{
                     xtype:'actioncolumn',
             		width:22,
             		action:'delete',
