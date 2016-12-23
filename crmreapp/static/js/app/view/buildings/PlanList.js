@@ -56,6 +56,12 @@ Ext.define('CRMRE.view.buildings.PlanList' ,{
                     flex: 1,
                     dataIndex: 'commission'
                 },{
+					header: 'Дата модификации',
+					width: 85,
+					stateId: 'column_plan_modification_date',
+					dataIndex: 'modification_date',
+					renderer: Ext.util.Format.dateRenderer('Y-m-d H:i')
+				},{
                     xtype:'actioncolumn',
             		width:22,
             		action:'delete',

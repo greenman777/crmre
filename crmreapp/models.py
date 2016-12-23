@@ -659,6 +659,7 @@ class Plan(models.Model):
     tour3d = models.URLField(verbose_name=u'3D тур',blank=True)
     prompt = models.CharField(max_length=75, verbose_name=u'Подсказка',blank=True)
     commission = models.DecimalField(max_digits=4, decimal_places=2,verbose_name=u'Агентское вознаграждение',blank=True,null=True)
+    modification_date = models.DateTimeField(auto_now=True, verbose_name=u'Дата последней модификации')
 
     def __unicode__(self):
         return self.number_rooms
