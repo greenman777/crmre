@@ -3,7 +3,7 @@ Ext.define('CRMRE.store.OrdersBuy', {
     model: 'CRMRE.model.OrdersBuy',
     autoLoad: false,
     remoteFilter: true,
-    pageSize: 10,
+    pageSize: 50,
     proxy: {
         type: 'rest',
         pageParam: 'page',
