@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from crmreapp.views import rest,reports,main,menu
 from crmre import settings
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth.views import login, logout, password_change, password_change_done
 from django.views.generic.base import RedirectView
@@ -128,11 +128,7 @@ urlpatterns += [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-#urlpatterns += [
-#    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
-#        'document_root': settings.MEDIA_ROOT,
-#        }),
-#]
+
 urlpatterns += [
     url(r'^', include(router.urls)),
 ]

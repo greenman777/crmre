@@ -1,3 +1,4 @@
+{% load static from staticfiles %}
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -11,18 +12,18 @@
     	
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>CRMRE</title>
-		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/ext/resources/css/ext-all-debug.css">
-		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/data-view.css">
+		<link rel="stylesheet" type="text/css" href="{% static 'js/ext/resources/css/ext-all-debug.css'%}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/data-view.css'%}">
 		
-    	<script type="text/javascript" src="{{ STATIC_URL }}js/ext/ext-all-dev.js"></script>
-    	<script type="text/javascript" src="{{ STATIC_URL }}js/ext/locale/ext-lang-ru.js"></script>
+    	<script type="text/javascript" src="{% static 'js/ext/ext-all-dev.js'%}"></script>
+    	<script type="text/javascript" src="{% static 'js/ext/locale/ext-lang-ru.js'%}"></script>
     	
     	<!-- BoxSelect Source -->
-    	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/app/plugins/BoxSelect.css">
-    	<script type="text/javascript" src="{{ STATIC_URL }}js/app/plugins/BoxSelect.js"></script>
+    	<link rel="stylesheet" type="text/css" href="{% static 'js/app/plugins/BoxSelect.css'%}">
+    	<script type="text/javascript" src="{% static 'js/app/plugins/BoxSelect.js'%}"></script>
     	
-		<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/app.css">
-    	<script type="text/javascript" src="{{ STATIC_URL }}js/app/app.js"></script>
+		<link rel="stylesheet" type="text/css" href="{% static 'css/app.css'%}">
+    	<script type="text/javascript" src="{% static 'js/app/app.js'%}"></script>
     	<script type="text/javascript">
 			Ext.onReady(function() {
 				Ext.require(["Ext.util.Cookies", "Ext.Ajax"], function(){

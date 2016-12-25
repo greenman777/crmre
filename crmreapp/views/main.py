@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import Group
@@ -519,8 +519,8 @@ def uploading_orders(request):
 @login_required
 def mainpage(request):
 
-    user_groups = request.user.groups.values_list('id',flat=True)
-    return render_to_response('index.html',{'user_groups':user_groups},context_instance=RequestContext(request))
+    user_groups = list(request.user.groups.values_list('id',flat=True))
+    return render(request,'index.html',{'user_groups':user_groups})
 
 def photo_upload(request):
     if request.method == 'POST':
