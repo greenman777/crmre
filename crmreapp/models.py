@@ -1073,6 +1073,26 @@ class Offer(models.Model):
         ordering = ['-stage']
         verbose_name_plural = u"Встречные предложения"
 
+def pre_offer_save(sender, instance, **kwargs):
+    parent_order_buy = instance.order_buy
+    parent_order_sale = instance.order_sale
+    parent_order_buy.modification_date = datetime.datetime.now()
+    parent_order_sale.modification_date = datetime.datetime.now()
+    parent_order_buy.save()
+    parent_order_sale.save()
+
+def pre_offer_delete(sender, instance, **kwargs):
+    parent_order_buy = instance.order_buy
+    parent_order_sale = instance.order_sale
+    parent_order_buy.modification_date = datetime.datetime.now()
+    parent_order_sale.modification_date = datetime.datetime.now()
+    parent_order_buy.save()
+    parent_order_sale.save()
+
+pre_save.connect(pre_offer_save, sender=Offer)
+pre_delete.connect(pre_offer_delete, sender=Offer)
+
+
 class HystoryOffer(models.Model):
     date = models.DateField(verbose_name=u'Дата предложения')
     offer = models.ForeignKey(Offer,verbose_name=u'Предложение')

@@ -961,7 +961,9 @@ Ext.define('CRMRE.controller.OrdersSale', {
                             (rec.get('status') == store_status.findRecord('name','свободная').getId())) {
                                 form = view.down('form');
                                 form.down('#client_name').setFieldLabel('Клиент');
-                                if (Ext.getCmp('tabpanel').getActiveTab().typeapp.indexOf('_my') == -1) {
+                                console.log(Ext.getCmp('tabpanel').getActiveTab().typeapp);
+                                if ((Ext.getCmp('tabpanel').getActiveTab().typeapp.indexOf('_my') == -1)&&
+                                    (Ext.getCmp('tabpanel').getActiveTab().typeapp.indexOf('_completed') == -1)){
                                     view.down('#client_save').setVisible(false);
                                 }
                                 else {
