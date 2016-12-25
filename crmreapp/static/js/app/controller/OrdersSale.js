@@ -151,6 +151,12 @@ Ext.define('CRMRE.controller.OrdersSale', {
             view.down("appHystoryShowList").down('#add').setVisible(false);
             view.down("appHystoryServiceList").down('#add').setVisible(false);
         };
+        if (type.indexOf('_brigadier') >=0) {
+            view.down('#lock').setVisible(true);
+            view.down('#lock_open').setVisible(true);
+            view.down('#close_order').setVisible(true);
+            view.down('#change_performer').setVisible(true);
+        };
         if (type.indexOf('_free') >= 0 || type.indexOf('_archive') >= 0 || type.indexOf('_activ') >= 0) {
             view.down('#lock').setVisible(false);
             view.down('#lock_open').setVisible(false);
