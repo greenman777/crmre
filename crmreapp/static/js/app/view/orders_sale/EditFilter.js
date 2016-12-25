@@ -111,6 +111,7 @@ Ext.define('CRMRE.view.orders_sale.EditFilter', {
                 xtype:'fieldset',
                 title: 'Адрес',
                 collapsible: true,
+                collapsed: true,
                 defaultType: 'textfield',
                 layout: 'anchor',
                 defaults: {anchor: '100%'},
@@ -372,6 +373,76 @@ Ext.define('CRMRE.view.orders_sale.EditFilter', {
                 }]
             },{
                 xtype:'fieldset',
+                title: 'Клиент',
+                collapsible: true,
+                collapsed: true,
+                defaultType: 'textfield',
+                layout: 'anchor',
+                defaults: {anchor: '100%'},
+                items :[
+                {
+                    name: 'client_index',
+                    fieldLabel: 'Номер клиента',
+                    vtype: 'alphanum',
+                    maxLength: 9
+                },{
+	                xtype: 'fieldcontainer',
+	                layout: 'hbox',
+	                defaultType: 'textfield',
+	                defaults: {flex: 1},
+	                items:[
+	                {
+                        name: 'client_name',
+                        flex: 2.5,
+                        fieldLabel: 'Имя клиента',
+                        margin: '0 5 0 0',
+                        maxLength: 100
+                    },{
+                        name: 'phone_main',
+                        labelWidth: 65,
+                        fieldLabel: 'Телефон',
+                        vtype: 'alphanum',
+                        maxLength: 11
+                    }]
+		        },{
+	                xtype: 'fieldcontainer',
+	                layout: 'hbox',
+	                defaultType: 'textfield',
+	                defaults: {flex: 1},
+	                items:[
+	                {
+                        name: 'represent',
+                        flex: 2.5,
+                        fieldLabel: 'Имя представителя',
+                        margin: '0 5 0 0',
+                        maxLength: 80
+                    },{
+                        name: 'phone_represent',
+                        labelWidth: 65,
+                        fieldLabel: 'Телефон',
+                        vtype: 'alphanum',
+                        maxLength: 11
+                    }]
+		        },{
+                    xtype: 'combobox',
+                    name : 'info_source',
+                    autoSelect: true,
+                    editable: false,
+                    forceSelection:true,
+                    queryMode: 'local',
+                    displayField: 'name',
+                    valueField: 'id',
+                    fieldLabel: 'Источник информации',
+                    store: 'directory.InfoSource'
+                },{
+                    xtype: 'checkboxfield',
+                    boxLabel: 'VIP клиент',
+                    name: 'vip',
+                    inputValue: true,
+                    uncheckedValue: false
+                }]
+            },{
+                xtype:'fieldset',
                 title: 'Служебные',
                 collapsible: true,
                 collapsed: true,
@@ -420,11 +491,6 @@ Ext.define('CRMRE.view.orders_sale.EditFilter', {
                     },
                     valueField: 'id',
                     store: 'Users'
-                },{
-                    name: 'client_index',
-                    fieldLabel: 'Номер клиента',
-                    vtype: 'alphanum',
-                    maxLength: 9
                 }]
             }]
         }];

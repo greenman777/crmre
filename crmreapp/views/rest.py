@@ -353,6 +353,11 @@ class ClientsViewSet(viewsets.ModelViewSet):
                     clients_filter = clients_filter & Q(phone_main__contains=filter['value'])
                 if filter['property'] == 'author':
                     clients_filter = clients_filter & Q(author=filter['value'])
+                if filter['property'] == 'info_source':
+                    clients_filter = clients_filter & Q(info_source=filter['value'])
+                if filter['property'] == 'vip':
+                    if filter['value']:
+                        clients_filter = clients_filter & Q(vip=True)
 
         if is_client is not None:
             is_client = json.loads(is_client)
@@ -558,6 +563,19 @@ class OrdersSaleViewSet(viewsets.ModelViewSet):
                         order_sale_filter = order_sale_filter & Q(floor__lt=F('floors'))
                 if filter['property'] == 'client_index':
                     order_sale_filter = order_sale_filter & Q(client__index__contains=filter['value'])
+                if filter['property'] == 'client_name':
+                    order_sale_filter = order_sale_filter & Q(client__client_name__contains=filter['value'])
+                if filter['property'] == 'phone_main':
+                    order_sale_filter = order_sale_filter & Q(client__phone_main__contains=filter['value'])
+                if filter['property'] == 'represent':
+                    order_sale_filter = order_sale_filter & Q(client__represent__contains=filter['value'])
+                if filter['property'] == 'phone_represent':
+                    order_sale_filter = order_sale_filter & Q(client__phone_represent__contains=filter['value'])
+                if filter['property'] == 'info_source':
+                    order_sale_filter = order_sale_filter & Q(client__info_source=filter['value'])
+                if filter['property'] == 'vip':
+                    if filter['value']:
+                        order_sale_filter = order_sale_filter & Q(client__vip=True)
                 if filter['property'] == 'price_from':
                     order_sale_filter = order_sale_filter & Q(price__gte=filter['value'])
                 if filter['property'] == 'price_to':
@@ -674,6 +692,19 @@ class OrdersBuyViewSet(viewsets.ModelViewSet):
                     order_buy_filter = order_buy_filter & Q(author=filter['value'])
                 if filter['property'] == 'client_index':
                     order_buy_filter = order_buy_filter & Q(client__index__contains=filter['value'])
+                if filter['property'] == 'client_name':
+                    order_buy_filter = order_buy_filter & Q(client__client_name__contains=filter['value'])
+                if filter['property'] == 'phone_main':
+                    order_buy_filter = order_buy_filter & Q(client__phone_main__contains=filter['value'])
+                if filter['property'] == 'represent':
+                    order_buy_filter = order_buy_filter & Q(client__represent__contains=filter['value'])
+                if filter['property'] == 'phone_represent':
+                    order_buy_filter = order_buy_filter & Q(client__phone_represent__contains=filter['value'])
+                if filter['property'] == 'info_source':
+                    order_buy_filter = order_buy_filter & Q(client__info_source=filter['value'])
+                if filter['property'] == 'vip':
+                    if filter['value']:
+                        order_buy_filter = order_buy_filter & Q(client__vip=True)
 
         return order_buy_filter
 

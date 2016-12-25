@@ -67,6 +67,23 @@ Ext.define('CRMRE.view.clients.EditFilter', {
                 },
                 valueField: 'id',
                 store: 'Users'
+            },{
+                xtype: 'combobox',
+                name : 'info_source',
+                autoSelect: true,
+                editable: false,
+                forceSelection:true,
+                queryMode: 'local',
+                displayField: 'name',
+                valueField: 'id',
+                fieldLabel: 'Источник информации',
+                store: 'directory.InfoSource'
+            },{
+                xtype: 'checkboxfield',
+                boxLabel: 'VIP клиент',
+                name: 'vip',
+                inputValue: true,
+                uncheckedValue: false
             }]
         }];
         this.buttons = [{
