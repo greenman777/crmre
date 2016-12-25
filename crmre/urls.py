@@ -92,7 +92,7 @@ urlpatterns = [
     url(r'^accounts/logout/$', logout, {'template_name': 'logged_out.html'}),
     url(r'^accounts/change_password/$', password_change, {'template_name': 'password_change_form.html'}),
     url(r'^accounts/password_changed/$', password_change_done, {'template_name': 'password_change_done.html'}),
-    url('^$', main.mainpage),
+    url('^$', main.mainpage, name='mainpage'),
     url('^pdf/$', main.generate_pdf),
     url(r'^admin/',include(admin.site.urls)),
     url(r'^tinymce/', include('tinymce.urls')),
