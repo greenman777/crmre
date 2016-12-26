@@ -9,6 +9,8 @@ from django.views.generic.base import RedirectView
 from django.views.generic import TemplateView
 from rest_framework.routers import DefaultRouter
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
+from django.core.urlresolvers import reverse_lazy
 
 admin.autodiscover()
 
@@ -88,6 +90,7 @@ router.register(r'regulations', rest.RegulationsViewSet)
 
 urlpatterns = [
     url(r'^admin_tools/', include('admin_tools.urls')),
+    url('^', include('django.contrib.auth.urls')),
     url(r'^accounts/login/$',  login,  {'template_name': 'login.html'}),
     url(r'^accounts/logout/$', logout, {'template_name': 'logged_out.html'}),
     url(r'^accounts/change_password/$', password_change, {'template_name': 'password_change_form.html'}),
