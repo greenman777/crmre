@@ -59,13 +59,17 @@ def generate_pdf(data,document):
         @font-face { font-family: Arial; font-weight: bold; src: url("{{MEDIA_ROOT}}/font/arialbd.ttf"); }
         @font-face { font-family: Arial; font-style: italic;src: url("{{MEDIA_ROOT}}/font/ariali.ttf"); }
         @font-face { font-family: Arial; font-weight: bold; font-style: italic;src: url("{{MEDIA_ROOT}}/font/arialbi.ttf"); }
+        @font-face { font-family: Times New Roman; src: url("{{MEDIA_ROOT}}/font/times.ttf"); }
+        @font-face { font-family: Times New Roman; font-weight: bold; src: url("{{MEDIA_ROOT}}/font/timesbd.ttf"); }
+        @font-face { font-family: Times New Roman; font-style: italic;src: url("{{MEDIA_ROOT}}/font/timesi.ttf"); }
+        @font-face { font-family: Times New Roman; font-weight: bold; font-style: italic;src: url("{{MEDIA_ROOT}}/font/timesbi.ttf"); }
         body { font-family: Arial; }
     </style>
     </head>
     <body>
     """
     template = Template(font_tag + document.content+"</body></html>")
-    html  = template.render(Context(data))
+    html = template.render(Context(data))
     result = StringIO()
     pdf = pisa.pisaDocument(StringIO(html.encode('utf-8')), result, encoding='UTF-8')
     if not pdf.err:
