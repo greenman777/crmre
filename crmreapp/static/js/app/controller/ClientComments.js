@@ -54,50 +54,54 @@ Ext.define('CRMRE.controller.ClientComments', {
     },
     //Обнавляем список комментариев
     updateRecord: function(button) {
-        var grid_clients = Ext.getCmp('tabpanel').getActiveTab().down('appClientsList');
-        var selection_clients = grid_clients.getSelectionModel().getSelection();
         var grid = Ext.getCmp('tabpanel').getActiveTab().down('appClientCommentsList');
         var store = grid.getStore();
-        //если выбрана задача, то обновляем комментарии
-        if (selection_clients.length > 0) {
-	        grid.focus();
-	        var selection = grid.getSelectionModel().getSelection();
-	        store.load({
-	            scope: this,
-	            callback: function(records, operation, success) {
-	                if (success) {
-	                    if (selection.length > 0) {
-                            var record_id = selection[0].getId();
-	                        var record_select = store.getById(record_id);
-                            grid.getSelectionModel().select(record_select);
-                            grid.getView().focusRow(record_select);
-	                    }
-	                    else {
-	                        grid.getSelectionModel().select(0);
-                            grid.getView().focusRow(0);
-	                    }
-	                        
-	                }
-	            }
-	         });
+        try {//если мы находимся в клиентах
+            var grid_parrent = Ext.getCmp('tabpanel').getActiveTab().down('appClientsList');
+            var selection_parrent = grid_parrent.getSelectionModel().getSelection();
+            var client_id = 'id';
+        }
+        catch (e) {
+            try {//если мы находимся в предложениях
+                var grid_parrent = Ext.getCmp('tabpanel').getActiveTab().down('appOrdersSaleList');
+                var selection_parrent = grid_parrent.getSelectionModel().getSelection();
+                var client_id = 'client';
+            }
+            catch (e) {//если мы находимся в спросе
+                var grid_parrent = Ext.getCmp('tabpanel').getActiveTab().down('appOrdersBuyList');
+                var selection_parrent = grid_parrent.getSelectionModel().getSelection();
+                var client_id = 'client';
+            }
+        }
+        if (selection_parrent.length > 0) {
+            store.load({params:{client: selection_parrent[0].get(client_id)}});
         }
     },
-    //Открываем форму для изменения статуса задачи  
+    //Открываем форму для добавления нового взаимодействия
     addRecord: function(button) {
         var store = button.up('appClientCommentsList').getStore();
         var view = Ext.widget('appClientCommentsEdit');
-        var grid_clients = Ext.getCmp('tabpanel').getActiveTab().down('appClientsList');
-        var selection_clients = grid_clients.getSelectionModel().getSelection();
-        //если выбрана задача, то открываем форму для добавления комментария
-        if (selection_clients.length > 0) {
-            var form = view.down('form');
-            form.getForm().setValues({client: selection_clients[0].getId(),create_date: new Date(),
-                                      author: parseInt(CRMRE.global.Vars.user_id)
-                                    });
-            view.show();
+        try {//если мы находимся в клиентах
+            var grid_parrent = Ext.getCmp('tabpanel').getActiveTab().down('appClientsList');
+            var selection_parrent = grid_parrent.getSelectionModel().getSelection();
+            var client_id = 'id';
         }
-        else {
-            Ext.Msg.alert('Предупреждение', 'Не выбрана задача!');    
+        catch (e) {
+            try {//если мы находимся в предложениях
+                var grid_parrent = Ext.getCmp('tabpanel').getActiveTab().down('appOrdersSaleList');
+                var selection_parrent = grid_parrent.getSelectionModel().getSelection();
+                var client_id = 'client';
+            }
+            catch (e) {//если мы находимся в спросе
+                var grid_parrent = Ext.getCmp('tabpanel').getActiveTab().down('appOrdersBuyList');
+                var selection_parrent = grid_parrent.getSelectionModel().getSelection();
+                var client_id = 'client';
+            }
+        }
+        if (selection_parrent.length > 0) {
+            var form = view.down('form');
+            form.getForm().setValues({client: selection_parrent[0].get(client_id),create_date: new Date(), author: parseInt(CRMRE.global.Vars.user_id)});
+            view.show();
         }
     },
     //Сохраняем новый/измененный комментарий

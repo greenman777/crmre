@@ -214,10 +214,13 @@ Ext.define('CRMRE.controller.OrdersBuy', {
                 var store_hyst_offer = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryOfferList').getStore();
                 var store_hyst_show = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryShowList').getStore();
                 var store_hyst_service = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryServiceList').getStore();
+                var store_client_comments = Ext.getCmp('tabpanel').getActiveTab().down('appClientCommentsList').getStore();
+
                 store_offer.loadData([],false);
                 store_hyst_offer.loadData([],false);
                 store_hyst_show.loadData([],false);
                 store_hyst_service.loadData([],false);
+                store_client_comments.loadData([],false);
             }
         } 
         else {
@@ -234,12 +237,16 @@ Ext.define('CRMRE.controller.OrdersBuy', {
         var store_hyst_offer = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryOfferList').getStore();
         var store_hyst_show = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryShowList').getStore();
         var store_hyst_service = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryServiceList').getStore();
+        var store_client_comments = Ext.getCmp('tabpanel').getActiveTab().down('appClientCommentsList').getStore();
+
         store_hyst_offer.loadData([],false);
         store_hyst_show.loadData([],false);
         store_hyst_service.loadData([],false);
+        store_client_comments.loadData([],false);
         
         if (select_order.length) {
             order_id = select_order[0].get('id');
+            var client_id = select_order[0].get('client');
             store_offer.getProxy().extraParams = {order_type:grid_order.getXType(),order_id: order_id};
             store_offer.load({
 	            scope: this,
@@ -251,6 +258,7 @@ Ext.define('CRMRE.controller.OrdersBuy', {
 	                }
                 }
             });
+            store_client_comments.load({params:{client: client_id}});
         };
     },
 
@@ -724,10 +732,14 @@ Ext.define('CRMRE.controller.OrdersBuy', {
                             var store_hyst_offer = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryOfferList').getStore();
 					        var store_hyst_show = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryShowList').getStore();
 					        var store_hyst_service = Ext.getCmp('tabpanel').getActiveTab().down('appHystoryServiceList').getStore();
+					        var store_client_comments = Ext.getCmp('tabpanel').getActiveTab().down('appClientCommentsList').getStore();
+
 					        store_offer.loadData([],false);
                             store_hyst_offer.loadData([],false);
 					        store_hyst_show.loadData([],false);
 					        store_hyst_service.loadData([],false);
+					        store_client_comments.loadData([],false);
+
                             var record_last = store.last();
                             if (record_last != undefined) {
                                 gridview.focusRow(record_last);  
