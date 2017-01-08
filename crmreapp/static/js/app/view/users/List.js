@@ -79,7 +79,7 @@ Ext.define('CRMRE.view.users.List' ,{
                         return value;
                     }
                 },{
-                    header: 'Бригада',
+                    header: 'Группа',
                     flex: 1,
                     filter: true,
                     dataIndex: 'brigade',
