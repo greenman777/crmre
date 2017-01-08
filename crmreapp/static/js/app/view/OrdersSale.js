@@ -54,6 +54,15 @@ Ext.define('CRMRE.view.OrdersSale', {
                         flex:1
                     }]
                 }]
+            },{
+                region: 'south',
+                flex:2,
+                xtype: 'appClientCommentsList',
+                title: 'История взаимодействия',
+                split: true,
+                collapsible: true,
+                collapsed: true,
+                autoScroll: true,
             }]
         });
         //инициализируем родительский класс;

@@ -78,6 +78,15 @@ Ext.define('CRMRE.view.users.List' ,{
                         meta.tdAttr = "data-qtip='" + value + "'";
                         return value;
                     }
+                },{
+                    header: 'Бригада',
+                    flex: 1,
+                    filter: true,
+                    dataIndex: 'brigade',
+                    renderer: function (value, meta, record) {
+                        meta.tdAttr = "data-qtip='" + value + "'";
+                        return value;
+                    }
                 }
             ];
         this.dockedItems = [{

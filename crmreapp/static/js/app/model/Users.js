@@ -21,5 +21,6 @@ Ext.define('CRMRE.model.Users', {
         {name: 'rating', type:'integer'},
         {name: 'birthday', dateFormat: 'Y-m-d', type:"date"},
         {name: 'photo', type:'string'},
+        {name: 'brigade', type: 'auto'}
    ]
 });

@@ -2,7 +2,7 @@ Ext.define('CRMRE.view.client_comments.List' ,{
     extend: 'Ext.grid.Panel',
     xtype: 'appClientCommentsList',
     columnLines: true,
-    title: '<b>История взаимодействия</b>',
+    //title: '<b>История взаимодействия</b>',
     initComponent: function() {
         this.store = Ext.create('CRMRE.store.ClientComments');
         this.columns = [
@@ -35,7 +35,6 @@ Ext.define('CRMRE.view.client_comments.List' ,{
         		action:'delete',
         		items: [{
         			iconCls: 'icon-delete',
-        			tooltip: 'Удалить'
        			}]
        		},
        		{xtype:'actioncolumn',
@@ -43,7 +42,6 @@ Ext.define('CRMRE.view.client_comments.List' ,{
        			action:'edit',
        			items: [{
         			iconCls: 'icon-edit',
-        			tooltip: 'Редактировать'
         		}]
     		}
         ];
