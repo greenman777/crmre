@@ -3,7 +3,7 @@ Ext.define('CRMRE.view.client_comments.Edit', {
     xtype: 'appClientCommentsEdit',
     title: 'Редактирование действия',
     modal : true,
-    width:400,
+    width:500,
     initComponent: function() {
         this.items = [{
         	xtype: 'form',
@@ -18,6 +18,7 @@ Ext.define('CRMRE.view.client_comments.Edit', {
                 xtype: 'textareafield',
                 name : 'comment',
                 fieldLabel: 'Действие',
+                maxLength: 300,
                 allowBlank:false
             }]
         }];
