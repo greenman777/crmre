@@ -544,7 +544,7 @@ class Clients(models.Model):
 class ClientComments(models.Model):
     client = models.ForeignKey(Clients,verbose_name=u'Клиент')
     author = models.ForeignKey(settings.AUTH_USER_MODEL,verbose_name=u'Автор')
-    comment = models.CharField(max_length=100,verbose_name=u'Комментарий')
+    comment = models.CharField(max_length=300,verbose_name=u'Комментарий')
     create_date = models.DateField(verbose_name=u'Дата создания')
     def __unicode__(self):
         return self.comment
