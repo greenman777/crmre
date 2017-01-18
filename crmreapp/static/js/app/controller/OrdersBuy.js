@@ -449,7 +449,7 @@ Ext.define('CRMRE.controller.OrdersBuy', {
                                     if (success) {
                                         client = records[0];
                                         var message = 'Вам новая заявка № '+selection_orders_buy[0].get('index')+": "+selection_orders_buy[0].get('heading')+", от "+client.get('represent')+" т."+client.get('phone_represent');
-                                        my.fireEvent('addNotifications',performer,message);
+                                        my.fireEvent('addNotifications',performer,message.slice(0,150));
                                         //my.fireEvent('addTask',performer,'Отработать заявку № '+selection_orders_buy[0].get('index'),'Посмотреть, сфотографировать, заполнить данные заявки');
                                     }
                                 }});
@@ -479,7 +479,7 @@ Ext.define('CRMRE.controller.OrdersBuy', {
                                     if (success) {
                                         client = records[0];
                                         var message = 'Вам новая заявка № '+selection_orders_buy[0].get('index')+": "+selection_orders_buy[0].get('heading')+", от "+client.get('represent')+" т."+client.get('phone_represent');
-                                        my.fireEvent('addNotifications',performer,message);
+                                        my.fireEvent('addNotifications',performer,message.slice(0,150));
                                     }
                                 }});
                             },
@@ -613,9 +613,9 @@ Ext.define('CRMRE.controller.OrdersBuy', {
                                 if (success) {
                                     client = records[0];
                                     var message = 'Вам новая заявка № '+record.get('index')+": "+record.get('heading')+", от "+client.get('represent')+" т."+client.get('phone_represent');
-                                    my.fireEvent('addNotifications',record.get('performer'),message);
+                                    my.fireEvent('addNotifications',record.get('performer'),message.slice(0,150));
                                     var message = 'Вам новая заявка № '+record.get('index')+": "+record.get('heading')+", от "+client.get('represent')+" т."+client.get('phone_represent');
-                                    my.fireEvent('addNotifications',record.get('performer'),message);
+                                    my.fireEvent('addNotifications',record.get('performer'),message.slice(0,150));
                                     //my.fireEvent('addTask',record.get('performer'),'Отработать заявку № '+record.get('index'),'Посмотреть, сфотографировать, заполнить данные заявки');
                                 }
                             }});
