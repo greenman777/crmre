@@ -669,6 +669,7 @@ class OrdersBuyViewSet(viewsets.ModelViewSet):
         if client is not None:
             order_buy_filter = order_buy_filter & Q(client=client)
         if mortgage is not None:
+            mortgage = json.loads(mortgage)
             order_buy_filter = order_buy_filter & Q(mortgage=mortgage)
         if show_support is not None:
             order_buy_filter = order_buy_filter & Q(show_support=show_support)
