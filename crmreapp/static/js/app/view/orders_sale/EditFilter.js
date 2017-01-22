@@ -491,6 +491,26 @@ Ext.define('CRMRE.view.orders_sale.EditFilter', {
                     },
                     valueField: 'id',
                     store: 'Users'
+                },{
+                    xtype: 'fieldcontainer',
+                    layout: 'hbox',
+                    defaultType: 'textfield',
+                    defaults: {flex: 1},
+                    items:[{
+                        xtype: 'datefield',
+                        fieldLabel: 'Сделки за период от',
+                        flex: 1.3,
+                        name: 'datereg_from',
+                        format: 'Y-m-d',
+                        margin: '0 5 0 0',
+                    },{
+                        xtype: 'datefield',
+                        fieldLabel: 'до',
+                        labelWidth: 20,
+                        name: 'datereg_to',
+                        format: 'Y-m-d',
+                        margin: '0 5 0 0',
+                    }]
                 }]
             }]
         }];
