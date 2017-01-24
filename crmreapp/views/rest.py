@@ -22,10 +22,13 @@ class PriorityViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = serializers.PrioritySerializer
 
 
+class ResidentialComplexViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = models.ResidentialComplex.objects.all()
+    serializer_class = serializers.ResidentialComplexSerializer
+
 class CityViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.City.objects.all()
     serializer_class = serializers.CitySerializer
-
 
 class ObjectCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.ObjectCategory.objects.all()

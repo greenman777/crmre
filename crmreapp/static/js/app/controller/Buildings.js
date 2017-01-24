@@ -1,6 +1,6 @@
 Ext.define('CRMRE.controller.Buildings', {
     extend: 'Ext.app.Controller',
-    stores: ['Buildings','BuildingPhotos','Plan','PlanPhotos'],
+    stores: ['Buildings','BuildingPhotos','Plan','PlanPhotos','directory.ResidentialComplex'],
     models: ['Buildings'],
     views: ['buildings.BuildingsList','buildings.BuildingsEdit','buildings.BuildingPhotos','buildings.PlanList'],
     init: function() {
