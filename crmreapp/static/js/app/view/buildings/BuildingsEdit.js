@@ -40,7 +40,7 @@ Ext.define('CRMRE.view.buildings.BuildingsEdit', {
 	                name: 'description',
 	                fieldLabel: 'Описание',
 	                maxLength: 6000,
-	                height: 250,
+	                height: 200,
                     itemId: 'description',
                     listeners :  { 
 					    change: function (editor, newValue, oldValue )  { 
@@ -50,6 +50,16 @@ Ext.define('CRMRE.view.buildings.BuildingsEdit', {
 					    } 
 					}
                 },{
+	                xtype: 'comboboxselect',
+	                "multiSelect": false,
+	                fieldLabel: 'Жилой комплекс',
+	                name: 'residential_complex',
+	                autoSelect: true,
+	                queryMode: 'local',
+	                displayField: 'name',
+	                valueField: 'id',
+	                store: 'directory.ResidentialComplex'
+	            },{
 	                xtype: 'comboboxselect',
 	                "multiSelect": false,
 	                fieldLabel: 'Исполнитель',

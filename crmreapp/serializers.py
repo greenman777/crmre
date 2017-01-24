@@ -255,6 +255,11 @@ class StreetSerializer(serializers.ModelSerializer):
         model = models.Street
         fields = '__all__'
 
+class ResidentialComplexSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.ResidentialComplex
+        fields = '__all__'
+
 class ObjectCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.ObjectCategory

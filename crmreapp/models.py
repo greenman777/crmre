@@ -123,6 +123,14 @@ class Street(models.Model):
         ordering = ['name']
         verbose_name_plural = u"Улица"
 
+class ResidentialComplex(models.Model):
+    name = models.CharField(max_length=40,verbose_name=u'Жилой комплекс')
+    def __unicode__(self):
+        return self.name
+    class Meta:
+        ordering = ['name']
+        verbose_name_plural = u"Жилой комплекс"
+
 class Priority(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Приоритет')
     def __unicode__(self):
@@ -565,6 +573,7 @@ class Buildings(models.Model):
     index = models.CharField(max_length=9,verbose_name=u'Номер', blank=True, unique=True)
     heading = models.CharField(max_length=80,verbose_name=u'Название новостройки')
     description = models.CharField(max_length=6000, verbose_name=u'Описание новостройки',blank=True)
+    residential_complex = models.ForeignKey(ResidentialComplex,verbose_name=u'Жилой комплекс',blank=True,null=True)
     performer = models.ForeignKey(settings.AUTH_USER_MODEL,verbose_name=u'Исполнитель',blank=True,null=True)
     create_date = models.DateTimeField(auto_now_add=True, verbose_name=u'Дата создания')
     modification_date = models.DateTimeField(auto_now=True,verbose_name=u'Дата последней модификации')
