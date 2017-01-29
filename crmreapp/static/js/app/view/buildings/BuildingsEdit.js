@@ -375,7 +375,7 @@ Ext.define('CRMRE.view.buildings.BuildingsEdit', {
 	                        xtype: 'numberfield',
 	                        fieldLabel: 'Приоритет',
 	                        name: 'priority',
-	                        minValue: 1,
+	                        minValue: 0,
 	                        maxValue: 20,
 	                        labelWidth: 70,
 							margin: '0 10 0 0'
