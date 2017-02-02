@@ -95,6 +95,10 @@ class CustomIndexDashboard(Dashboard):
                             'crmreapp.models.ResultOperation',)
                 ),
                 modules.ModelList(
+                    title=u'Новостройки',
+                    models=('crmreapp.models.ResidentialComplex',)
+                ),
+                modules.ModelList(
                     title=u'Avito/Yandex',
                     models=('crmreapp.models.AvitoCategory',
                             'crmreapp.models.YandexCategory',

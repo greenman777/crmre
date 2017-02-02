@@ -93,6 +93,7 @@
     {% if building.district %}<District>{{building.district}}</District>{% endif %}
     {% if building.microdistrict %}<Microdistrict>{{building.microdistrict}}</Microdistrict>{% endif %}
     {% if building.street %}<Street>{{building.street}}</Street>{% endif %}
+    {% if building.residential_complex %}<ResidentialComplex>{{building.residential_complex}}</ResidentialComplex>{% endif %}
     {% if building.house_number %}<HouseNumber>{{building.house_number}}</HouseNumber>{% endif %}
     {% if building.floors %}<Floors>{{building.floors}}</Floors>{% endif%}
     {% if building.construction_organization %}<ConstructionOrganization>{{building.construction_organization}}</ConstructionOrganization>{% endif%}

@@ -5,6 +5,7 @@ Ext.define('CRMRE.model.Buildings', {
     	{name: 'index', type:'string'},
     	{name: 'heading', type:'string'},
     	{name: 'description', type:'string'},
+		{name: 'residential_complex', type:'auto'},
     	{name: 'performer', type:'auto'},
     	{name: 'create_date', dateFormat: 'Y-m-d H:i', type:"datetime"},
     	{name: 'modification_date', dateFormat: 'Y-m-d H:i', type:"datetime"},

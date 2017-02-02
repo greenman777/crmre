@@ -22,10 +22,13 @@ class PriorityViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = serializers.PrioritySerializer
 
 
+class ResidentialComplexViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = models.ResidentialComplex.objects.all()
+    serializer_class = serializers.ResidentialComplexSerializer
+
 class CityViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.City.objects.all()
     serializer_class = serializers.CitySerializer
-
 
 class ObjectCategoryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.ObjectCategory.objects.all()
@@ -593,6 +596,20 @@ class OrdersSaleViewSet(viewsets.ModelViewSet):
                     order_sale_filter = order_sale_filter & Q(kitchen_space__gte=filter['value'])
                 if filter['property'] == 'space_kitchen_to':
                     order_sale_filter = order_sale_filter & Q(kitchen_space__lte=filter['value'])
+                if filter['property'] == 'datereg_from':
+                    datereg_from = datetime.strptime(filter['value'], "%Y-%m-%d")
+                    operation_complet = models.ResultOperation.objects.get(name=u"успешная")
+                    operation_registr = models.OperationType.objects.get(name=u"4. регистрация")
+                    order_sale_filter = order_sale_filter & Q(offer__hystoryservice__date__gte=datereg_from,
+                                                              offer__hystoryservice__operation=operation_registr,
+                                                              offer__hystoryservice__result_operation=operation_complet)
+                if filter['property'] == 'datereg_to':
+                    datereg_from = datetime.strptime(filter['value'], "%Y-%m-%d")
+                    operation_complet = models.ResultOperation.objects.get(name=u"успешная")
+                    operation_registr = models.OperationType.objects.get(name=u"4. регистрация")
+                    order_sale_filter = order_sale_filter & Q(offer__hystoryservice__date__lte=datereg_from,
+                                                              offer__hystoryservice__operation=operation_registr,
+                                                              offer__hystoryservice__result_operation=operation_complet)
         return order_sale_filter
 
     def list(self, request):
@@ -613,6 +630,7 @@ class OrdersSaleViewSet(viewsets.ModelViewSet):
         page_size = self.paginator.page_size
         queryset = self.queryset.filter(self.get_filter(request)).distinct()
         page_number = (list(queryset.values_list('id', flat=True)).index(serializer.data['id']))/page_size+1
+
         return Response({'results': serializer.data, 'page': page_number}, status=status.HTTP_201_CREATED, headers=headers)
 
     def update(self, request, *args, **kwargs):
@@ -710,6 +728,20 @@ class OrdersBuyViewSet(viewsets.ModelViewSet):
                 if filter['property'] == 'vip':
                     if filter['value']:
                         order_buy_filter = order_buy_filter & Q(client__vip=True)
+                if filter['property'] == 'datereg_from':
+                    datereg_from = datetime.strptime(filter['value'], "%Y-%m-%d")
+                    operation_complet = models.ResultOperation.objects.get(name=u"успешная")
+                    operation_registr = models.OperationType.objects.get(name=u"4. регистрация")
+                    order_buy_filter = order_buy_filter & Q(offer__hystoryservice__date__gte=datereg_from,
+                                                              offer__hystoryservice__operation=operation_registr,
+                                                              offer__hystoryservice__result_operation=operation_complet)
+                if filter['property'] == 'datereg_to':
+                    datereg_from = datetime.strptime(filter['value'], "%Y-%m-%d")
+                    operation_complet = models.ResultOperation.objects.get(name=u"успешная")
+                    operation_registr = models.OperationType.objects.get(name=u"4. регистрация")
+                    order_buy_filter = order_buy_filter & Q(offer__hystoryservice__date__lte=datereg_from,
+                                                              offer__hystoryservice__operation=operation_registr,
+                                                              offer__hystoryservice__result_operation=operation_complet)
 
         return order_buy_filter
 

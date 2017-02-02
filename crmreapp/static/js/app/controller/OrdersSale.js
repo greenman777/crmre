@@ -723,8 +723,10 @@ Ext.define('CRMRE.controller.OrdersSale', {
                             store.load({
                                 callback: function() {
                                     record_current = store.findRecord('id', id);
-                                    grid.getView().focusRow(record_current);
-                                    grid.getSelectionModel().select(record_current);
+                                    if (record_current){
+                                        grid.getView().focusRow(record_current);
+                                        grid.getSelectionModel().select(record_current);
+                                    }
                                 }
                             })
 	                    } else {

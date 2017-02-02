@@ -47,9 +47,24 @@ Ext.define('CRMRE.view.buildings.BuildingsList' ,{
                         return value;
                     }
                 },{
+	                header: 'Жилой комплекс',
+	                width: 80,
+	                stateId: 'column_buildings_residential_complex',
+	                dataIndex : 'residential_complex_name',
+	                renderer: function(value, meta, record, rowIndex, colIndex, store, view) {
+	                    var store = Ext.data.StoreManager.lookup('directory.ResidentialComplex');
+	                    residential_complex_rec = store.getById(record.get('residential_complex'));
+	                    if (residential_complex_rec != null){
+	                        residential_complex_name = residential_complex_rec.get('name');
+	                        record.data.residential_complex_name = residential_complex_name;
+	                        meta.tdAttr = 'data-qtip="' + residential_complex_name + '"';
+	                        return residential_complex_name;
+	                    }
+	                }
+	            },{
 	                header: 'Улица', 
 	                width: 120,
-	                stateId: 'column_orders_sale_street',
+	                stateId: 'column_buildings_street',
 	                dataIndex : 'street_name',
 	                renderer: function(value, meta, record, rowIndex, colIndex, store, view) {
 	                    var store = Ext.data.StoreManager.lookup('directory.Street');
@@ -64,12 +79,12 @@ Ext.define('CRMRE.view.buildings.BuildingsList' ,{
 	            },{
 	                header: 'Дом №', 
 	                width: 50,
-	                stateId: 'column_orders_sale_house_number',
+	                stateId: 'column_buildings_house_number',
 	                dataIndex: 'house_number',
 	            },{
 	                header: 'Микрорайон', 
 	                width: 80,
-	                stateId: 'column_orders_sale_microdistrict_name',
+	                stateId: 'column_buildings_microdistrict_name',
 	                dataIndex : 'microdistrict_name',
 	                renderer: function(value, meta, record, rowIndex, colIndex, store, view) {
 	                    var store = Ext.data.StoreManager.lookup('directory.Microdistrict');
@@ -84,7 +99,7 @@ Ext.define('CRMRE.view.buildings.BuildingsList' ,{
 	            },{
 	                header: 'Город', 
 	                width: 80,
-	                stateId: 'column_orders_sale_city_name',
+	                stateId: 'column_buildings_city_name',
 	                dataIndex : 'city_name',
 	                renderer: function(value, meta, record, rowIndex, colIndex, store, view) {
 	                    var store = Ext.data.StoreManager.lookup('directory.City');
@@ -99,7 +114,7 @@ Ext.define('CRMRE.view.buildings.BuildingsList' ,{
 	            },{
 	                header: 'Застройщик',
 	                width: 80,
-	                stateId: 'column_construction_organization_name',
+	                stateId: 'column_buildings_construction_organization_name',
 	                dataIndex : 'construction_organization_name',
 	                renderer: function(value, meta, record, rowIndex, colIndex, store, view) {
 	                    var store = Ext.data.StoreManager.lookup('directory.ConstructionOrganization');
@@ -114,7 +129,7 @@ Ext.define('CRMRE.view.buildings.BuildingsList' ,{
 	            },{
 	                header: 'Срок сдачи',
 	                width: 70,
-	                stateId: 'column_delivery_period',
+	                stateId: 'column_buildings_delivery_period',
 	                dataIndex: 'delivery_period',
 	            },{
                     header: 'Приоритет',
