@@ -100,6 +100,12 @@ Ext.define('CRMRE.controller.HystoryShow', {
         if (form.isValid()) {
             //если запись существует, изменяем запись
             if (values.id > 0) {
+                //Проверяем, является ли дата позднее 4 дней от текущей и есть ли соотвтетствующее разрешение, если нет то выходим
+                if (!Ext.Date.between(new Date(), new Date(values.date), Ext.Date.add(new Date(values.date), Ext.Date.DAY, 4)) &&
+                    Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'lock_orders-sale')==-1) {
+                    Ext.Msg.alert('Предупреждение', 'Вы не можете ставить дату задним числом со сроком более 4 дней назад от текущей!');
+                    return;
+                };
                 record.set(values);
                 store.sync({
                     success : function(data_batch,controller) {
