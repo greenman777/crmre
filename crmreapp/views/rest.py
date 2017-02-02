@@ -505,6 +505,7 @@ class OrdersSaleViewSet(viewsets.ModelViewSet):
         if client is not None:
             order_sale_filter = order_sale_filter & Q(client=client)
         if show_support is not None:
+            show_support = json.loads(show_support)
             order_sale_filter = order_sale_filter & Q(show_support=show_support)
 
         if filters is not None:
@@ -672,6 +673,7 @@ class OrdersBuyViewSet(viewsets.ModelViewSet):
             mortgage = json.loads(mortgage)
             order_buy_filter = order_buy_filter & Q(mortgage=mortgage)
         if show_support is not None:
+            show_support = json.loads(show_support)
             order_buy_filter = order_buy_filter & Q(show_support=show_support)
 
         if filters is not None:
