@@ -41,7 +41,7 @@ Ext.define('CRMRE.view.reports.ReportPayroll', {
                         "multiSelect": false,
                         flex: 1.6,
                         allowBlank:false,
-                        fieldLabel: 'Группа',
+                        fieldLabel: 'Тип',
                         labelWidth: 50,
                         name: 'object_category',
                         margin: '0 20 0 0',
@@ -50,6 +50,16 @@ Ext.define('CRMRE.view.reports.ReportPayroll', {
                         displayField: 'name',
                         valueField: 'id',
                         store: 'directory.ObjectCategory'
+                    },{
+                        fieldLabel: 'Группа',
+                        xtype: 'numberfield',
+                        itemId: 'brigade',
+                        flex: 0.8,
+                        minValue: 0,
+                        maxValue: 50,
+                        labelWidth: 50,
+                        name: 'brigade',
+                        margin: '0 20 0 0',
                     },{
                         xtype: 'button',
                         text: 'Обновить',
