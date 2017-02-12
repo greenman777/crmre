@@ -48,6 +48,7 @@ Ext.define('CRMRE.view.reports.Payroll', {
 	        date_start = form.getValues().date_start;
 	        date_stop = form.getValues().date_stop;
 	        object_category = form.getValues().object_category;
+	        brigade = form.getValues().brigade;
 	        if (Ext.Date.parse(date_start, "Y-m-d")>=Ext.Date.parse(date_stop, "Y-m-d")) {
 	            Ext.Msg.alert('Предупреждение', 'Не верно указан диапазон дат!'); 
 	            return;
@@ -60,6 +61,7 @@ Ext.define('CRMRE.view.reports.Payroll', {
 	                date_start: date_start,
 	                date_stop: date_stop,
 	                object_category: object_category,
+					brigade: brigade,
 	                report_type: "payroll"
 	            },
 	            success: function(response, opts) {

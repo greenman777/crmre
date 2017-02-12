@@ -70,28 +70,33 @@ Ext.define('CRMRE.view.reports.Completed', {
         object_category = Ext.getCmp('tabpanel').getActiveTab().down("form").getValues().object_category;
         orders_type = Ext.getCmp('tabpanel').getActiveTab().down("form").getValues().orders_type;
         user = Ext.getCmp('tabpanel').getActiveTab().down("form").getValues().user;
+        brigade = Ext.getCmp('tabpanel').getActiveTab().down("form").getValues().brigade;
         if (Ext.Date.parse(date_start, "Y-m-d")>=Ext.Date.parse(date_stop, "Y-m-d")) {
             Ext.Msg.alert('Предупреждение', 'Не верно указан диапазон дат!'); 
             return;
         };
-        my = this;
-        Ext.getCmp('tabpanel').getActiveTab().down("form").down('#update').setDisabled(true);
-        Ext.Ajax.request({
-            url: '/reports/',
-            params: {
-                date_start: date_start,
-                date_stop: date_stop,
-                object_category: object_category,
-                orders_type: orders_type,
-                user: user,
-                report_type: "completed"
-            },
-            success: function(response, opts) {
-                var obj = Ext.decode(response.responseText);
-                var data = obj.messages;
-                my.update(data);
-                Ext.getCmp('tabpanel').getActiveTab().down("form").down('#update').setDisabled(false);
-            }
-        });
+        var form = Ext.getCmp('tabpanel').getActiveTab().down("form");
+        if (form.isValid()) {
+            my = this;
+            form.down('#update').setDisabled(true);
+            Ext.Ajax.request({
+                url: '/reports/',
+                params: {
+                    date_start: date_start,
+                    date_stop: date_stop,
+                    object_category: object_category,
+                    orders_type: orders_type,
+                    user: user,
+                    brigade: brigade,
+                    report_type: "completed"
+                },
+                success: function (response, opts) {
+                    var obj = Ext.decode(response.responseText);
+                    var data = obj.messages;
+                    my.update(data);
+                    Ext.getCmp('tabpanel').getActiveTab().down("form").down('#update').setDisabled(false);
+                }
+            });
+        };
     }
 });

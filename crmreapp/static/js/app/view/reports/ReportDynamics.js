@@ -28,7 +28,7 @@ Ext.define('CRMRE.view.reports.ReportDynamics', {
                         itemId: 'date_start',
                         labelWidth: 120,
                         format: 'Y-m-d',
-                        margin: '0 20 0 0',
+                        margin: '0 15 0 0',
                         fieldLabel: 'Начало периода',
                         value: Ext.Date.add(new Date(), Ext.Date.DAY, -7),
                         format: 'Y-m-d'
@@ -38,7 +38,7 @@ Ext.define('CRMRE.view.reports.ReportDynamics', {
                         itemId: 'date_stop',
                         labelWidth: 120,
                         format: 'Y-m-d',
-                        margin: '0 20 0 0',
+                        margin: '0 15 0 0',
                         fieldLabel: 'Окончание периода',
                         value: new Date(),
                         format: 'Y-m-d'
@@ -72,22 +72,32 @@ Ext.define('CRMRE.view.reports.ReportDynamics', {
                         xtype: 'comboboxselect',
                         "multiSelect": false,
                         flex: 1.6,
-                        fieldLabel: 'Группа',
-                        labelWidth: 50,
+                        fieldLabel: 'Тип',
+                        labelWidth: 40,
                         name: 'object_category',
-                        margin: '0 20 0 0',
+                        margin: '0 15 0 0',
                         autoSelect: true,
                         queryMode: 'local',
                         displayField: 'name',
                         valueField: 'id',
                         store: 'directory.ObjectCategory'
                     },{
+                        fieldLabel: 'Группа',
+                        xtype: 'numberfield',
+                        itemId: 'brigade',
+                        flex: 0.8,
+                        minValue: 0,
+                        maxValue: 50,
+                        labelWidth: 50,
+                        name: 'brigade',
+                        margin: '0 15 0 0',
+                    },{
                         xtype: 'comboboxselect',
-                        flex: 3.4,
+                        flex: 3,
                         fieldLabel: 'Агент',
                         labelWidth: 45,
                         name: 'user',
-                        margin: '0 20 0 0',
+                        margin: '0 15 0 0',
                         autoSelect: true,
                         queryMode: 'local',
                         valueField: 'id',
@@ -103,15 +113,18 @@ Ext.define('CRMRE.view.reports.ReportDynamics', {
                         '</tpl>')
                     },{
                         xtype: 'radiogroup',
+                        margin: '0 15 0 0',
                         items: [
                         {
                             boxLabel: 'Дневная',
                             name: 'date_type',
                             inputValue: 1,
+                            margin: '0 15 0 0',
                             checked:'true'
                         },{
                             boxLabel: 'Месячная',
                             name: 'date_type',
+                            margin: '0 15 0 0',
                             inputValue: 0
                         }],
                         listeners: {
@@ -340,30 +353,35 @@ Ext.define('CRMRE.view.reports.ReportDynamics', {
         orders_type = Ext.getCmp('tabpanel').getActiveTab().down("form").getValues().orders_type;
         date_type = Ext.getCmp('tabpanel').getActiveTab().down("form").getValues().date_type;
         user = Ext.getCmp('tabpanel').getActiveTab().down("form").getValues().user;
+        brigade = Ext.getCmp('tabpanel').getActiveTab().down("form").getValues().brigade;
         if (user=='') {user=[];};
         if (Ext.Date.parse(date_start, "Y-m-d")>=Ext.Date.parse(date_stop, "Y-m-d")) {
             Ext.Msg.alert('Предупреждение', 'Не верно указан диапазон дат!'); 
             return;
         };
-        my = this;
-        this.down("form").down('#update').setDisabled(true);
-        Ext.Ajax.request({
-            url: '/reports/',
-            params: {
-                date_start: date_start,
-                date_stop: date_stop,
-                object_category: object_category,
-                orders_type: orders_type,
-                date_type: date_type,
-                user: user,
-                report_type: "dynamics"
-            },
-            success: function(response, opts) {
-                var obj = Ext.decode(response.responseText);
-                var data = obj.messages;
-                my.down('chart').store.loadData(data);
-                my.down("form").down('#update').setDisabled(false);
-            }
-        });
+
+        if (this.down("form").isValid()) {
+            my = this;
+            this.down("form").down('#update').setDisabled(true);
+            Ext.Ajax.request({
+                url: '/reports/',
+                params: {
+                    date_start: date_start,
+                    date_stop: date_stop,
+                    object_category: object_category,
+                    orders_type: orders_type,
+                    date_type: date_type,
+                    user: user,
+                    brigade: brigade,
+                    report_type: "dynamics"
+                },
+                success: function (response, opts) {
+                    var obj = Ext.decode(response.responseText);
+                    var data = obj.messages;
+                    my.down('chart').store.loadData(data);
+                    my.down("form").down('#update').setDisabled(false);
+                }
+            });
+        };
     }
 });

@@ -582,6 +582,7 @@ def reports(request):
             object_category = getparams.get('object_category')
             orders_type = int(getparams.get('orders_type'))
             users = getparams.getlist('user')
+            brigade = getparams.get('brigade')
             object_filter = Q()
             show_buy_filter = Q()
             show_sale_filter = Q()
@@ -593,6 +594,10 @@ def reports(request):
                 object_filter = object_filter & Q(performer__in=users)
                 show_buy_filter = show_buy_filter & Q(offer__order_buy__performer__in=users)
                 show_sale_filter = show_sale_filter & Q(offer__order_sale__performer__in=users)
+            if brigade:
+                object_filter = object_filter & Q(performer__brigade=int(brigade))
+                show_buy_filter = show_buy_filter & Q(offer__order_buy__performer__brigade=int(brigade))
+                show_sale_filter = show_sale_filter & Q(offer__order_sale__performer__brigade=int(brigade))
             group_agents = Group.objects.get(name=u'_Агенты')
             group_managers = Group.objects.get(name=u'_Руководители групп')
             agents_list = list(group_agents.user_set.all())+list(group_managers.user_set.all())
@@ -695,6 +700,7 @@ def reports(request):
             object_category = getparams.get('object_category')
             orders_type = int(getparams.get('orders_type'))
             users_raw = getparams.get('user')
+            brigade = getparams.get('brigade')
             if users_raw:
                 users = getparams.getlist('user')
             else:
@@ -712,9 +718,13 @@ def reports(request):
             time_interval = int(str(date_stop - date_start).split()[0])
             content_item = {}
             data = {'success':True,'messages':{'date_start':date_start,'date_stop':date_stop,'orders_type':orders_type_name,'object_category':object_category_name,'content':[]}}
-            model_order_sale = models.OrdersSale.objects.filter(object_filter)
-            model_order_buy = models.OrdersBuy.objects.filter(object_filter)
-            print "users",users
+
+            brigade_filter = Q()
+            if brigade:
+                brigade_filter = brigade_filter & Q(performer__brigade=int(brigade))
+            model_order_sale = models.OrdersSale.objects.filter(object_filter).filter(brigade_filter)
+            model_order_buy = models.OrdersBuy.objects.filter(object_filter).filter(brigade_filter)
+
             if len(users)>0:
                 user_list = [User.objects.get(pk=int(user)) for user in users]
             else:
@@ -795,6 +805,7 @@ def reports(request):
             response = JSONResponse(data)
         if report_type == "payroll":
             object_category = getparams.get('object_category')
+            brigade = getparams.get('brigade')
             date_start =  datetime.strptime(getparams.get('date_start'), "%Y-%m-%d")
             date_stop =  datetime.strptime(getparams.get('date_stop'), "%Y-%m-%d")
             time_interval = int(str(date_stop - date_start).split()[0])
@@ -808,7 +819,10 @@ def reports(request):
             salary_all_full = 0
             category = models.ObjectCategory.objects.get(pk=int(object_category))
             query_offer = models.Offer.objects.filter(order_sale__object_category = category)
-            for user in User.objects.filter(is_active=True):
+            brigade_filter = Q()
+            if brigade:
+                brigade_filter = brigade_filter & Q(brigade=int(brigade))
+            for user in User.objects.filter(is_active=True).filter(brigade_filter):
                 if (not(u"_Агенты" in [group.name for group in user.groups.all()]) and not(u"_Руководители групп" in [group.name for group in user.groups.all()])):
                     continue
                 content_item["agent"] = " ".join((user.last_name,user.first_name))
