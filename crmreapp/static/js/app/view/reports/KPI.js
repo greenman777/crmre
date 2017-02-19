@@ -7,7 +7,7 @@ Ext.define('CRMRE.view.reports.KPI', {
         viewready: {
             fn: function(){ 
                 my = this;
-                this.updateReport();
+                //this.updateReport();
             }
         }
     },
@@ -115,6 +115,7 @@ Ext.define('CRMRE.view.reports.KPI', {
     updateReport: function() {
         date_start = Ext.getCmp('tabpanel').getActiveTab().down("form").getValues().date_start;
         date_stop = Ext.getCmp('tabpanel').getActiveTab().down("form").getValues().date_stop;
+        group_type = Ext.getCmp('tabpanel').getActiveTab().down("form").getValues().group_type;
         if (Ext.Date.parse(date_start, "Y-m-d")>=Ext.Date.parse(date_stop, "Y-m-d")) {
             Ext.Msg.alert('Предупреждение', 'Не верно указан диапазон дат!'); 
             return;
@@ -126,6 +127,7 @@ Ext.define('CRMRE.view.reports.KPI', {
             params: {
                 date_start: date_start,
                 date_stop: date_stop,
+                group_type: group_type,
                 report_type: "kpi"
             },
             success: function(response, opts) {

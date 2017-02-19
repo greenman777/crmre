@@ -43,12 +43,12 @@ Ext.define('CRMRE.view.reports.ReportKPI', {
                         items: [
                         {
                             boxLabel: 'по типу',
-                            name: 'orders_type',
+                            name: 'group_type',
                             checked:'true',
                             inputValue: 1
                         },{
                             boxLabel: 'по группам',
-                            name: 'orders_type',
+                            name: 'group_type',
                             inputValue: 2
                         }]
                     },{
