@@ -7,7 +7,7 @@ Ext.define('CRMRE.view.reports.Payroll', {
         viewready: {
             fn: function(){ 
                 my = this;
-                this.updateReport();
+                //this.updateReport();
             }
         }
     },

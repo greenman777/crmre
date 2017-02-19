@@ -839,133 +839,140 @@ def reports(request):
             content_item = {}
             data = {'success':True,'messages':{'date_start':date_start,'date_stop':date_stop,'content':[]}}
             objects_new = models.ObjectType.objects.filter(name=u"квартира в новостройке")
-            revenue_new_full = 0
-            revenue_second_full = 0
-            salary_new_full = 0
-            salary_second_full = 0
-            salary_all_full = 0
-            category = models.ObjectCategory.objects.get(pk=int(object_category))
-            query_offer = models.Offer.objects.filter(order_sale__object_category = category)
-            brigade_filter = Q()
-            if brigade:
-                brigade_filter = brigade_filter & Q(brigade=int(brigade))
-            for user in User.objects.filter(is_active=True).filter(brigade_filter):
-                if (not(u"_Агенты" in [group.name for group in user.groups.all()]) and not(u"_Руководители групп" in [group.name for group in user.groups.all()])):
-                    continue
-                content_item["agent"] = " ".join((user.last_name,user.first_name))
-                # выручка наша
-                content_item["revenue_new"] = 0
-                content_item["revenue_second"] = 0
-                try:
-                    # процент от выручки наш по новостройкам (предложение)
-                    content_item["revenue_new"] += round(sum([(offer.order_sale.price*offer.order_sale.commission_price)/100 for offer in query_offer.filter(order_sale__performer=user,order_sale__commission=True,order_sale__commission_type=False).filter(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct()]))
-                    # процент от выручки наш по вторичке (предложение)
-                    content_item["revenue_second"] += round(sum([(offer.order_sale.price*offer.order_sale.commission_price)/100 for offer in query_offer.filter(order_sale__performer=user,order_sale__commission=True,order_sale__commission_type=False).exclude(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct()]))
-                except Exception as inst:
-                    pass
-                try:
-                    # процент от выручки наш по новостройкам (спрос)
-                    content_item["revenue_new"] += round(sum([(offer['order_sale__price']*offer['order_buy__commission_price'])/100 for offer in query_offer.filter(order_buy__performer=user,order_buy__commission=True,order_buy__commission_type=False).filter(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().select_related('order_sale__price').values('id','order_sale__price','order_buy__commission_price')]))
-                    # процент от выручки наш по вторичке (спрос)
-                    content_item["revenue_second"] += round(sum([(offer['order_sale__price']*offer['order_buy__commission_price'])/100 for offer in query_offer.filter(order_buy__performer=user,order_buy__commission=True,order_buy__commission_type=False).exclude(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().select_related('order_sale__price').values('id','order_sale__price','order_buy__commission_price')]))
-                except Exception as inst:
-                    pass
-                # выручка другим агенствам
-                try:
-                    # процент от выручки другим агенствам по новостройкам (предложение)
-                    content_item["revenue_new"] -= round(sum([(offer.order_sale.price*offer.order_sale.agency_commission_price)/100 for offer in query_offer.filter(order_sale__performer=user,order_sale__agency_commission=True,order_sale__agency_commission_type=False).filter(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct()]))
-                    # процент от выручки выручки другим по вторичке (предложение)
-                    content_item["revenue_second"] -= round(sum([(offer.order_sale.price*offer.order_sale.agency_commission_price)/100 for offer in query_offer.filter(order_sale__performer=user,order_sale__agency_commission=True,order_sale__agency_commission_type=False).exclude(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct()]))
-                except Exception as inst:
-                    pass
-                try:
-                    # процент от выручки другим агенствам по новостройкам (спрос)
-                    content_item["revenue_new"] -= round(sum([(offer['order_sale__price']*offer['order_buy__agency_commission_price'])/100 for offer in query_offer.filter(order_buy__performer=user,order_buy__agency_commission=True,order_buy__agency_commission_type=False).filter(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().select_related('order_sale__price').values('id','order_sale__price','order_buy__agency_commission_price')]))
-                    # процент от выручки выручки другим по вторичке (спрос)
-                    content_item["revenue_second"] -= round(sum([(offer['order_sale__price']*offer['order_buy__agency_commission_price'])/100 for offer in query_offer.filter(order_buy__performer=user,order_buy__agency_commission=True,order_buy__agency_commission_type=False).exclude(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().select_related('order_sale__price').values('id','order_sale__price','order_buy__agency_commission_price')]))
-                except Exception as inst:
-                    # print inst.args
-                    pass
 
-                if user.id == 1:
-                    print([(offer['order_sale__price'],offer['order_buy__commission_price']) for offer in query_offer.filter(order_buy__performer=user,order_buy__commission=True,order_buy__commission_type=False).exclude(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().select_related('order_sale__price').values('id','order_sale__price','order_buy__commission_price')])
-                    print(content_item["revenue_new"])
-                    print(content_item["revenue_second"])
+            if object_category:
+                category_list = [models.ObjectCategory.objects.get(pk=int(object_category))]
+            else:
+                category_list = models.ObjectCategory.objects.all()
+            for category in category_list:
+                revenue_new_full = 0
+                revenue_second_full = 0
+                salary_new_full = 0
+                salary_second_full = 0
+                salary_all_full = 0
+                content_item["agent"] = '<b>'+category.name+'</b>'
+                content_item["revenue_new"] = ''
+                content_item["revenue_second"] = ''
+                content_item["salary_new"] = ''
+                content_item["salary_second"] = ''
+                content_item["salary_all"] = ''
+                data["messages"]["content"].append(content_item.copy())
+                query_offer = models.Offer.objects.filter(order_sale__object_category = category)
+                brigade_filter = Q()
+                if brigade:
+                    brigade_filter = brigade_filter & Q(brigade=int(brigade))
+                for user in User.objects.filter(is_active=True).filter(brigade_filter):
+                    if (not(u"_Агенты" in [group.name for group in user.groups.all()]) and not(u"_Руководители групп" in [group.name for group in user.groups.all()])):
+                        continue
+                    content_item["agent"] = " ".join((user.last_name,user.first_name))
+                    # выручка наша
+                    content_item["revenue_new"] = 0
+                    content_item["revenue_second"] = 0
+                    try:
+                        # процент от выручки наш по новостройкам (предложение)
+                        content_item["revenue_new"] += round(sum([(offer.order_sale.price*offer.order_sale.commission_price)/100 for offer in query_offer.filter(order_sale__performer=user,order_sale__commission=True,order_sale__commission_type=False).filter(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct()]))
+                        # процент от выручки наш по вторичке (предложение)
+                        content_item["revenue_second"] += round(sum([(offer.order_sale.price*offer.order_sale.commission_price)/100 for offer in query_offer.filter(order_sale__performer=user,order_sale__commission=True,order_sale__commission_type=False).exclude(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct()]))
+                    except Exception as inst:
+                        pass
+                    try:
+                        # процент от выручки наш по новостройкам (спрос)
+                        content_item["revenue_new"] += round(sum([(offer['order_sale__price']*offer['order_buy__commission_price'])/100 for offer in query_offer.filter(order_buy__performer=user,order_buy__commission=True,order_buy__commission_type=False).filter(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().select_related('order_sale__price').values('id','order_sale__price','order_buy__commission_price')]))
+                        # процент от выручки наш по вторичке (спрос)
+                        content_item["revenue_second"] += round(sum([(offer['order_sale__price']*offer['order_buy__commission_price'])/100 for offer in query_offer.filter(order_buy__performer=user,order_buy__commission=True,order_buy__commission_type=False).exclude(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().select_related('order_sale__price').values('id','order_sale__price','order_buy__commission_price')]))
+                    except Exception as inst:
+                        pass
+                    # выручка другим агенствам
+                    try:
+                        # процент от выручки другим агенствам по новостройкам (предложение)
+                        content_item["revenue_new"] -= round(sum([(offer.order_sale.price*offer.order_sale.agency_commission_price)/100 for offer in query_offer.filter(order_sale__performer=user,order_sale__agency_commission=True,order_sale__agency_commission_type=False).filter(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct()]))
+                        # процент от выручки выручки другим по вторичке (предложение)
+                        content_item["revenue_second"] -= round(sum([(offer.order_sale.price*offer.order_sale.agency_commission_price)/100 for offer in query_offer.filter(order_sale__performer=user,order_sale__agency_commission=True,order_sale__agency_commission_type=False).exclude(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct()]))
+                    except Exception as inst:
+                        pass
+                    try:
+                        # процент от выручки другим агенствам по новостройкам (спрос)
+                        content_item["revenue_new"] -= round(sum([(offer['order_sale__price']*offer['order_buy__agency_commission_price'])/100 for offer in query_offer.filter(order_buy__performer=user,order_buy__agency_commission=True,order_buy__agency_commission_type=False).filter(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().select_related('order_sale__price').values('id','order_sale__price','order_buy__agency_commission_price')]))
+                        # процент от выручки выручки другим по вторичке (спрос)
+                        content_item["revenue_second"] -= round(sum([(offer['order_sale__price']*offer['order_buy__agency_commission_price'])/100 for offer in query_offer.filter(order_buy__performer=user,order_buy__agency_commission=True,order_buy__agency_commission_type=False).exclude(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().select_related('order_sale__price').values('id','order_sale__price','order_buy__agency_commission_price')]))
+                    except Exception as inst:
+                        # print inst.args
+                        pass
 
-                # фиксированная выручка наша по новостройкам (предложение)
-                revenue_new_sale_fixed = query_offer.filter(order_sale__performer=user,order_sale__commission=True,order_sale__commission_type=True).filter(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().aggregate(Sum('order_sale__commission_price'))['order_sale__commission_price__sum']
-                # фиксированная выручка наша по новостройкам (спрос)
-                revenue_new_buy_fixed = query_offer.filter(order_buy__performer=user,order_buy__commission=True,order_buy__commission_type=True).filter(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().aggregate(Sum('order_buy__commission_price'))['order_buy__commission_price__sum']
-                # фиксированная выручка другим агенствам по новостройкам (предложение)
-                revenue_new_sale_agency_fixed = query_offer.filter(order_sale__performer=user,order_sale__agency_commission=True,order_sale__agency_commission_type=True).filter(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().aggregate(Sum('order_sale__agency_commission_price'))['order_sale__agency_commission_price__sum']
-                # фиксированная выручка другим агенствам по новостройкам (спрос)
-                revenue_new_buy_agency_fixed = query_offer.filter(order_buy__performer=user,order_buy__agency_commission=True,order_buy__agency_commission_type=True).filter(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().aggregate(Sum('order_buy__agency_commission_price'))['order_buy__agency_commission_price__sum']
-                if revenue_new_sale_fixed :
-                    content_item["revenue_new"] += round(revenue_new_sale_fixed)
-                if revenue_new_buy_fixed :
-                    content_item["revenue_second"] += round(revenue_new_buy_fixed)
-                if revenue_new_sale_agency_fixed :
-                    content_item["revenue_new"] -= round(revenue_new_sale_agency_fixed)
-                if revenue_new_buy_agency_fixed :
-                    content_item["revenue_second"] -= round(revenue_new_buy_agency_fixed)
-                # фиксированная выручка наша по вторичке (предложение)
-                revenue_second_sale_fixed = query_offer.filter(order_sale__performer=user,order_sale__commission=True,order_sale__commission_type=True).exclude(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().aggregate(Sum('order_sale__commission_price'))['order_sale__commission_price__sum']
-                # фиксированная выручка наша по вторичке (спрос)
-                revenue_second_buy_fixed = query_offer.filter(order_buy__performer=user,order_buy__commission=True,order_buy__commission_type=True).exclude(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().aggregate(Sum('order_buy__commission_price'))['order_buy__commission_price__sum']
-                # фиксированная выручка другим агенствам по вторичке (предложение)
-                revenue_second_sale_agency_fixed = query_offer.filter(order_sale__performer=user,order_sale__agency_commission=True,order_sale__agency_commission_type=True).exclude(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().aggregate(Sum('order_sale__agency_commission_price'))['order_sale__agency_commission_price__sum']
-                # фиксированная выручка другим агенствам по вторичке (спрос)
-                revenue_second_buy_agency_fixed = query_offer.filter(order_buy__performer=user,order_buy__agency_commission=True,order_buy__agency_commission_type=True).exclude(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().aggregate(Sum('order_buy__agency_commission_price'))['order_buy__agency_commission_price__sum']
-                if revenue_second_sale_fixed :
-                    content_item["revenue_second"] += round(revenue_second_sale_fixed)
-                if revenue_second_buy_fixed :
-                    content_item["revenue_second"] += round(revenue_second_buy_fixed)
-                if revenue_second_sale_agency_fixed :
-                    content_item["revenue_second"] -= round(revenue_second_sale_agency_fixed)
-                if revenue_second_buy_agency_fixed :
-                    content_item["revenue_second"] -= round(revenue_second_buy_agency_fixed)
+                    # фиксированная выручка наша по новостройкам (предложение)
+                    revenue_new_sale_fixed = query_offer.filter(order_sale__performer=user,order_sale__commission=True,order_sale__commission_type=True).filter(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().aggregate(Sum('order_sale__commission_price'))['order_sale__commission_price__sum']
+                    # фиксированная выручка наша по новостройкам (спрос)
+                    revenue_new_buy_fixed = query_offer.filter(order_buy__performer=user,order_buy__commission=True,order_buy__commission_type=True).filter(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().aggregate(Sum('order_buy__commission_price'))['order_buy__commission_price__sum']
+                    # фиксированная выручка другим агенствам по новостройкам (предложение)
+                    revenue_new_sale_agency_fixed = query_offer.filter(order_sale__performer=user,order_sale__agency_commission=True,order_sale__agency_commission_type=True).filter(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().aggregate(Sum('order_sale__agency_commission_price'))['order_sale__agency_commission_price__sum']
+                    # фиксированная выручка другим агенствам по новостройкам (спрос)
+                    revenue_new_buy_agency_fixed = query_offer.filter(order_buy__performer=user,order_buy__agency_commission=True,order_buy__agency_commission_type=True).filter(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().aggregate(Sum('order_buy__agency_commission_price'))['order_buy__agency_commission_price__sum']
+                    if revenue_new_sale_fixed :
+                        content_item["revenue_new"] += round(revenue_new_sale_fixed)
+                    if revenue_new_buy_fixed :
+                        content_item["revenue_second"] += round(revenue_new_buy_fixed)
+                    if revenue_new_sale_agency_fixed :
+                        content_item["revenue_new"] -= round(revenue_new_sale_agency_fixed)
+                    if revenue_new_buy_agency_fixed :
+                        content_item["revenue_second"] -= round(revenue_new_buy_agency_fixed)
+                    # фиксированная выручка наша по вторичке (предложение)
+                    revenue_second_sale_fixed = query_offer.filter(order_sale__performer=user,order_sale__commission=True,order_sale__commission_type=True).exclude(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().aggregate(Sum('order_sale__commission_price'))['order_sale__commission_price__sum']
+                    # фиксированная выручка наша по вторичке (спрос)
+                    revenue_second_buy_fixed = query_offer.filter(order_buy__performer=user,order_buy__commission=True,order_buy__commission_type=True).exclude(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().aggregate(Sum('order_buy__commission_price'))['order_buy__commission_price__sum']
+                    # фиксированная выручка другим агенствам по вторичке (предложение)
+                    revenue_second_sale_agency_fixed = query_offer.filter(order_sale__performer=user,order_sale__agency_commission=True,order_sale__agency_commission_type=True).exclude(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().aggregate(Sum('order_sale__agency_commission_price'))['order_sale__agency_commission_price__sum']
+                    # фиксированная выручка другим агенствам по вторичке (спрос)
+                    revenue_second_buy_agency_fixed = query_offer.filter(order_buy__performer=user,order_buy__agency_commission=True,order_buy__agency_commission_type=True).exclude(order_sale__object_type__in=objects_new).filter(hystoryservice__date__range=(date_start,date_stop),hystoryservice__operation=operation_registr,hystoryservice__result_operation=operation_complet).distinct().aggregate(Sum('order_buy__agency_commission_price'))['order_buy__agency_commission_price__sum']
+                    if revenue_second_sale_fixed :
+                        content_item["revenue_second"] += round(revenue_second_sale_fixed)
+                    if revenue_second_buy_fixed :
+                        content_item["revenue_second"] += round(revenue_second_buy_fixed)
+                    if revenue_second_sale_agency_fixed :
+                        content_item["revenue_second"] -= round(revenue_second_sale_agency_fixed)
+                    if revenue_second_buy_agency_fixed :
+                        content_item["revenue_second"] -= round(revenue_second_buy_agency_fixed)
 
-                content_item["salary_new"] = 0
-                content_item["salary_second"] = 0
+                    content_item["salary_new"] = 0
+                    content_item["salary_second"] = 0
 
-                if category.name in (u"Жилая недвижимость",u"Загородная недвижимость"):
-                    if content_item["revenue_second"]<40000:
-                        if content_item["revenue_new"] <= 100000:
-                            content_item["salary_new"] = round(content_item["revenue_new"] * 0.3)
+                    if category.name in (u"Жилая недвижимость",u"Загородная недвижимость"):
+                        if content_item["revenue_second"]<40000:
+                            if content_item["revenue_new"] <= 100000:
+                                content_item["salary_new"] = round(content_item["revenue_new"] * 0.3)
+                            else:
+                                content_item["salary_new"] = round(content_item["revenue_new"] * 0.35)
                         else:
-                            content_item["salary_new"] = round(content_item["revenue_new"] * 0.35)
-                    else:
-                        if content_item["revenue_new"] <= 60000:
-                            content_item["salary_new"] = round(content_item["revenue_new"] * 0.3)
-                        else:
-                            content_item["salary_new"] = round(content_item["revenue_new"] * 0.35)
+                            if content_item["revenue_new"] <= 60000:
+                                content_item["salary_new"] = round(content_item["revenue_new"] * 0.3)
+                            else:
+                                content_item["salary_new"] = round(content_item["revenue_new"] * 0.35)
 
-                    if content_item["revenue_second"] <= 85000:
+                        if content_item["revenue_second"] <= 85000:
+                            content_item["salary_second"] = round(content_item["revenue_second"] * 0.4)
+                        else:
+                            content_item["salary_second"] = round(content_item["revenue_second"] * 0.5)
+                    if category.name in (u"Коммерческая недвижимость",u"Земля"):
+                        content_item["salary_new"] = round(content_item["revenue_new"] * 0.4)
                         content_item["salary_second"] = round(content_item["revenue_second"] * 0.4)
-                    else:
-                        content_item["salary_second"] = round(content_item["revenue_second"] * 0.5)
-                if category.name in (u"Коммерческая недвижимость",u"Земля"):
-                    content_item["salary_new"] = round(content_item["revenue_new"] * 0.4)
-                    content_item["salary_second"] = round(content_item["revenue_second"] * 0.4)
 
-                content_item["salary_all"] = round((content_item["salary_new"] + content_item["salary_second"]))
+                    content_item["salary_all"] = round((content_item["salary_new"] + content_item["salary_second"]))
 
-                revenue_new_full += content_item["revenue_new"]
-                revenue_second_full += content_item["revenue_second"]
-                salary_new_full += content_item["salary_new"]
-                salary_second_full += content_item["salary_second"]
-                salary_all_full += content_item["salary_all"]
-                if content_item["salary_all"]:
-                    data["messages"]["content"].append(content_item.copy())
+                    revenue_new_full += content_item["revenue_new"]
+                    revenue_second_full += content_item["revenue_second"]
+                    salary_new_full += content_item["salary_new"]
+                    salary_second_full += content_item["salary_second"]
+                    salary_all_full += content_item["salary_all"]
+                    if content_item["salary_all"]:
+                        data["messages"]["content"].append(content_item.copy())
 
-            content_item["agent"] = u"Итого"
-            content_item["revenue_new"] = revenue_new_full
-            content_item["revenue_second"] = revenue_second_full
-            content_item["salary_new"] = salary_new_full
-            content_item["salary_second"] = salary_second_full
-            content_item["salary_all"] = salary_all_full
+                content_item["agent"] = u"Итого"
+                content_item["revenue_new"] = revenue_new_full
+                content_item["revenue_second"] = revenue_second_full
+                content_item["salary_new"] = salary_new_full
+                content_item["salary_second"] = salary_second_full
+                content_item["salary_all"] = salary_all_full
 
-            data["messages"]["content"].append(content_item.copy())
+                data["messages"]["content"].append(content_item.copy())
 
             response = JSONResponse(data)
 
