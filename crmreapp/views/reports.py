@@ -243,6 +243,8 @@ def reports(request):
                 content_item["category_name"] = u"Среднее на 1 агента"
                 content_item["category_type"] = 3
                 # заявки: предложение/спрос
+                if not agent_count:
+                    continue
                 agent_count = float(agent_count)
                 content_item["orders_all"] = "/".join((str(round(model_order_sale.filter(filter_brigade).filter(filter_group).filter(create_date__lte=date_stop).filter(hystoryordersalestatus__status__in=status_works).exclude(hystoryordersalestatus__status__in=status_noworks).distinct().count()/agent_count,1)),str(round(model_order_buy.filter(filter_brigade).filter(filter_group).filter(create_date__lte=date_stop).filter(hystoryorderbuystatus__status__in=status_works).exclude(hystoryorderbuystatus__status__in=status_noworks).distinct().count()/agent_count,1))))
                 content_item["orders_growth"] = "/".join((str(round(model_order_sale.filter(filter_brigade).filter(filter_group).filter(create_date__range=(date_start,date_stop)).filter(hystoryordersalestatus__status__in=status_works_all).exclude(hystoryordersalestatus__status__in=status_noworks_all).distinct().count()/agent_count,1)),str(round(model_order_buy.filter(filter_brigade).filter(filter_group).filter(create_date__range=(date_start,date_stop)).filter(hystoryorderbuystatus__status__in=status_works_all).exclude(hystoryorderbuystatus__status__in=status_noworks_all).distinct().count()/agent_count,1))))
