@@ -7,7 +7,7 @@ Ext.define('CRMRE.view.reports.KPI', {
         viewready: {
             fn: function(){ 
                 my = this;
-                this.updateReport();
+                //this.updateReport();
             }
         }
     },
@@ -19,7 +19,7 @@ Ext.define('CRMRE.view.reports.KPI', {
             '<table border="1" cellpadding="5" style="font-size:10pt;text-align:center;vertical-align:middle" text-align="center">',
                 '<tr>',
                     '<td rowspan="2"><b></b></td>',
-                    '<td colspan="5"><b>Заявки: предложение/спрос</b></td>',
+                    '<td colspan="6"><b>Заявки: предложение/спрос</b></td>',
                     '<td colspan="3"><b>Договоры: предложение/спрос</b></td>',
                     '<td colspan="2"><b>Показы</b></td>',
                     '<td colspan="2"><b>Сделки</b></td>',
@@ -27,6 +27,7 @@ Ext.define('CRMRE.view.reports.KPI', {
                 '<tr>',
                     '<td><b>Всего<br>на конец<br>периода<br>в работе</b></td>',
                     '<td><b>Прирост<br>за<br>период<br>всего</b></td>',
+                    '<td><b>Прирост<br>за<br>период<br>от РН</b></td>',
                     '<td><b>Прирост<br>за<br>период<br>от агента</b></td>',
                     '<td><b>Норма<br>прироста</b></td>',
                     '<td><b>Выбыло<br>за<br>период</b></td>',
@@ -35,7 +36,7 @@ Ext.define('CRMRE.view.reports.KPI', {
                     '<td><b>Норма<br>прироста</b></td>',
                     '<td><b>Актов<br>за<br>период</b></td>',
                     '<td><b>Норма</b></td>',
-                    '<td><b>Сделок за<br>период</b></td>',
+                    '<td><b>Закрыто клиентов<br>за период</b></td>',
                     '<td><b>Норма</b></td>',
                 '</tr>',
                 '<tpl for="content">',
@@ -44,7 +45,8 @@ Ext.define('CRMRE.view.reports.KPI', {
                             '<td><b>{category_name}</b></td>',
                             '<td><b>{orders_all}</b></td>',
 	                        '<td><b>{orders_growth}</b></td>',
-	                        '<td><b>{orders_growth_agent}</b></td>',
+	                        '<td><b>{orders_growth_rn}</b></td>',
+                            '<td><b>{orders_growth_agent}</b></td>',
 	                        '<td><font color="gray">{rate_growth_orders}</font></td>',
 	                        '<td><b>{orders_retired}</b></td>',
 	                        '<td><b>{orders_contract_all}</b></td>',
@@ -59,7 +61,8 @@ Ext.define('CRMRE.view.reports.KPI', {
                             '<td>{category_name}</td>',
                             '<td>{orders_all}</td>',
 	                        '<td>{orders_growth}</td>',
-	                        '<td>{orders_growth_agent}</td>',
+	                        '<td>{orders_growth_rn}</td>',
+                            '<td>{orders_growth_agent}</td>',
 	                        '<td><font color="gray">{rate_growth_orders}</font></td>',
 	                        '<td>{orders_retired}</td>',
 	                        '<td>{orders_contract_all}</td>',
@@ -74,6 +77,7 @@ Ext.define('CRMRE.view.reports.KPI', {
                             '<td><font size="1">{category_name}</font></td>',
                             '<td><font size="1">{orders_all}</font></td>',
                             '<td><font size="1">{orders_growth}</font></td>',
+                            '<td><font size="1">{orders_growth_rn}</font></td>',
                             '<td><font size="1">{orders_growth_agent}</font></td>',
                             '<td><font size="1" color="gray">{rate_growth_orders}</font></td>',
                             '<td><font size="1">{orders_retired}</font></td>',
@@ -89,6 +93,7 @@ Ext.define('CRMRE.view.reports.KPI', {
                             '<td><font size="3">{category_name}</font></td>',
                             '<td><font size="3">{orders_all}</font></td>',
                             '<td><font size="3">{orders_growth}</font></td>',
+                            '<td><font size="3">{orders_growth_rn}</font></td>',
                             '<td><font size="3">{orders_growth_agent}</font></td>',
                             '<td><font size="3" color="gray">{rate_growth_orders}</font></td>',
                             '<td><font size="3">{orders_retired}</font></td>',
@@ -110,6 +115,7 @@ Ext.define('CRMRE.view.reports.KPI', {
     updateReport: function() {
         date_start = Ext.getCmp('tabpanel').getActiveTab().down("form").getValues().date_start;
         date_stop = Ext.getCmp('tabpanel').getActiveTab().down("form").getValues().date_stop;
+        group_type = Ext.getCmp('tabpanel').getActiveTab().down("form").getValues().group_type;
         if (Ext.Date.parse(date_start, "Y-m-d")>=Ext.Date.parse(date_stop, "Y-m-d")) {
             Ext.Msg.alert('Предупреждение', 'Не верно указан диапазон дат!'); 
             return;
@@ -121,6 +127,7 @@ Ext.define('CRMRE.view.reports.KPI', {
             params: {
                 date_start: date_start,
                 date_stop: date_stop,
+                group_type: group_type,
                 report_type: "kpi"
             },
             success: function(response, opts) {

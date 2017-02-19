@@ -37,6 +37,21 @@ Ext.define('CRMRE.view.reports.ReportKPI', {
                         value: new Date(),
                         format: 'Y-m-d'
                     },{
+                        xtype: 'radiogroup',
+                        width: 210,
+                        defaults: {anchor: '100%',labelWidth: 80},
+                        items: [
+                        {
+                            boxLabel: 'по типу',
+                            name: 'group_type',
+                            checked:'true',
+                            inputValue: 1
+                        },{
+                            boxLabel: 'по группам',
+                            name: 'group_type',
+                            inputValue: 2
+                        }]
+                    },{
                         xtype: 'button',
                         text: 'Обновить',
                         itemId: 'update',
