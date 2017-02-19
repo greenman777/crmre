@@ -218,7 +218,7 @@ Ext.define('CRMRE.view.offer_sale.List' ,{
             {
                 iconCls: 'icon-documents',
                 itemId: 'documents',
-                text: 'Документы',
+                text: 'Док-ты к сделке',
                 action: 'documents'
             },{
                 iconCls: 'icon-open_report',

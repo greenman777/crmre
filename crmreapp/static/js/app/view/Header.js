@@ -107,7 +107,7 @@ Ext.define('CRMRE.view.Header', {//заголовок и глобальноем�
                         action: 'uploading_orders_view'
                     }]
                 },{
-                    text: 'Документы', 
+                    text: 'Книга',
                     iconCls: 'icon-regulations', 
                     itemId: 'regulations',
                     height: 60, 
