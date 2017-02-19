@@ -40,7 +40,7 @@ Ext.define('CRMRE.view.reports.ReportPayroll', {
                         xtype: 'comboboxselect',
                         "multiSelect": false,
                         flex: 1.6,
-                        allowBlank:false,
+                        //allowBlank:false,
                         fieldLabel: 'Тип',
                         labelWidth: 50,
                         name: 'object_category',
