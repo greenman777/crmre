@@ -117,7 +117,7 @@ Ext.define('CRMRE.view.orders_buy.Edit', {
 	                        name: 'price_from',
 	                        inputWidth: 80,
 	                        minValue: 0,
-	                        maxValue: 99999999,
+	                        maxValue: 999999999,
 	                        decimalPrecision : 2
                         },{   
 	                        xtype: 'numberfield',
@@ -145,7 +145,7 @@ Ext.define('CRMRE.view.orders_buy.Edit', {
 	                        xtype: 'numberfield',
 	                        name: 'price_to',
 	                        minValue: 0,
-	                        maxValue: 99999999,
+	                        maxValue: 999999999,
 	                        inputWidth: 75,
 	                        decimalPrecision : 2
                         },{

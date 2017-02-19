@@ -222,7 +222,7 @@ Ext.define('CRMRE.view.orders_sale.Edit', {
                             fieldLabel: 'Цена (руб)',
                             name: 'price',
                             minValue: 0,
-                            maxValue: 99999999,
+                            maxValue: 999999999,
                             decimalPrecision : 2
                         },{
                             fieldLabel: 'Способ оплаты',
