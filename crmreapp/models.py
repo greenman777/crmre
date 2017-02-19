@@ -738,7 +738,7 @@ class OrdersSale(models.Model):
     object_type = models.ForeignKey(ObjectType,verbose_name=u'Тип объекта')
     object_accessory = models.ForeignKey(ObjectAccessory,verbose_name=u'Принадлежность объекта',blank=True,null=True)
     total_space = models.DecimalField(verbose_name=u'Общая площадь',max_digits=8, decimal_places=2,blank=True,null=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2,verbose_name=u'Цена',blank=True,null=True)
+    price = models.DecimalField(max_digits=11, decimal_places=2,verbose_name=u'Цена',blank=True,null=True)
     client = models.ForeignKey(Clients,verbose_name=u'Собственник')
     only_support = models.BooleanField(default=False,verbose_name=u'Только сопровождение')
     show_support = models.BooleanField(default=False,verbose_name=u'Показать юристу')
@@ -974,8 +974,8 @@ class OrdersBuy(models.Model):
     agency_commission_type = models.BooleanField(default=None,choices=COMMISSION_TYPE,verbose_name=u'Тип комиссионных',blank=True)#процент/фиксированная величина
     agency_commission_price = models.DecimalField(max_digits=8, decimal_places=2,verbose_name=u'Значение коммисионных',blank=True,null=True)
     
-    price_from = models.DecimalField(max_digits=10, decimal_places=2,verbose_name=u'Цена, от',blank=True,null=True)
-    price_to = models.DecimalField(max_digits=10, decimal_places=2,verbose_name=u'Цена, до',blank=True,null=True)
+    price_from = models.DecimalField(max_digits=11, decimal_places=2,verbose_name=u'Цена, от',blank=True,null=True)
+    price_to = models.DecimalField(max_digits=11, decimal_places=2,verbose_name=u'Цена, до',blank=True,null=True)
     space_from = models.DecimalField(verbose_name=u'Общая площадь, от',max_digits=8, decimal_places=2,blank=True,null=True)
     space_to = models.DecimalField(verbose_name=u'Общая площадь, до',max_digits=8, decimal_places=2,blank=True,null=True)
     remoteness_from = models.IntegerField(verbose_name=u'Удаленность от центра, от',blank=True,null=True)
