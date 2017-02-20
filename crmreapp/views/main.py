@@ -25,7 +25,7 @@ from decimal import Decimal
 
 from django.core.mail import EmailMessage
 
-#import cairosvg
+import cairosvg
 from docx import Document
 from docx.shared import Inches
 from cStringIO import StringIO
@@ -817,12 +817,15 @@ def manager(request):
     response = JSONResponse({'success':True,'messages':{'managers':0}})
     return response
 
-# @csrf_exempt
-# def svg_to_png(request):
-#     if request.method == 'POST':
-#         svg_code = request.POST['svg']
-#         result = StringIO()
-#         cairosvg.svg2png(bytestring=svg_code.encode('utf-8', 'ignore'),write_to=result)
-#         response = HttpResponse(result.getvalue(),content_type='image/png')
-#         response['Content-Disposition']='attachment; filename="chart.png"'
-#         return response
+@csrf_exempt
+def svg_to_png(request):
+    if request.method == 'POST':
+        svg_code = request.POST['svg']
+        result = StringIO()
+        cairosvg.svg2png(bytestring=svg_code.encode('utf-8', 'ignore'),write_to=result)
+        response = HttpResponse(result.getvalue(),content_type='image/png')
+        response['Content-Disposition']='attachment; filename="chart.png"'
+        return response
+    else:
+        response = JSONResponse({'success': False, 'messages': {'Error'}})
+        return response
