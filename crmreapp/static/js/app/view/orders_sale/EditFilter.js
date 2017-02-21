@@ -424,11 +424,10 @@ Ext.define('CRMRE.view.orders_sale.EditFilter', {
                         maxLength: 11
                     }]
 		        },{
-                    xtype: 'combobox',
+                    xtype: 'comboboxselect',
+                    "multiSelect": true,
                     name : 'info_source',
                     autoSelect: true,
-                    editable: false,
-                    forceSelection:true,
                     queryMode: 'local',
                     displayField: 'name',
                     valueField: 'id',
@@ -477,7 +476,7 @@ Ext.define('CRMRE.view.orders_sale.EditFilter', {
                     store: 'Users'
                 },{
                     xtype: 'comboboxselect',
-                    "multiSelect": false,
+                    "multiSelect": true,
                     fieldLabel: 'Заявка от',
                     name: 'author',
                     autoSelect: true,

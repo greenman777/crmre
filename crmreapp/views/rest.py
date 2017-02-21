@@ -549,7 +549,7 @@ class OrdersSaleViewSet(viewsets.ModelViewSet):
                 if filter['property'] == 'performer':
                     order_sale_filter = order_sale_filter & Q(performer=filter['value'])
                 if filter['property'] == 'author':
-                    order_sale_filter = order_sale_filter & Q(author=filter['value'])
+                    order_sale_filter = order_sale_filter & Q(author__in=filter['value'])
                 if filter['property'] == 'contract_old':
                     if filter['value']:
                         delta = timedelta(days=90)
@@ -576,7 +576,7 @@ class OrdersSaleViewSet(viewsets.ModelViewSet):
                 if filter['property'] == 'phone_represent':
                     order_sale_filter = order_sale_filter & Q(client__phone_represent__contains=filter['value'])
                 if filter['property'] == 'info_source':
-                    order_sale_filter = order_sale_filter & Q(client__info_source=filter['value'])
+                    order_sale_filter = order_sale_filter & Q(client__info_source__in=filter['value'])
                 if filter['property'] == 'vip':
                     if filter['value']:
                         order_sale_filter = order_sale_filter & Q(client__vip=True)
@@ -712,7 +712,7 @@ class OrdersBuyViewSet(viewsets.ModelViewSet):
                 if filter['property'] == 'performer':
                     order_buy_filter = order_buy_filter & Q(performer=filter['value'])
                 if filter['property'] == 'author':
-                    order_buy_filter = order_buy_filter & Q(author=filter['value'])
+                    order_buy_filter = order_buy_filter & Q(author__in=filter['value'])
                 if filter['property'] == 'client_index':
                     order_buy_filter = order_buy_filter & Q(client__index__contains=filter['value'])
                 if filter['property'] == 'client_name':
@@ -724,7 +724,7 @@ class OrdersBuyViewSet(viewsets.ModelViewSet):
                 if filter['property'] == 'phone_represent':
                     order_buy_filter = order_buy_filter & Q(client__phone_represent__contains=filter['value'])
                 if filter['property'] == 'info_source':
-                    order_buy_filter = order_buy_filter & Q(client__info_source=filter['value'])
+                    order_buy_filter = order_buy_filter & Q(client__info_source__in=filter['value'])
                 if filter['property'] == 'vip':
                     if filter['value']:
                         order_buy_filter = order_buy_filter & Q(client__vip=True)
