@@ -871,11 +871,7 @@ Ext.define('CRMRE.controller.OrdersBuy', {
 	                    store.sync({
 	                        success : function(data_batch,controller) {
 	                            if (Ext.getCmp('tabpanel').getActiveTab().title=='Завершенные заявки на покупку') {
-		                            store.clearFilter(true);
-		                            var filters = [];
-                                    filters.push({ property: 'status', value: store_status.findRecord('name','сделка завершена').getId(), exactMatch: true});
-                                    filters.push({ property: 'status', value: store_status.findRecord('name','отказная').getId(), exactMatch: true});
-                                    store.filter(filters);
+		                            store.reload();
 		                            record_first = store.first();
 		                            if (record_first != undefined) {
 		                                grid.getSelectionModel().select(record_first);
