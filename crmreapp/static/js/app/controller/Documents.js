@@ -17,7 +17,7 @@ Ext.define('CRMRE.controller.Documents', {
     deleteRecord: function(gridview, el, rowIndex, colIndex, e, rec, rowEl) {
     	store = gridview.getStore();
     	record = store.getAt(rowIndex); 
-    	Ext.MessageBox.confirm('Подтвердите действие!', 'Вы действительно хотите удалить запись?', function(btn){
+    	Ext.MessageBox.confirm('Подтвердите действие!', 'Вы действительно хотите удалить документ?', function(btn){
 			if (btn == 'yes') {
 	    		store.remove(record);
 	    		store.sync();
