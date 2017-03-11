@@ -1,3 +1,8 @@
 Ext.define('CRMRE.model.directory.OperationType', {
-    extend: 'CRMRE.model.directory.Common'
+    extend: 'Ext.data.Model',
+    fields: [
+    	{name: 'id', type:'auto'},
+    	{name: 'name', type:'string'},
+    	{name: 'heading', type:'string'}
+    ]
 });

@@ -26,14 +26,14 @@ Ext.define('CRMRE.view.hystory_service.Edit', {
                 queryMode: 'local',
                 editable: false,
                 forceSelection:true,
-                displayField: 'name',
+                displayField: 'heading',
                 valueField: 'id',
                 allowBlank:false,
                 store: 'directory.OperationType'
             },{
                 xtype: 'combobox',
                 name : 'result_operation',
-                displayField: 'name',
+                displayField: 'heading',
                 valueField: 'id',
                 fieldLabel: 'Результат операции',
                 autoSelect: true,
