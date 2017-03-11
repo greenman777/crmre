@@ -19,7 +19,7 @@ Ext.define('CRMRE.view.hystory_service.List' ,{
 						store = Ext.data.StoreManager.lookup('directory.OperationType');
 	                    operation_rec = store.getById(record.get('operation'));
 	                    if (operation_rec != null){
-	                        operation_name = operation_rec.get('name');
+	                        operation_name = operation_rec.get('heading');
 	                        record.data.operation_name = operation_name;
 	                        return operation_name; 
 	                    }
@@ -40,7 +40,7 @@ Ext.define('CRMRE.view.hystory_service.List' ,{
                         store = Ext.data.StoreManager.lookup('directory.ResultOperation');
                         result_operation_rec = store.getById(record.get('result_operation'));
                         if (result_operation_rec != null){
-                            result_operation_name = result_operation_rec.get('name');
+                            result_operation_name = result_operation_rec.get('heading');
                             record.data.result_operation_name = result_operation_name;
                             meta.tdAttr = "data-qtip='" + result_operation_name + "'";
                             return result_operation_name; 
