@@ -43,6 +43,12 @@ Ext.define('CRMRE.controller.Interface', {
             'appHeader menuitem[action=orders_sale_complet_view]': {
                 click: this.viewOrdersSaleComplet
             },
+            'appHeader menuitem[action=orders_buy_archive_view]': {
+                click: this.viewOrdersBuyArchive
+            },
+            'appHeader menuitem[action=orders_sale_archive_view]': {
+                click: this.viewOrdersSaleArchive
+            },
             'appHeader menuitem[action=orders_buy_activ]': {
                 click: this.viewOrdersBuyActiv
             },
@@ -451,7 +457,97 @@ Ext.define('CRMRE.controller.Interface', {
             }
         });
     },
-    
+
+    viewOrdersBuyArchive: function(button) {
+        var tabpanel = this.getAppTabPanel();
+        var title = "Архивные заявки на покупку";
+        var app = "appOrdersBuy";
+        var id = app+'orders_buy_archive';
+        var typeapp = 'orders_buy_archive';
+        var store_status = Ext.data.StoreManager.lookup('directory.OrderStatus');
+        var status_archive_id = store_status.findRecord('name','архив').getId();
+        var filterapp = {status: [status_archive_id]};
+        var itemId = id;
+        var tab = tabpanel.getComponent(itemId); // поиск закладки с itemId = data.id
+        //снимаем выделение с элемента дерева
+        if (tab) {
+             tab.show();
+             tab.focus();
+             return;
+         } // если закладка  существует, она открывается
+
+         tabpanel.add({ // добавляем закладку
+            xtype: app,
+            id:id,
+            itemId:itemId,
+            title:title,
+            typeapp:typeapp,
+            iconCls: 'tabs',
+            closable: true
+         }).show();
+         tabpanel.setActiveTab(itemId);
+         var grid = tabpanel.getActiveTab().down('grid');
+         var store = grid.getStore();
+         store.getProxy().extraParams = filterapp;
+         store.load({
+            scope: this,
+            callback: function(records, operation, success) {
+                if (success) {
+                    new Ext.util.DelayedTask(function(){
+						grid.getSelectionModel().select(0);
+						grid.getView().focusRow(0);
+					}).delay(1000);
+
+                }
+            }
+        });
+    },
+
+    viewOrdersSaleArchive: function(button) {
+        var tabpanel = this.getAppTabPanel();
+        var title = "Архивные заявки на продажу";
+        var app = "appOrdersSale";
+        var id = app+'orders_sale_archive';
+        var typeapp = 'orders_sale_archive';
+        var store_status = Ext.data.StoreManager.lookup('directory.OrderStatus');
+        var status_archive_id = store_status.findRecord('name','архив').getId();
+        var filterapp = {status: [status_archive_id]};
+        var itemId = id;
+        var tab = tabpanel.getComponent(itemId); // поиск закладки с itemId = data.id
+        //снимаем выделение с элемента дерева
+        if (tab) {
+             tab.show();
+             tab.focus();
+             return;
+         } // если закладка  существует, она открывается
+
+         tabpanel.add({ // добавляем закладку
+            xtype: app,
+            id:id,
+            itemId:itemId,
+            title:title,
+            typeapp:typeapp,
+            iconCls: 'tabs',
+            closable: true
+         }).show();
+         tabpanel.setActiveTab(itemId);
+         var grid = tabpanel.getActiveTab().down('grid');
+         var store = grid.getStore();
+         store.getProxy().extraParams = filterapp;
+         store.load({
+            scope: this,
+            callback: function(records, operation, success) {
+                if (success) {
+                    new Ext.util.DelayedTask(function(){
+						grid.getSelectionModel().select(0);
+						grid.getView().focusRow(0);
+					}).delay(1000);
+
+                }
+            }
+        });
+    },
+
     viewOrdersSaleActiv: function(button) {
         var tabpanel = this.getAppTabPanel();
         var title = "Все активные заявки на продажу";
