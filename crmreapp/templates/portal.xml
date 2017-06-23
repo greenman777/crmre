@@ -98,8 +98,7 @@
     {% if building.floors %}<Floors>{{building.floors}}</Floors>{% endif%}
     {% if building.construction_organization %}<ConstructionOrganization>{{building.construction_organization}}</ConstructionOrganization>{% endif%}
     {% if building.construction_stage %}<ConstructionStage>{{building.construction_stage}}</ConstructionStage>{% endif%}
-    {% if building.quarter %}<quarter>{{building.quarter}}</quarter>{% endif%}
-    {% if building.year %}<year>{{building.year}}</year>{% endif%}
+    {% if building.delivery_period %}<DeliveryPeriod>{{building.delivery_period}}</DeliveryPeriod>{% endif%}
     {% if building.number_entrances %}<NumberEntrances>{{building.number_entrances}}</NumberEntrances>{% endif%}
     {% if building.material_walls %}<MaterialWalls>{{building.material_walls}}</MaterialWalls>{% endif%}
     {% if building.purpose %}<Purpose>{{building.purpose}}</Purpose>{% endif%}
