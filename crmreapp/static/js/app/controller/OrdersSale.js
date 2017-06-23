@@ -542,6 +542,7 @@ Ext.define('CRMRE.controller.OrdersSale', {
             else if (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'rating_agent')!=-1) {
                 var view = Ext.widget('appChangeOrdersSaleRating');
                 var form = view.down('form');
+                form.getForm().reset();
                 var store_user = Ext.data.StoreManager.lookup('Users');
                 var agent_id = selection[0].get('performer');
                 var record_agent = store_user.getById(agent_id);
@@ -657,7 +658,31 @@ Ext.define('CRMRE.controller.OrdersSale', {
                                         }
                                     }
                                });
-                            }
+                            };
+
+                            //После выставления оценки перемещаем заявку в архив
+                            var store_status = Ext.data.StoreManager.lookup('directory.OrderStatus');
+                            store_status.reload();
+                            var my = this;
+                            selection_orders_sale[0].set('status',store_status.findRecord('name','архив').getId());
+                            store_orders_sale.sync({
+                            success : function(data_batch,controller) {
+                                if (Ext.getCmp('tabpanel').getActiveTab().title=='Завершенные заявки на продажу') {
+                                        store_orders_sale.reload();
+                                        record_first = store_orders_sale.first();
+                                        if (record_first != undefined) {
+                                            grid_orders_sale.getSelectionModel().select(record_first);
+                                            grid_orders_sale.getView().focusRow(record_first);
+                                        }
+                                    }
+                            },
+                            failure: function (proxy, operations) {
+                                    // resume records
+                                    store_orders_sale.rejectChanges();
+                                },
+                            scope: this
+                            });
+
                         },
                         failure: function (proxy, operations) {
                             // resume records

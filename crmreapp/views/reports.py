@@ -460,7 +460,6 @@ def reports(request):
             except:
                 content_item["orders_gain"] += 0
             # выручка другим агенствам
-            content_item["orders_gain"] = 0
             try:
                 content_item["orders_gain"] -= int(round(model_order_sale.filter(agency_commission=True,agency_commission_type=False).filter(offer__hystoryservice__date__range=(date_start,date_stop),offer__hystoryservice__operation=operation_registr,offer__hystoryservice__result_operation=operation_complet).distinct().extra(select={'gain':'SUM(price*agency_commission_price/100)'}).values('gain').order_by('gain')[0]['gain']))
             except:

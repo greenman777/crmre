@@ -359,7 +359,8 @@ class ResultShow(models.Model):
         verbose_name_plural = u"Результат показа"
 
 class OperationType(models.Model):
-    name = models.CharField(max_length=30,verbose_name=u'Тип операции')
+    name = models.CharField(max_length=40,verbose_name=u'Название операции')
+    heading = models.CharField(max_length=40, verbose_name=u'Краткое описание')
     def __unicode__(self):
         return self.name
     class Meta:
@@ -407,7 +408,8 @@ class Lease(models.Model):
         verbose_name_plural = u"Срок аренды"
 
 class ResultOperation(models.Model):
-    name = models.CharField(max_length=20,verbose_name=u'Результат операции')
+    name = models.CharField(max_length=40,verbose_name=u'Результат операции')
+    heading = models.CharField(max_length=40, verbose_name=u'Краткое описание')
     def __unicode__(self):
         return self.name
     class Meta:

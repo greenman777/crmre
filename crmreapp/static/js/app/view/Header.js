@@ -65,6 +65,10 @@ Ext.define('CRMRE.view.Header', {//заголовок и глобальноем�
                     },{ 
                         text: 'Все активные',
                         action: 'orders_buy_activ'
+                    },{
+                        text: 'Архивные',
+                        itemId: 'orders_buy_archive',
+                        action: 'orders_buy_archive_view'
                     }]
                 },{
                     xtype:'splitbutton',
@@ -85,6 +89,10 @@ Ext.define('CRMRE.view.Header', {//заголовок и глобальноем�
                     },{ 
                         text: 'Все активные',
                         action: 'orders_sale_activ'
+                    },{
+                        text: 'Архивные',
+                        itemId: 'orders_sale_archive',
+                        action: 'orders_sale_archive_view'
                     }]
                 },{
                     xtype:'splitbutton',
