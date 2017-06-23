@@ -127,11 +127,6 @@ Ext.define('CRMRE.view.buildings.BuildingsList' ,{
 	                    }
 	                }
 	            },{
-	                header: 'Срок сдачи',
-	                width: 70,
-	                stateId: 'column_buildings_delivery_period',
-	                dataIndex: 'delivery_period',
-	            },{
                     header: 'Приоритет',
 				    width: 70,
                     dataIndex: 'priority'
