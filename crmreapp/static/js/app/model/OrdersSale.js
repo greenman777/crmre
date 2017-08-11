@@ -59,8 +59,8 @@ Ext.define('CRMRE.model.OrdersSale', {
         {name: 'construction_stage', type:'boolean'},//стадия строительства
         //{name: 'delivery_period', type:'string'},//Срок сдачи
 
-        {name: 'quarter', type:'integer'}, //квартал сдачи
-		{name: 'year', type:'integer'}, //год сдачи
+        {name: 'quarter', type:'integer', useNull: true, defaultValue: null}, //квартал сдачи
+		{name: 'year', type:'integer', useNull: true, defaultValue: null}, //год сдачи
 
         {name: 'number_rooms', type:'integer'},//количество комнат
         {name: 'floors', type:'integer'},//всего этажей
