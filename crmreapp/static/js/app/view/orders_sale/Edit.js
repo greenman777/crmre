@@ -1085,10 +1085,30 @@ Ext.define('CRMRE.view.orders_sale.Edit', {
                             valueField: 'id',
                             store: 'directory.ConstructionOrganization'
                         },{
-                            fieldLabel: 'Срок сдачи или год постройки',
-                            name: 'delivery_period',
-                            labelWidth: 180,
-                            maxLength: 30
+                            xtype: 'fieldcontainer',
+                            layout: 'hbox',
+                            defaultType: 'textfield',
+                            defaults: {flex: 1},
+                            items:[
+                            {
+                                fieldLabel: 'Год постройки объекта',
+                                xtype: 'numberfield',
+                                name: 'year',
+                                itemId: 'year',
+                                labelWidth: 180,
+                                minValue: 2000,
+                                maxValue: 2099,
+                                margin: '0 10 0 0'
+                            },{
+                                fieldLabel: 'Квартал сдачи',
+                                xtype: 'numberfield',
+                                name: 'quarter',
+                                itemId: 'quarter',
+                                labelWidth: 140,
+                                minValue: 1,
+                                maxValue: 4,
+                                margin: '0 10 0 0'
+                            }]
                         },{
 							fieldLabel: 'Код новостройки Авито',
 							labelWidth: 180,

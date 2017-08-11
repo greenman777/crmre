@@ -48,7 +48,8 @@
     {% if offer.property %}<Property>{{offer.property}}</Property>{% endif%}
     {% if offer.environment %}<Environment>{{offer.environment}}</Environment>{% endif%}
     <ConstructionStage>{% if offer.construction_stage %}готовый{% else %}строящийся{% endif %}</ConstructionStage>
-    {% if offer.delivery_period %}<DeliveryPeriod>{{offer.delivery_period}}</DeliveryPeriod>{% endif%}
+    {% if offer.quarter %}<quarter>{{offer.quarter}}</quarter>{% endif%}
+    {% if offer.year %}<year>{{offer.year}}</year>{% endif%}
     {% if offer.category_earth %}<CategoryEarth>{{offer.category_earth}}</CategoryEarth>{% endif%}
     {% if offer.road %}<Road>{{offer.road}}</Road>{% endif%}
     {% if offer.green_plantings %}<GreenPlantings>{{offer.green_plantings}}</GreenPlantings>{% endif%}

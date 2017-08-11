@@ -57,7 +57,11 @@ Ext.define('CRMRE.model.OrdersSale', {
         {name: 'method_payment', type:'auto'},//метод оплаты
         {name: 'comment', type:'string'},//дополнительная информация
         {name: 'construction_stage', type:'boolean'},//стадия строительства
-        {name: 'delivery_period', type:'string'},//Срок сдачи
+        //{name: 'delivery_period', type:'string'},//Срок сдачи
+
+        {name: 'quarter', type:'integer'}, //квартал сдачи
+		{name: 'year', type:'integer'}, //год сдачи
+
         {name: 'number_rooms', type:'integer'},//количество комнат
         {name: 'floors', type:'integer'},//всего этажей
         {name: 'floor', type:'integer'},//этаж
