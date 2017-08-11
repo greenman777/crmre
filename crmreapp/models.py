@@ -786,7 +786,11 @@ class OrdersSale(models.Model):
     street = models.ForeignKey(Street,verbose_name=u'Город',blank=True,null=True)
     remoteness_center = models.IntegerField(verbose_name=u'Удаленность от центра',blank=True,null=True)
     construction_stage = models.BooleanField(default=True,verbose_name=u'Стадия строительства')
-    delivery_period = models.CharField(max_length=30, verbose_name=u'Срок сдачи',blank=True)
+    #delivery_period = models.CharField(max_length=30, verbose_name=u'Срок сдачи',blank=True)
+
+    quarter = models.IntegerField(verbose_name=u'Квартал сдачи дома', blank=True, null=True)
+    year = models.IntegerField(verbose_name=u'Год сдачи дома', blank=True, null=True)
+
     number_rooms = models.IntegerField(verbose_name=u'Количество комнат',blank=True,null=True)
     floors = models.IntegerField(verbose_name=u'Этажей',blank=True,null=True)
     floor = models.IntegerField(verbose_name=u'Этаж',blank=True,null=True)
