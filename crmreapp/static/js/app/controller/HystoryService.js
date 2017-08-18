@@ -44,38 +44,38 @@ Ext.define('CRMRE.controller.HystoryService', {
         //запоминаем последнию запись
         var record_last = store.last();
         var record_hyst_show_last = store_hyst_show.last();
-        if (record_hyst_show_last != undefined) {
-            var store_show_result = Ext.data.StoreManager.lookup('directory.ResultShow');
-            store_show_result.clearFilter(true);
-            result_show_last = store_show_result.getById(record_hyst_show_last.get('result')).get('name');
-		    if (result_show_last == 'клиент одобрил'){
-                //запрещаем добавление новой записи для разных условий
-		        if (record_last != undefined) {
-		            var store_result = Ext.data.StoreManager.lookup('directory.OperationType');
-		            store_result.clearFilter(true);
-		            result_last = store_result.getById(record_last.get('operation')).get('name');
-		            //сделка завершена, больше не редактируем
-		            if (result_last == 'сделка завершена'){
-		                Ext.Msg.alert('Предупреждение', 'Сделка завершена, больше не редактируем!');
-		                return;
-		            };
-		        };
-                //если выбрано предложение, то открываем форму для добавления реакции
-                //и заполняем обязательными данными
-                if ((selection_offer.length > 0) && (selection_offer.slice(-1).pop().get("informed"))) {
-                    var form = view.down('form');
-                    form.getForm().setValues({offer: selection_offer.slice(-1).pop().getId(),date: new Date()});
-                    view.show();
-                }
-                else {
-                    Ext.Msg.alert('Предупреждение', 'Не выбрано или не послано предложение!');    
-                };
-            }
-            else {
-                Ext.Msg.alert('Предупреждение', 'Нет успешных просмотров!');
-                return; 
-            }
+        //if (record_hyst_show_last != undefined) {
+        var store_show_result = Ext.data.StoreManager.lookup('directory.ResultShow');
+        store_show_result.clearFilter(true);
+        //result_show_last = store_show_result.getById(record_hyst_show_last.get('result')).get('name');
+        //if (result_show_last == 'клиент одобрил'){
+        //запрещаем добавление новой записи для разных условий
+        if (record_last != undefined) {
+            var store_result = Ext.data.StoreManager.lookup('directory.OperationType');
+            store_result.clearFilter(true);
+            result_last = store_result.getById(record_last.get('operation')).get('name');
+            //сделка завершена, больше не редактируем
+            if (result_last == 'сделка завершена'){
+                Ext.Msg.alert('Предупреждение', 'Сделка завершена, больше не редактируем!');
+                return;
+            };
         };
+        //если выбрано предложение, то открываем форму для добавления реакции
+        //и заполняем обязательными данными
+        if ((selection_offer.length > 0) && (selection_offer.slice(-1).pop().get("informed"))) {
+            var form = view.down('form');
+            form.getForm().setValues({offer: selection_offer.slice(-1).pop().getId(),date: new Date()});
+            view.show();
+        }
+        else {
+            Ext.Msg.alert('Предупреждение', 'Не выбрано или не послано предложение!');
+        };
+        //}
+        //else {
+        //    Ext.Msg.alert('Предупреждение', 'Нет успешных просмотров!');
+        //    return;
+        //}
+        //};
     },
     //Сохраняем новую/измененную реакцию
     saveRecord: function(button) {

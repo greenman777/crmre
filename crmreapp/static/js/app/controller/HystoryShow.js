@@ -49,37 +49,37 @@ Ext.define('CRMRE.controller.HystoryShow', {
         var record_last = store.last();
         var record_hyst_offer_last = store_hyst_offer.last();
         //запрещаем добавление новой записи для разных условий
-        if (record_hyst_offer_last != undefined) {
-        	var store_offer_result = Ext.data.StoreManager.lookup('directory.ResultSentence');
-            store_offer_result.clearFilter(true);
-            result_offer_last = store_offer_result.getById(record_hyst_offer_last.get('result')).get('name');
-            if (result_offer_last == 'клиент заинтересовался'){
-		        if (record_last != undefined) {
-		            var store_result = Ext.data.StoreManager.lookup('directory.ResultShow');
-		            store_result.clearFilter(true);
-		            result_last = store_result.getById(record_last.get('result')).get('name');
-		            //объект понравился, больше не редактируем
-		            if (result_last == 'клиент одобрил'){
-		                Ext.Msg.alert('Предупреждение', 'Клиент одобрил объект, больше не редактируем!');
-		                return;
-		            };
-		        };
-                //если выбрано предложение, то открываем форму для добавления реакции
-                //и заполняем обязательными данными
-                if ((selection_offer.length > 0) && (selection_offer.slice(-1).pop().get("informed"))) {
-                    var form = view.down('form');
-                    form.getForm().setValues({offer: selection_offer.slice(-1).pop().getId(),date: new Date()});
-                    view.show();
-                }
-                else {
-                    Ext.Msg.alert('Предупреждение', 'Не выбрано или не послано предложение!');    
-                };
-            }
-            else {
-            	Ext.Msg.alert('Предупреждение', 'Нет положительной реакции клиента!');
-		        return;	
-            }
+        //if (record_hyst_offer_last != undefined) {
+        var store_offer_result = Ext.data.StoreManager.lookup('directory.ResultSentence');
+        store_offer_result.clearFilter(true);
+        //result_offer_last = store_offer_result.getById(record_hyst_offer_last.get('result')).get('name');
+        //if (result_offer_last == 'клиент заинтересовался'){
+        if (record_last != undefined) {
+            var store_result = Ext.data.StoreManager.lookup('directory.ResultShow');
+            store_result.clearFilter(true);
+            result_last = store_result.getById(record_last.get('result')).get('name');
+            //объект понравился, больше не редактируем
+            if (result_last == 'клиент одобрил'){
+                Ext.Msg.alert('Предупреждение', 'Клиент одобрил объект, больше не редактируем!');
+                return;
+            };
         };
+        //если выбрано предложение, то открываем форму для добавления реакции
+        //и заполняем обязательными данными
+        if ((selection_offer.length > 0) && (selection_offer.slice(-1).pop().get("informed"))) {
+            var form = view.down('form');
+            form.getForm().setValues({offer: selection_offer.slice(-1).pop().getId(),date: new Date()});
+            view.show();
+        }
+        else {
+            Ext.Msg.alert('Предупреждение', 'Не выбрано или не послано предложение!');
+        };
+        //}
+        //else {
+        //	Ext.Msg.alert('Предупреждение', 'Нет положительной реакции клиента!');
+        //    return;
+        //}
+        //};
     },
     //Сохраняем новый/измененный просмотр
     saveRecord: function(button) {
