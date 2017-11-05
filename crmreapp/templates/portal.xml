@@ -71,8 +71,17 @@
     <Images>
         {% for photo in offer.photos_set.all %}
             <Image url="http://office.rn43.ru/media{{MEDIA_ROOT}}/{{photo.photo}}"></Image>
-        {% endfor %}          
+        {% endfor %}
     </Images>
+    <Client>
+      {% if offer.client.index %}<Index>{{offer.client.index}}</Index>{% endif%}
+      {% if offer.client.create_date %}<CreateDate>{{offer.client.create_date}}</CreateDate>{% endif%}
+      {% if offer.client.author %}<Author>{{offer.client.author}}</Author>{% endif%}
+      {% if offer.client.represent %}<Represent>{{offer.client.represent}}</Represent>{% endif%}
+      {% if offer.client.phone_represent %}<PhoneRepresent>{{offer.client.phone_represent}}</PhoneRepresent>{% endif%}
+      <ClientType>{{offer.client.client_type}}</ClientType>
+      {% if offer.client.client_name %}<ClientName>{{offer.client.client_name}}</ClientName>{% endif%}
+    </Client>
   </Order>
   {% endfor %}
   {% for building in buildings %}
@@ -179,7 +188,16 @@
     {% endfor %}	
 	{% for street in offer_buy.liststreet_set.all %}
 		<Street>{% if street.street %}{{street.street}}{% endif%}</Street>	
-    {% endfor %}	
+    {% endfor %}
+    <Client>
+      {% if offer_buy.client.index %}<Index>{{offer_buy.client.index}}</Index>{% endif%}
+      {% if offer_buy.client.create_date %}<CreateDate>{{offer_buy.client.create_date}}</CreateDate>{% endif%}
+      {% if offer_buy.client.author %}<Author>{{offer_buy.client.author}}</Author>{% endif%}
+      {% if offer_buy.client.represent %}<Represent>{{offer_buy.client.represent}}</Represent>{% endif%}
+      {% if offer_buy.client.phone_represent %}<PhoneRepresent>{{offer_buy.client.phone_represent}}</PhoneRepresent>{% endif%}
+      <ClientType>{{offer_buy.client.client_type}}</ClientType>
+      {% if offer_buy.client.client_name %}<ClientName>{{offer_buy.client.client_name}}</ClientName>{% endif%}
+    </Client>
   </OrderBuy>
   {% endfor %}
 </Ads>
