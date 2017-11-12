@@ -22,12 +22,34 @@
     {% if offer.street %}<Street>{{offer.street}}</Street>{% endif %}
     {% if offer.house_number %}<HouseNumber>{{offer.house_number}}</HouseNumber>{% endif %}
     {% if offer.number_rooms %}<Rooms>{{offer.number_rooms}}</Rooms>{% endif%}
+    {% if offer.house_apartment %}<HouseApartment>{{offer.house_apartment}}</HouseApartment>{% endif%}
     {% if offer.floor %}<Floor>{{offer.floor}}</Floor>{% endif%}
     {% if offer.floors %}<Floors>{{offer.floors}}</Floors>{% endif%}
     {% if offer.material_walls %}<WallsType>{{offer.material_walls}}</WallsType>{% endif %}
     <LuxuryHousing>{% if offer.luxury_housing %}Элитное жилье{% else %}Стандартное жилье{% endif %}</LuxuryHousing>
     <HotOffer>{{ offer.hot_offer }}</HotOffer>
-    
+
+    {% if offer.contract_type %}<ContractType>{{offer.contract_type}}</ContractType>{% endif%}
+    {% if offer.contract_number %}<ContractNumber>{{offer.contract_number}}</ContractNumber>{% endif%}
+    {% if offer.contract_date %}<ContractDate>{{offer.contract_date}}</ContractDate>{% endif%}
+    {% if offer.contract_end_date %}<ContractEndDate>{{offer.contract_end_date}}</ContractEndDate>{% endif%}
+    {% if offer.encumbrance %}<Encumbrance>{{offer.encumbrance}}</Encumbrance>{% endif%}
+    {% if offer.auction %}<Auction>{{offer.auction}}</Auction>{% endif%}
+    {% if offer.status %}<Status>{{offer.status}}</Status>{% endif%}
+
+    {% if offer.commission %}<Commission>{{offer.commission}}</Commission>{% endif%}
+    {% if offer.commission_type %}<CommissionType>{{offer.commission_type}}</CommissionType>{% endif%}
+    {% if offer.commission_price %}<CommissionPrice>{{offer.commission_price}}</CommissionPrice>{% endif%}
+    {% if offer.other_agency %}<OtherAgency>{{offer.other_agency}}</OtherAgency>{% endif%}
+    {% if offer.agency_commission %}<AgencyCommission>{{offer.agency_commission}}</AgencyCommission>{% endif%}
+    {% if offer.agency_commission_type %}<AgencyCommissionType>{{offer.agency_commission_type}}</AgencyCommissionType>{% endif%}
+    {% if offer.agency_commission_price %}<AgencyCommissionPrice>{{offer.agency_commission_price}}</AgencyCommissionPrice>{% endif%}
+
+    {% if offer.classified_resources %}<ClassifiedResources>{{offer.classified_resources}}</ClassifiedResources>{% endif%}
+    {% if offer.toll_resources %}<TollResources>{{offer.toll_resources}}</TollResources>{% endif%}
+    {% if offer.hot_offer %}<HotOffer>{{offer.hot_offer}}</HotOffer>{% endif%}
+    {% if offer.luxury_housing %}<LuxuryHousing>{{offer.luxury_housing}}</LuxuryHousing>{% endif%}
+
     <LandArea>{% widthratio offer.landplot_space 100 1 %}</LandArea>    
     <DistanceToCity>{% if offer.remoteness_center %}{{offer.remoteness_center|floatformat}}{% else %}0{% endif %}</DistanceToCity>
     <OperationType>{% if offer.transaction_type %}Продам{% else %}Сдам{% endif %}</OperationType>
@@ -189,6 +211,24 @@
 	{% for street in offer_buy.liststreet_set.all %}
 		<Street>{% if street.street %}{{street.street}}{% endif%}</Street>	
     {% endfor %}
+
+    {% if offer.contract_type %}<ContractType>{{offer.contract_type}}</ContractType>{% endif%}
+    {% if offer.contract_number %}<ContractNumber>{{offer.contract_number}}</ContractNumber>{% endif%}
+    {% if offer.contract_date %}<ContractDate>{{offer.contract_date}}</ContractDate>{% endif%}
+    {% if offer.contract_end_date %}<ContractEndDate>{{offer.contract_end_date}}</ContractEndDate>{% endif%}
+    {% if offer.status %}<Status>{{offer.status}}</Status>{% endif%}
+
+    {% if offer.commission %}<Commission>{{offer.commission}}</Commission>{% endif%}
+    {% if offer.commission_type %}<CommissionType>{{offer.commission_type}}</CommissionType>{% endif%}
+    {% if offer.commission_price %}<CommissionPrice>{{offer.commission_price}}</CommissionPrice>{% endif%}
+    {% if offer.other_agency %}<OtherAgency>{{offer.other_agency}}</OtherAgency>{% endif%}
+    {% if offer.agency_commission %}<AgencyCommission>{{offer.agency_commission}}</AgencyCommission>{% endif%}
+    {% if offer.agency_commission_type %}<AgencyCommissionType>{{offer.agency_commission_type}}</AgencyCommissionType>{% endif%}
+    {% if offer.agency_commission_price %}<AgencyCommissionPrice>{{offer.agency_commission_price}}</AgencyCommissionPrice>{% endif%}
+
+    {% if offer.classified_resources %}<ClassifiedResources>{{offer.classified_resources}}</ClassifiedResources>{% endif%}
+    {% if offer.toll_resources %}<TollResources>{{offer.toll_resources}}</TollResources>{% endif%}
+
     <Client>
       {% if offer_buy.client.index %}<Index>{{offer_buy.client.index}}</Index>{% endif%}
       {% if offer_buy.client.create_date %}<CreateDate>{{offer_buy.client.create_date}}</CreateDate>{% endif%}
