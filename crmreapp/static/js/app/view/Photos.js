@@ -25,25 +25,44 @@ Ext.define('CRMRE.view.Photos', {
         	},{
         		xtype: 'hidden',
         		name: 'object'
-        	},{
-	            xtype: 'textfield',
-	            name: 'description',
-	            itemId: 'description',
-	            fieldLabel: 'Заголовок'
-	        },{
-	        	xtype: 'filefield',
-	        	name: 'photo',
-	        	itemId: 'photo',
-	        	emptyText: 'Выберите фотографию',
-				fieldLabel: 'Фотография',
-	        	msgTarget: 'side',
-	        	allowBlank: false,
-	        	anchor: '100%',
-	        	buttonText: '',
+		},{
+		   xtype: 'filefield',
+		   name: 'uploads[]',
+		   fieldLabel: '',
+			labelWidth: 50,
+		   fieldStyle:'color:black',
+			buttonOnly : true,
+		   labelWidth: '',
+		   msgTarget: 'side',
+		   allowBlank: true,
+		   anchor: '100%',
+		   buttonText: 'Загрузка фотографий',
 				buttonConfig: {
 					iconCls: 'icon-upload'
-				}
-			}]
+			},
+		   listeners: {
+			   change: function (fld, value) {
+				   var upload = fld.fileInputEl.dom;
+				   var files = upload.files;
+				   var names = [];
+				   var names2 = [];
+
+				   if (files) {
+					   for (var i = 0; i < files.length; i++) {
+						   names.push(files[i].name);
+						   names2.push({archivo: files[i].name})
+						   value = names.join(', ');
+					   }
+				   }
+				   this.up('grid').getStore().loadData(names2);
+				   fld.setRawValue(value);
+			   },
+			   afterrender: function (cmp) {
+				   cmp.fileInputEl.set({
+					   multiple: 'multiple'
+				   });
+			   }
+		   }}]
         },{
         	xtype: 'grid',
         	autoScroll: true,
