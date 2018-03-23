@@ -25,9 +25,14 @@ Ext.define('CRMRE.view.Photos', {
         	},{
         		xtype: 'hidden',
         		name: 'object'
-		},{
+		    },{
+	            xtype: 'textfield',
+	            name: 'description',
+	            itemId: 'description',
+	        },
+                {
 		   xtype: 'filefield',
-		   name: 'uploads[]',
+		   name: 'photo',
 		   fieldLabel: '',
 			labelWidth: 50,
 		   fieldStyle:'color:black',
@@ -51,11 +56,12 @@ Ext.define('CRMRE.view.Photos', {
 					   for (var i = 0; i < files.length; i++) {
 						   names.push(files[i].name);
 						   names2.push({archivo: files[i].name})
-						   value = names.join(', ');
-					   }
+						   files_names = names.join(', ')
+					   };
+					   Ext.ComponentQuery.query("#description")[0].setValue(files_names);
 				   }
-				   this.up('grid').getStore().loadData(names2);
-				   fld.setRawValue(value);
+				   //this.up('grid').getStore().loadData(names2);
+				   fld.setRawValue(files_names);
 			   },
 			   afterrender: function (cmp) {
 				   cmp.fileInputEl.set({

@@ -528,6 +528,7 @@ def mainpage(request):
 
 def photo_upload(request):
     if request.method == 'POST':
+        print(request)
         description = request.POST['description']
         obj = models.OrdersSale.objects.get(pk=request.POST['object'])
         newphoto = models.Photos(object = obj, description = description, photo = request.FILES['photo'])
