@@ -2,7 +2,8 @@ Ext.define('CRMRE.view.Photos', {
     extend: 'Ext.window.Window',
     xtype: 'appPhotos',
     modal : true,
-    width:500,
+    id: 'app_photos',
+    width:480,
     title: 'Фотографии объекта',
     initComponent: function() {
         this.items = [
@@ -26,8 +27,9 @@ Ext.define('CRMRE.view.Photos', {
         		xtype: 'hidden',
         		name: 'object'
 		    },{
-	            xtype: 'textfield',
+	            xtype: 'combobox',
 	            name: 'description',
+                hidden:true,
 	            itemId: 'description',
 	        },
                 {
@@ -45,6 +47,8 @@ Ext.define('CRMRE.view.Photos', {
 				buttonConfig: {
 					iconCls: 'icon-upload'
 			},
+			regex: (/.(jpg|jpeg)$/i),
+			regexText: 'Можно загружать только графические файлы',
 		   listeners: {
 			   change: function (fld, value) {
 				   var upload = fld.fileInputEl.dom;
@@ -59,29 +63,84 @@ Ext.define('CRMRE.view.Photos', {
 						   files_names = names.join(', ')
 					   };
 					   Ext.ComponentQuery.query("#description")[0].setValue(files_names);
+
+					   fld.setRawValue(files_names);
+
+					   var form = Ext.ComponentQuery.query("#photos_form")[0].getForm();
+                       var store = Ext.ComponentQuery.query("#photos_grid")[0].getStore();
+                       if(form.isValid()){
+                            form.submit({
+                                url: '/photo_upload/',
+                                waitMsg: 'Загрузка фотографии...',
+                                headers : {'Content-Type':'multipart/form-data; charset=UTF-8'},
+                                method : 'POST',
+                                waitMsg : 'Идет загрузка...',
+                                success: function(fp, o) {
+                                    Ext.Msg.alert('Успешная загрузка', o.result.message);
+                                    store.load();
+                                    form.setValues({description:'', photo:''});
+                                },
+                                failure: function(fp, o) {
+                                    Ext.Msg.alert('Неудачная загрузка', o.result.message);
+                                    form.setValues({description:'', photo:''});
+                                }
+                            });
+	                   }
 				   }
 				   //this.up('grid').getStore().loadData(names2);
-				   fld.setRawValue(files_names);
+
 			   },
 			   afterrender: function (cmp) {
 				   cmp.fileInputEl.set({
-					   multiple: 'multiple'
+					   multiple: 'multiple',
 				   });
 			   }
 		   }}]
         },{
         	xtype: 'grid',
         	autoScroll: true,
-        	height: 300,
+            id: 'photos_grid',
+        	height: 420,
+			anchor: '100%',
         	store: this.getStorePhotos().load(),
+            plugins: [
+                Ext.create('Ext.grid.plugin.CellEditing', {
+                    clicksToEdit: 2,
+                    pluginId: 'cellEditing',
+					listeners: {
+					edit: function(editor, e) {
+                        if (e.value !== e.originalValue) {
+                        	store = Ext.ComponentQuery.query("#photos_grid")[0].getStore();
+                        	store.sync({
+								success : function(data_batch,controller) {
+									store.load();
+								},
+								scope: this
+							});
+                        }
+                    },
+					validateedit: function(editor, e) {
+                        if ((e.value == "") || (e.value == 'undefined')) {
+							e.cancel = true;
+							e.record.data[e.field] = e.value;
+						}
+					},
+				}
+                })
+            ],
         	columns: [
       			{xtype:'rownumberer',width:30},
-            	{header: 'Заголовок', dataIndex: 'description', flex: 1},
-            	{	
+            	{header: 'Заголовок', dataIndex: 'description', flex: 1,
+                    editor: {
+                        xtype: 'textfield',
+                        allowBlank: false,
+                    },
+                },{
             		header: 'Фотография', 
-            		dataIndex: 'photo', 
+            		dataIndex: 'photo',
+					width: 120,
             		renderer:function(v){
-            			return '<a href="'+v+'" target="_blank"><img src="'+v+'" height=75 width=100/></a>';
+            			return '<a href="'+v+'" target="_blank"><img src="'+v+'" height=90 width=120/></a>';
             		}
             	},{
             		xtype:'actioncolumn',
@@ -105,33 +164,6 @@ Ext.define('CRMRE.view.Photos', {
             ]
         }],
         this.buttons = [{
-        	view: this,
-        	text: 'Загрузка',
-        	itemId: 'download',
-            iconCls: 'icon-photos_add',
-        	handler: function() {
-	            var form = this.view.down('form').getForm();
-	            var store = this.view.down('grid').getStore();
-	            if(form.isValid()){
-	                form.submit({
-	                    url: '/photo_upload/',
-	                    waitMsg: 'Загрузка фотографии...',
-	                    headers : {'Content-Type':'multipart/form-data; charset=UTF-8'},
-	                    method : 'POST',
-	                    waitMsg : 'Идет загрузка...',
-	                    success: function(fp, o) {
-	                        Ext.Msg.alert('Успешная операция', o.result.message);
-	                        store.load();
-	                        form.setValues({description:'', photo:''});
-	                    },
-	                    failure: function(fp, o) {
-	                        Ext.Msg.alert('Неудачная операция', o.result.message);
-	                        form.setValues({description:'', photo:''});
-	                    }
-	                });
-	            }	
-        	}   
-        },{
         	text: 'Выход',
             action: 'cancel'
         }];

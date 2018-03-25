@@ -528,12 +528,13 @@ def mainpage(request):
 
 def photo_upload(request):
     if request.method == 'POST':
-        print(request)
-        description = request.POST['description']
-        obj = models.OrdersSale.objects.get(pk=request.POST['object'])
-        newphoto = models.Photos(object = obj, description = description, photo = request.FILES['photo'])
-        newphoto.save()
-        response = JSONResponse({'success':True,'message': u'Фотография загружена!'})
+        photo_index = 0
+        for description in request.POST['description'].split(','):
+            obj = models.OrdersSale.objects.get(pk=request.POST['object'])
+            newphoto = models.Photos(object = obj, description = description.split('.')[0], photo = request.FILES.getlist('photo')[photo_index])
+            newphoto.save()
+            photo_index = photo_index + 1;
+        response = JSONResponse({'success':True,'message': u'Фотографии загружены!'})
         return response
 
 def plan_photo_upload(request):

@@ -8,4 +8,4 @@ Ext.define('CRMRE.global.Vars', {
     csrf_token: Ext.get('csrf_token').dom.innerHTML,
     media_url: Ext.get('media_url').dom.innerHTML,
     user_fullname: Ext.get('user_firstname').dom.innerHTML + ' ' + Ext.get('user_lastname').dom.innerHTML
-}); 
+});

@@ -2,22 +2,28 @@ Ext.define('CRMRE.store.Photos', {
     extend: 'Ext.data.Store',
     model: 'CRMRE.model.Photos',
     autoLoad: true,
-    actionMethods: {
-                destroy:'DELETE',
-                create: 'PUT',
-                update: 'PUT',
-                read: 'GET'
-            },
+    //autoSync: true,
     proxy: {
         type: 'rest',
         pageParam: false,
         startParam: false,
         limitParam: false,
         url: 'photos',
+        actionMethods: {
+            destroy:'DELETE',
+            create: 'PUT',
+            update: 'PUT',
+            read: 'GET'
+        },
         reader: {
         	totalProperty: 'count',
             type: 'json',
             successProperty: 'success'
+        },
+        writer: {
+            type: 'json',
+            //writeAllFields: false  // commented out as you said
+
         },
         headers : {
 		    'accept': 'application/json'		    
