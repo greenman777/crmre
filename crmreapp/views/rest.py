@@ -656,6 +656,13 @@ class PhotosViewSet(viewsets.ModelViewSet):
         serializer = self.serializer_class(queryset, many=True)
         return Response(serializer.data)
 
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        print(request)
+        serializer = self.get_serializer(instance, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response({'results': serializer.data})
 
 class OrdersBuyViewSet(viewsets.ModelViewSet):
     queryset = models.OrdersBuy.objects.all()

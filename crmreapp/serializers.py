@@ -98,6 +98,7 @@ class PhotosSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Photos
         fields = '__all__'
+        read_only_fields = ('photo',)
 
 class BuildingPhotosSerializer(serializers.ModelSerializer):
     class Meta:
