@@ -650,7 +650,7 @@ def get_building_photo_name(instance, filename):
 class BuildingPhotos(models.Model):
     
     building = models.ForeignKey(Buildings,verbose_name=u'Новостройка')
-    description = models.CharField(max_length=30, verbose_name=u'Описание')
+    description = models.CharField(max_length=60, verbose_name=u'Описание')
     photo = ProcessedImageField(upload_to=get_building_photo_name,processors=[ResizeToFit(width=800, height=600, upscale=True, mat_color=None),Watermark()],
                                 format='JPEG',options={'quality': 60})
     directory_string_var = 'photos_building'
@@ -703,7 +703,7 @@ pre_delete.connect(pre_plan_delete, sender=Plan)
 class PlanPhotos(models.Model):
     
     plan = models.ForeignKey(Plan,verbose_name=u'Планировка')
-    description = models.CharField(max_length=30, verbose_name=u'Описание')
+    description = models.CharField(max_length=60, verbose_name=u'Описание')
     photo = ProcessedImageField(upload_to=get_plan_photo_name,processors=[ResizeToFit(width=800, height=600, upscale=True, mat_color=255),Watermark()],
                                 format='JPEG',options={'quality': 60})
     directory_string_var = 'photos_plan'
