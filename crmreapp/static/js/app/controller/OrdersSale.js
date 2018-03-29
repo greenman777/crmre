@@ -178,6 +178,9 @@ Ext.define('CRMRE.controller.OrdersSale', {
             view.down('#send').setVisible(false);
             view.down('#search').setVisible(false);
         }
+        if (type.indexOf('orders_sale_free') >= 0||type.indexOf('orders_sale_complet') >= 0||type.indexOf('orders_sale_archive') >= 0||type.indexOf('orders_sale_activ') >= 0) {
+        	view.down('#templatesdoc').setVisible(false);
+        }
         else {
             view.down('#to_archive').setVisible(false);
             view.down('#return_active').setVisible(false);
@@ -413,6 +416,10 @@ Ext.define('CRMRE.controller.OrdersSale', {
 	            view.down('#house_apartment').setVisible(false);
 	        };
             if (type.indexOf('_complet') >= 0&&Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'change_all_orders-sale')==-1){
+	            view.down('#orders_save').setVisible(false);
+                view.down('#house_apartment').setVisible(false);
+	        };
+            if (type.indexOf('_archive') >= 0){
 	            view.down('#orders_save').setVisible(false);
                 view.down('#house_apartment').setVisible(false);
 	        };

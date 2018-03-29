@@ -164,6 +164,9 @@ Ext.define('CRMRE.controller.OrdersBuy', {
             view.down('#send').setVisible(false);
             view.down('#search').setVisible(false);
         }
+        if (type.indexOf('orders_buy_free') >= 0||type.indexOf('orders_buy_complet') >= 0||type.indexOf('orders_buy_archive') >= 0||type.indexOf('orders_buy_activ') >= 0) {
+        	view.down('#templatesdoc').setVisible(false);
+        }
         else {
             view.down('#to_archive').setVisible(false);
             view.down('#return_active').setVisible(false);
