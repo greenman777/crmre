@@ -459,7 +459,7 @@ Ext.define('CRMRE.view.orders_sale.Edit', {
 		            	items :[{
                             xtype: 'htmleditor',
                             name: 'description',
-                            fieldLabel: 'Описание',
+                            fieldLabel: 'Описание: <br><br>Внимание! Проверь и убери лишние тэги, нажав на "Исходный код"',
                             maxLength: 6000,
                             height: 150,
                             itemId: 'description',
