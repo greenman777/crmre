@@ -751,7 +751,7 @@ class OrdersSale(models.Model):
     encumbrance = models.ForeignKey(Encumbrance,verbose_name=u'Обременение',blank=True,null=True)
     certificate_title = models.CharField(max_length=30,verbose_name=u'Свидетельство о праве собственности', blank=True)
     certificate_date = models.DateField(verbose_name=u'Дата свидетельства',blank=True,null=True)
-    cadastre_number = models.CharField(max_length=30,verbose_name=u'Кадастровый номер земельного участка', blank=True)
+    cadastre_number = models.CharField(max_length=50,verbose_name=u'Кадастровый номер', blank=True)
     comment = models.CharField(max_length=300, verbose_name=u'Дополнительная информация',blank=True)
     location = models.CharField(max_length=100,verbose_name=u'Место расположения',blank=True)
     access_redline = models.BooleanField(default=None,verbose_name=u'Выход на красную линию',blank=True)

@@ -437,17 +437,27 @@ Ext.define('CRMRE.view.orders_sale.Edit', {
 	                			name: 'coordinates_label',
                                 itemId: 'coordinates_label',
                                 maxLength: 15,
-                                flex: 6,
+                                flex: 4,
                                 vtype: 'СoordinatesYandex',
 	                			margin: '0 10 0 0'
 		            		},{
                                 iconCls: 'icon-coordinates',
                                 xtype : 'button',
                                 text: 'Получить',
+                                margin: '0 10 0 0',
                                 handler: function() {
                                     window.open('http://webmap-blog.ru/tools/getlonglat-ymap2.html','_blank','toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=0,width=700,height=600');
                                 }
-                            }]
+                            },{
+	                			fieldLabel: 'Кадастровый номер',
+                                labelWidth: 120,
+	                			name: 'cadastre_number',
+                                itemId: 'cadastre_number',
+                                maxLength: 50,
+                                flex: 4,
+                                vtype: 'alphanum',
+	                			margin: '0 10 0 0'
+		            		}]
                         }]
 	                /*Вкладка "Descriptions" для жилой недвижимости*/
 	        		},{

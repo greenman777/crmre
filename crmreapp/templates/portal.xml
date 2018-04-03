@@ -23,6 +23,7 @@
     {% if offer.house_number %}<HouseNumber>{{offer.house_number}}</HouseNumber>{% endif %}
     {% if offer.number_rooms %}<Rooms>{{offer.number_rooms}}</Rooms>{% endif%}
     {% if offer.house_apartment %}<HouseApartment>{{offer.house_apartment}}</HouseApartment>{% endif%}
+    {% if offer.cadastre_number %}<CadastreNumber>{{offer.cadastre_number}}</CadastreNumber>{% endif%}
     {% if offer.floor %}<Floor>{{offer.floor}}</Floor>{% endif%}
     {% if offer.floors %}<Floors>{{offer.floors}}</Floors>{% endif%}
     {% if offer.material_walls %}<WallsType>{{offer.material_walls}}</WallsType>{% endif %}
