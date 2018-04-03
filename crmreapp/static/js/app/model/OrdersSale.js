@@ -51,7 +51,7 @@ Ext.define('CRMRE.model.OrdersSale', {
         {name: 'encumbrance', type:'auto'},//обременение
         {name: 'certificate_title', type:'string'},//свидетельство о праве собственности
         {name: 'certificate_date', dateFormat: 'Y-m-d', type:"date"},//дата свидетельства
-        {name: 'cadastre_number', type:'string'},//кадастровый номер земельного участка
+        {name: 'cadastre_number', type:'string'},//кадастровый номер
         {name: 'location', type:'string'},//место расположения
         {name: 'access_redline', type:'boolean'},//выход на красную линию
         {name: 'method_payment', type:'auto'},//метод оплаты
