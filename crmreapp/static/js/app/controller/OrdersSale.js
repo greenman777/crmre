@@ -412,7 +412,6 @@ Ext.define('CRMRE.controller.OrdersSale', {
             var type = gridview.up('appOrdersSale').typeapp;
             if (type.indexOf('_activ') >= 0||type.indexOf('_brigadier') >= 0){
 	            view.down('#orders_save').setVisible(false);
-	            view.down('#house_number').setVisible(false);
 	            view.down('#house_apartment').setVisible(false);
 	            view.down('#cadastre_number').setVisible(false);
 	        };
