@@ -240,7 +240,8 @@ def send_offer(request):
             data['date'] = datetime.now()
             document = model.objects.get(name=u"Предложения для клиента")
             (result,content_type) = generate_pdf(data,document)
-            to_email = data['client'].email
+            #to_email = data['client'].email
+            to_email = data['user'].email
             if (to_email):
                 try:
                     message = EmailMessage(u'Новые предложения по вашей заявке',
@@ -251,9 +252,11 @@ def send_offer(request):
                     message.attach(u"Новые предложения.pdf", result, content_type)
                     message.send();
                 except:
-                    failure_send_clients.append(data['client'].client_name)
+                    #failure_send_clients.append(data['client'].client_name)
+                    failure_send_clients.append(" ".join((data['user'].last_name,data['user'].first_name)))
             else:
-                failure_send_clients.append(data['client'].client_name)
+                #failure_send_clients.append(data['client'].client_name)
+                failure_send_clients.append(" ".join((data['user'].last_name, data['user'].first_name)))
         response = JSONResponse({'success':True,'messages':failure_send_clients})
         return response
 
