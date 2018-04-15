@@ -1226,8 +1226,9 @@ Ext.define('CRMRE.view.orders_sale.Edit', {
                                 uncheckedValue: 'false'
                             },{
                                 xtype: 'checkboxfield',
-                                boxLabel: 'Выгрузка в платные ресурсы',
+                                boxLabel: 'Выгрузка на Avito',
                                 name: 'toll_resources',
+                                itemId: 'advertising_avito',
                                 inputValue: 'true',
                                 uncheckedValue: 'false'
                             },{

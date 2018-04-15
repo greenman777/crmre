@@ -5,7 +5,9 @@ from __future__ import absolute_import
 
 import os
 import datetime
+from datetime import datetime,timedelta
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q
 from django.template import Context
 from django.template.loader import get_template
 from django.http import HttpResponse
@@ -42,12 +44,18 @@ def create_avito_file():
     status_activ = models.OrderStatus.objects.get(name=u"активная")
     contract_normal = models.ContractType.objects.get(name=u"обычный")
     contract_exl = models.ContractType.objects.get(name=u"эксклюзивный")
+    delta = timedelta(days=30)
+    now_date = datetime.now() - delta
+    offers_all = models.OrdersSale.objects.filter(toll_resources=True, status=status_activ,
+                              contract_type__in=(contract_normal, contract_exl),
+                              contract_number__isnull=False, contract_date__isnull=False)
+    offers_all = offers_all.filter(toll_resources_date__gt=now_date).update(toll_resources=False,toll_resources_date=None)
+    offers_all = offers_all.filter(toll_resources_date__gt=None).update(toll_resources_date=now_date)
+    offers_start = offers_all.filter(toll_resources=True,toll_resources_date__lte=now_date)
     xml = template.render(Context({
                             'avito_city':[item[0] for item in models.AvitoCity.objects.values_list('name')],
                             'avito_district':[item[0] for item in models.AvitoDistrict.objects.values_list('name')],
-                            'offers':models.OrdersSale.objects.filter(toll_resources=True,status=status_activ,
-                                                                      contract_type__in=(contract_normal,contract_exl),
-                                                                      contract_number__isnull=False,contract_date__isnull=False)
+                            'offers':offers_start
                             }))
     xml = xml.encode('utf-8')
     with open(os.path.join(settings.MEDIA_ROOT,"uploading","uploading_avito_rn43.xml"), 'w') as f:
