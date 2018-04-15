@@ -46,12 +46,12 @@ def create_avito_file():
     contract_exl = models.ContractType.objects.get(name=u"эксклюзивный")
     delta = timedelta(days=30)
     now_date = datetime.now() - delta
-    offers_all = models.OrdersSale.objects.filter(toll_resources=True, status=status_activ,
+    models.OrdersSale.filter(toll_resources=True,toll_resources_date__gt=now_date).update(toll_resources=False, toll_resources_date=None)
+    models.OrdersSale.filter(toll_resources=True, status=status_activ,contract_type__in=(contract_normal, contract_exl),contract_number__isnull=False,
+                             contract_date__isnull=False,toll_resources_date__gt=None).update(toll_resources_date=now_date)
+    offers_start = models.OrdersSale.objects.filter(toll_resources=True, status=status_activ,
                               contract_type__in=(contract_normal, contract_exl),
-                              contract_number__isnull=False, contract_date__isnull=False)
-    offers_all = offers_all.filter(toll_resources_date__gt=now_date).update(toll_resources=False,toll_resources_date=None)
-    offers_all = offers_all.filter(toll_resources_date__gt=None).update(toll_resources_date=now_date)
-    offers_start = offers_all.filter(toll_resources=True,toll_resources_date__lte=now_date)
+                              contract_number__isnull=False, contract_date__isnull=False,toll_resources_date__lte=now_date)
     xml = template.render(Context({
                             'avito_city':[item[0] for item in models.AvitoCity.objects.values_list('name')],
                             'avito_district':[item[0] for item in models.AvitoDistrict.objects.values_list('name')],
