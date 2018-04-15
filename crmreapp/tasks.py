@@ -46,8 +46,8 @@ def create_avito_file():
     contract_exl = models.ContractType.objects.get(name=u"эксклюзивный")
     delta = timedelta(days=30)
     now_date = datetime.now() - delta
-    models.OrdersSale.filter(toll_resources=True,toll_resources_date__gt=now_date).update(toll_resources=False, toll_resources_date=None)
-    models.OrdersSale.filter(toll_resources=True, status=status_activ,contract_type__in=(contract_normal, contract_exl),contract_number__isnull=False,
+    models.OrdersSale.objects.filter(toll_resources=True,toll_resources_date__gt=now_date).update(toll_resources=False, toll_resources_date=None)
+    models.OrdersSale.objects.filter(toll_resources=True, status=status_activ,contract_type__in=(contract_normal, contract_exl),contract_number__isnull=False,
                              contract_date__isnull=False,toll_resources_date__gt=None).update(toll_resources_date=now_date)
     offers_start = models.OrdersSale.objects.filter(toll_resources=True, status=status_activ,
                               contract_type__in=(contract_normal, contract_exl),
