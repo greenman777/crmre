@@ -4,6 +4,12 @@ Ext.apply(Ext.form.field.VTypes, {
         },
         СoordinatesYandexText: 'Допустимая форма ввода: 56.3784,44.0048'
 });
+Ext.apply(Ext.form.field.VTypes, {
+        CadastreNumber: function (value) {
+          return /^\d[\d:]*$/.test(value);
+        },
+        CadastreNumberText: 'Допустимая форма ввода: 47:14:1203001:814'
+});
 Ext.define('CRMRE.view.orders_sale.Edit', {
     extend: 'Ext.window.Window',
     requires: [
@@ -455,7 +461,7 @@ Ext.define('CRMRE.view.orders_sale.Edit', {
                                 itemId: 'cadastre_number',
                                 maxLength: 50,
                                 flex: 4,
-                                vtype: 'alphanum',
+                                vtype: 'CadastreNumber',
 	                			margin: '0 10 0 0'
 		            		}]
                         }]
@@ -1228,7 +1234,7 @@ Ext.define('CRMRE.view.orders_sale.Edit', {
                                 xtype: 'checkboxfield',
                                 boxLabel: 'Выгрузка на Avito',
                                 name: 'toll_resources',
-                                itemId: 'advertising_avito',
+                                itemId: 'toll_resources',
                                 inputValue: 'true',
                                 uncheckedValue: 'false'
                             },{
@@ -1236,6 +1242,7 @@ Ext.define('CRMRE.view.orders_sale.Edit', {
 	                            boxLabel: 'Горячее предлож.',
 	                            name: 'hot_offer',
 	                            inputValue: 'true',
+                                itemId: 'hot_offer',
 	                            uncheckedValue: 'false'
 	                        },{
 	                            xtype: 'checkboxfield',

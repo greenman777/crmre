@@ -426,7 +426,9 @@ Ext.define('CRMRE.controller.OrdersSale', {
                 view.down('#cadastre_number').setVisible(false);
 	        };
             if (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'change_all_orders-sale')==-1){
-                view.down('#advertising_avito').setVisible(false);
+                view.down('#toll_resources').setVisible(false);
+                view.down('#hot_offer').setVisible(false);
+                view.down('#luxury_housing').setVisible(false);
             }
 
             view.show();

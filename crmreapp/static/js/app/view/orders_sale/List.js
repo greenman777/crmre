@@ -355,6 +355,12 @@ Ext.define('CRMRE.view.orders_sale.List' ,{
                     return "<input type='checkbox'" + (value ? "checked='checked'" : "") + ">";
                 }
             },{
+                header: 'Дата на Avito',
+                width: 85,
+                stateId: 'column_toll_resources_date',
+                dataIndex: 'toll_resources_date',
+                renderer: Ext.util.Format.dateRenderer('Y-m-d')
+            },{
                 header: 'Дата модификации',
                 width: 85,
                 stateId: 'column_orders_sale_modification_date',
