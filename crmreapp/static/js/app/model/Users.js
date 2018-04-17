@@ -12,6 +12,7 @@ Ext.define('CRMRE.model.Users', {
         {name: 'date_joined', dateFormat: 'Y-m-d H:i', type:"datetime"},
         {name: 'phone', type:'string'},
         {name: 'phone_other', type:'string'},
+        {name: 'phone_swap', type:'string'},
         {name: 'phone_short', type:'string'},
         {name: 'organization_name', type:'string'},
         {name: 'organization_phone', type:'string'},

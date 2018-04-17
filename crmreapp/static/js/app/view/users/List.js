@@ -58,6 +58,10 @@ Ext.define('CRMRE.view.users.List' ,{
                     flex: 1,
                     dataIndex: 'phone_other'
                 },{
+                    header: 'Подменный номер',
+                    flex: 1,
+                    dataIndex: 'phone_swap'
+                },{
                     header: 'Внутр. номер', 
                     flex: 1,
                     dataIndex: 'phone_short'

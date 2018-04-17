@@ -16,6 +16,7 @@ Ext.define('CRMRE.view.users.Details',{
 			'<p><b>E-mail: </b>{email}</p>',
             '<p><b>Телефон: </b>{phone}</p>',
             '<p><b>Телефон доп.: </b>{phone_other}</p>',
+            '<p><b>Подменный номер: </b>{phone_swap}</p>',
             '<p><b>Короткий номер: </b>{phone_short}</p>',
             '<p><b>Должность: </b>{position}</p>',
             '<p><b>Оценка работы: </b>{rating}</p>',
