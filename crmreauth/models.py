@@ -14,6 +14,7 @@ def get_user_photo_name(instance, filename):
 class User(AbstractUser):
     phone = models.CharField(max_length=11, verbose_name=u'Телефон основной',blank=True)
     phone_other = models.CharField(max_length=11, verbose_name=u'Телефон доп.',blank=True)
+    phone_swap = models.CharField(max_length=11, verbose_name=u'Подменный номер', blank=True)
     phone_short = models.CharField(max_length=4, verbose_name=u'Короткий номер',blank=True)
     organization_name = models.CharField(max_length=100, verbose_name=u'Наименование организации',blank=True)
     organization_phone = models.CharField(max_length=11, verbose_name=u'Телефон организации',blank=True)

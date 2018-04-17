@@ -33,7 +33,7 @@ class MyUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
         ((u'Персональная информация'), {'fields': ('first_name', 'last_name', 'birthday','email',
-                                                   'phone','phone_other','phone_short','position',
+                                                   'phone','phone_other','phone_swap','phone_short','position',
                                                    'sms_notification','brigade','photo')}),
         ((u'Организация'), {'fields': ('organization_name', 'organization_phone',
                                         'organization_fax','business_address')}),
@@ -48,7 +48,7 @@ class MyUserAdmin(UserAdmin):
         ),
     ) 
     list_display = ('username', 'last_name', 'first_name', 'birthday','email', 'phone',
-                    'phone_other', 'organization_name', 'position', 'brigade', 'is_staff')
+                    'phone_other', 'phone_swap', 'organization_name', 'position', 'brigade', 'is_staff')
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups','brigade')
     search_fields = ('username', 'first_name', 'last_name', 'email', 'phone')
     ordering = ('last_name','first_name',)
