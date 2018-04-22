@@ -5,7 +5,6 @@ from __future__ import absolute_import
 
 import os
 import datetime
-from datetime import datetime,timedelta
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 from django.template import Context
@@ -44,14 +43,15 @@ def create_avito_file():
     status_activ = models.OrderStatus.objects.get(name=u"активная")
     contract_normal = models.ContractType.objects.get(name=u"обычный")
     contract_exl = models.ContractType.objects.get(name=u"эксклюзивный")
-    delta = timedelta(days=30)
-    now_date = datetime.now() - delta
-    models.OrdersSale.objects.filter(toll_resources=True,toll_resources_date__gt=now_date).update(toll_resources=False, toll_resources_date=None)
+    delta = datetime.timedelta(days=30)
+    now_date = datetime.datetime.now() - delta
+    models.OrdersSale.objects.filter(toll_resources=True,status=status_activ,contract_type__in=(contract_normal, contract_exl),contract_number__isnull=False,
+                             contract_date__isnull=False,toll_resources_date__lt=now_date).update(toll_resources=False, toll_resources_date=None)
     models.OrdersSale.objects.filter(toll_resources=True, status=status_activ,contract_type__in=(contract_normal, contract_exl),contract_number__isnull=False,
                              contract_date__isnull=False,toll_resources_date=None).update(toll_resources_date=datetime.now())
     offers_start = models.OrdersSale.objects.filter(toll_resources=True, status=status_activ,
                               contract_type__in=(contract_normal, contract_exl),
-                              contract_number__isnull=False, contract_date__isnull=False,toll_resources_date__lte=now_date)
+                              contract_number__isnull=False, contract_date__isnull=False,toll_resources_date__gte=now_date)
     xml = template.render(Context({
                             'avito_city':[item[0] for item in models.AvitoCity.objects.values_list('name')],
                             'avito_district':[item[0] for item in models.AvitoDistrict.objects.values_list('name')],
