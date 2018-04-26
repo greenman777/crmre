@@ -16,9 +16,9 @@
     <CompanyName>ООО "Руснедвижимость"</CompanyName>
     <ManagerName>{{offer.performer.first_name}}</ManagerName>
     <EMail>{{offer.performer.email}}</EMail>
-    {% if offer.performer.phone_swap %}<ContactPhone>+{{offer.performer.phone_swap}}</ContactPhone>
+    {% if offer.performer.phone_swap %}<ContactPhone>{{offer.performer.phone_swap}}</ContactPhone>
     {% else %}
-        <ContactPhone>+{{offer.performer.phone}}</ContactPhone>
+        <ContactPhone>{{offer.performer.phone}}</ContactPhone>
     {% endif%}
     <AdStatus>Free</AdStatus>
     <OperationType>{% if offer.transaction_type %}Продам{% else %}Сдам{% endif %}</OperationType>
