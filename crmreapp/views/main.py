@@ -534,7 +534,7 @@ def photo_upload(request):
         photo_index = 0
         for description in request.POST['description'].split(','):
             obj = models.OrdersSale.objects.get(pk=request.POST['object'])
-            newphoto = models.Photos(object = obj, description = description.split('.')[0], photo = request.FILES.getlist('photo')[photo_index])
+            newphoto = models.Photos(object = obj, description = description.split('.')[0][:59], photo = request.FILES.getlist('photo')[photo_index])
             newphoto.save()
             photo_index = photo_index + 1;
         response = JSONResponse({'success':True,'message': u'Фотографии загружены!'})

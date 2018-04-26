@@ -503,7 +503,7 @@ Ext.define('CRMRE.view.orders_sale.Edit', {
 		                    xtype:'fieldset',
 		                    //title: 'Характеристики',
 		                    layout:'column',
-                            fieldDefaults: {msgTarget: 'side',labelWidth: 95},
+                            fieldDefaults: {msgTarget: 'side',labelWidth: 110},
 		                    defaults:{bodyPadding: 10,anchor: '100%',padding: '0 0 0 0',frame: true},
 		                    items:[{
 		                        columnWidth:.33,
@@ -634,7 +634,7 @@ Ext.define('CRMRE.view.orders_sale.Edit', {
 	                                inputValue: 'true',
 	                                uncheckedValue: 'false'
 	                            },{
-	                                fieldLabel: 'Площадь уч.',
+	                                fieldLabel: '<html>Площадь уч.(м<sup>2</sup>)</html>',
 	                                xtype: 'numberfield',
 	                                minValue: 0,
 	                                maxValue: 999999,
@@ -743,7 +743,7 @@ Ext.define('CRMRE.view.orders_sale.Edit', {
 		            	{
                             xtype:'fieldset',
                             layout:'column',
-                            fieldDefaults: {msgTarget: 'side',labelWidth: 100},
+                            fieldDefaults: {msgTarget: 'side',labelWidth: 110},
                             defaults:{hideEmptyLabel: false,bodyPadding: 10,anchor: '100%',padding: '5 5 5 5',frame: true},
                             items:[{
                                 columnWidth:.33,
@@ -841,7 +841,7 @@ Ext.define('CRMRE.view.orders_sale.Edit', {
                                     inputValue: 'true',
                                     uncheckedValue: 'false'
                                 },{
-                                    fieldLabel: 'Площадь уч.',
+                                    fieldLabel: '<html>Площадь уч.(м<sup>2</sup>)</html>',
                                     xtype: 'numberfield',
                                     minValue: 0,
                                     maxValue: 999999,
