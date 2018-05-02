@@ -510,6 +510,29 @@ Ext.define('CRMRE.view.orders_sale.EditFilter', {
                         format: 'Y-m-d',
                         margin: '0 5 0 0',
                     }]
+                },{
+                    xtype: 'fieldcontainer',
+                    layout: 'hbox',
+                    defaultType: 'textfield',
+                    defaults: {flex: 1},
+                    items:[{
+                        xtype: 'numberfield',
+                        fieldLabel: 'С даты создания заявки (дней)',
+                        labelWidth: 240,
+                        flex: 1.3,
+                        name: 'create_date_from',
+                        margin: '0 5 0 0',
+                        minValue: 0,
+                        maxValue: 999,
+                    },{
+                        xtype: 'numberfield',
+                        fieldLabel: 'до',
+                        name: 'create_date_to',
+                        margin: '0 5 0 0',
+                        labelWidth: 20,
+                        minValue: 0,
+                        maxValue: 999,
+                    }]
                 }]
             }]
         }];

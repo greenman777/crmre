@@ -124,6 +124,7 @@ Ext.define('CRMRE.model.OrdersSale', {
         {name: 'toll_resources_date', dateFormat: 'Y-m-d', type:"date"},//дата выгрузки
         {name: 'luxury_housing', type:'boolean'},//Выгрузка в платные ресурсы
         {name: 'tour3d', type:'auto'},
-        {name: 'apartments', type:'integer'}
+        {name: 'apartments', type:'integer'},
+        {name: 'secured', type:'boolean'}
    ]
 });
