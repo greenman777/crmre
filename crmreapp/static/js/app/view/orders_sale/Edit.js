@@ -833,11 +833,15 @@ Ext.define('CRMRE.view.orders_sale.Edit', {
                                     inputValue: 'true',
                                     uncheckedValue: 'false'
                                 },{
-								      fieldLabel: '', xtype: 'displayfield',value: '&nbsp;'
-								},{
                                     xtype: 'checkboxfield',
                                     boxLabel: 'Земельный участок',
                                     name: 'landplot_property',
+                                    inputValue: 'true',
+                                    uncheckedValue: 'false'
+                                },{
+                                    xtype: 'checkboxfield',
+                                    boxLabel: 'Охрана',
+                                    name: 'secured',
                                     inputValue: 'true',
                                     uncheckedValue: 'false'
                                 },{

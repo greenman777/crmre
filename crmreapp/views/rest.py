@@ -596,6 +596,16 @@ class OrdersSaleViewSet(viewsets.ModelViewSet):
                     order_sale_filter = order_sale_filter & Q(kitchen_space__gte=filter['value'])
                 if filter['property'] == 'space_kitchen_to':
                     order_sale_filter = order_sale_filter & Q(kitchen_space__lte=filter['value'])
+                if filter['property'] == 'create_date_from':
+                    if filter['value']:
+                        delta = timedelta(days=int(filter['value']))
+                        now_date = datetime.now() - delta
+                        order_sale_filter = order_sale_filter & Q(create_date__lte=now_date)
+                if filter['property'] == 'create_date_to':
+                    if filter['value']:
+                        delta = timedelta(days=int(filter['value']))
+                        now_date = datetime.now() - delta
+                        order_sale_filter = order_sale_filter & Q(create_date__gte=now_date)
                 if filter['property'] == 'datereg_from':
                     datereg_from = datetime.strptime(filter['value'], "%Y-%m-%d")
                     operation_complet = models.ResultOperation.objects.get(name=u"успешная")
@@ -735,6 +745,16 @@ class OrdersBuyViewSet(viewsets.ModelViewSet):
                 if filter['property'] == 'vip':
                     if filter['value']:
                         order_buy_filter = order_buy_filter & Q(client__vip=True)
+                if filter['property'] == 'create_date_from':
+                    if filter['value']:
+                        delta = timedelta(days=int(filter['value']))
+                        now_date = datetime.now() - delta
+                        order_buy_filter = order_buy_filter & Q(create_date__lte=now_date)
+                if filter['property'] == 'create_date_to':
+                    if filter['value']:
+                        delta = timedelta(days=int(filter['value']))
+                        now_date = datetime.now() - delta
+                        order_buy_filter = order_buy_filter & Q(create_date__gte=now_date)
                 if filter['property'] == 'datereg_from':
                     datereg_from = datetime.strptime(filter['value'], "%Y-%m-%d")
                     operation_complet = models.ResultOperation.objects.get(name=u"успешная")

@@ -852,7 +852,8 @@ class OrdersSale(models.Model):
     toll_resources_date = models.DateField(verbose_name=u'Дата начала выгрузки в платные ресурсы',blank=True,null=True)
     tour3d = models.URLField(verbose_name=u'3D тур',blank=True)
     developmentid = models.CharField(max_length=30, verbose_name=u'Код новостройки Авито', blank=True)
-    
+    secured = models.BooleanField(default=False, verbose_name=u'Охрана')
+
     def __unicode__(self):
         return self.heading
     class Meta:
