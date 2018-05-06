@@ -541,6 +541,7 @@ class Clients(models.Model):
         verbose_name_plural = u"Клиенты"
         permissions = (
             ("view_hidden_fields_clients", "View hidden fields clients"),
+            ("view_hidden_clients_brigade", "View hidden clients brigade"),
             ("can_change_all_clients", "Can change all clients"),
         )
     

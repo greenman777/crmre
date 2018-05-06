@@ -39,7 +39,10 @@ class ClientsSerializer(serializers.ModelSerializer):
         request = self.context["request"]
         getparams = request.GET.copy()
         client_id = getparams.get('client_id')
-        if not request.user.has_perm('crmreapp.view_hidden_fields_clients') and not client_id and not request.user.id == ret['author']:
+        author = User.objects.get(pk=ret['author'])
+        if not request.user.has_perm('crmreapp.view_hidden_fields_clients') and not client_id and not request.user.id == ret['author'] \
+                and (not request.user.has_perm('crmreapp.view_hidden_clients_brigade')
+                     or (request.user.has_perm('crmreapp.view_hidden_clients_brigade') and not request.user.brigade == author.brigade)):
             ret['phone_represent'] = u"скрыт"
             ret['phone_represent'] = u"скрыт"
             ret['phone_main'] = u"скрыт"
