@@ -51,6 +51,8 @@
         {% endif%}
         {% if offer.developmentid %}<DevelopmentId>{{offer.developmentid}}</DevelopmentId>{% endif%}
         <Square>{{offer.total_space|floatformat}}</Square>
+        {% if offer.living_space %}<LivingSpace>{{offer.living_space|floatformat}}</LivingSpace>{% endif%}
+        {% if offer.kitchen_space %}<KitchenSpace>{{offer.kitchen_space|floatformat}}</KitchenSpace>{% endif%}
         {% if offer.floor %}<Floor>{{offer.floor}}</Floor>{% endif%}
         {% if offer.floors %}<Floors>{{offer.floors}}</Floors>{% endif%}
         {% if offer.material_walls.avito_housetype %}<HouseType>{{offer.material_walls.avito_housetype}}</HouseType>{% endif %}
@@ -63,6 +65,8 @@
     {% if offer.object_type.avito_category.name == "Дома, дачи, коттеджи" %}
         {% if offer.street %}<Street>{% if offer.city.name not in avito_city %}{{offer.city}}, {% endif %}{{offer.street}}</Street>{% endif %}
         <Square>{{offer.total_space|floatformat}}</Square>
+        {% if offer.living_space %}<LivingSpace>{{offer.living_space|floatformat}}</LivingSpace>{% endif%}
+        {% if offer.kitchen_space %}<KitchenSpace>{{offer.kitchen_space|floatformat}}</KitchenSpace>{% endif%}
         <ObjectType>{{offer.object_type.avito_type}}</ObjectType>
         <LandArea>{% widthratio offer.landplot_space 100 1 %}</LandArea>
         <DistanceToCity>{% if offer.remoteness_center %}{{offer.remoteness_center|floatformat}}{% else %}0{% endif %}</DistanceToCity>
