@@ -1,6 +1,7 @@
 Ext.define('CRMRE.global.Vars', {
 	singleton: true,
     user_id: Ext.get('user_id').dom.innerHTML,
+    user_brigade: Ext.get('user_brigade').dom.innerHTML,
     user_firstname: Ext.get('user_firstname').dom.innerHTML,
     user_lastname: Ext.get('user_lastname').dom.innerHTML,
     user_groups: Ext.decode(Ext.get('user_groups').dom.innerHTML),
