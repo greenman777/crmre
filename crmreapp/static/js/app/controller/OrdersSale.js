@@ -887,7 +887,14 @@ Ext.define('CRMRE.controller.OrdersSale', {
         var selection = grid.getSelectionModel().getSelection();
         // проверяем что заявка выбрана
         if (selection.length > 0) {
+
+            var store_user = Ext.data.StoreManager.lookup('Users');
+            var agent_id = selection[0].get('performer');
+            var record_agent = store_user.getById(agent_id);
+            brigade = record_agent.get('brigade')
+
             if (selection[0].get('performer')==parseInt(CRMRE.global.Vars.user_id)||
+                ((brigade==parseInt(CRMRE.global.Vars.user_brigade))&&(Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'view_hidden_clients_brigade')!=-1))||
                (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'change_all_orders-sale')!=-1)) {
                 Ext.MessageBox.confirm('Подтвердите действие!', 'Вы действительно хотите пометить заявку как отказную?', function(btn){
 	                if (btn == 'yes') {
@@ -1011,13 +1018,19 @@ Ext.define('CRMRE.controller.OrdersSale', {
                     var record = records[0];
                     var store_status = Ext.data.StoreManager.lookup('directory.OrderStatus');
                     if(record){
+
+                        var store_user = Ext.data.StoreManager.lookup('Users');
+                        var agent_id = rec.get('performer');
+                        var record_agent = store_user.getById(agent_id);
+                        brigade = record_agent.get('brigade')
+
 			            if (((record.get('author')==parseInt(CRMRE.global.Vars.user_id))||
                             (rec.get('performer')==parseInt(CRMRE.global.Vars.user_id))||
+                            ((brigade==parseInt(CRMRE.global.Vars.user_brigade))&&(Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'view_hidden_clients_brigade')!=-1))||
                             (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'view_hidden_fields_clients')!=-1))||
                             (rec.get('status') == store_status.findRecord('name','свободная').getId())) {
                                 form = view.down('form');
                                 form.down('#client_name').setFieldLabel('Клиент');
-                                console.log(Ext.getCmp('tabpanel').getActiveTab().typeapp);
                                 if ((Ext.getCmp('tabpanel').getActiveTab().typeapp.indexOf('_my') == -1)&&
                                     (Ext.getCmp('tabpanel').getActiveTab().typeapp.indexOf('_completed') == -1)){
                                     view.down('#client_save').setVisible(false);

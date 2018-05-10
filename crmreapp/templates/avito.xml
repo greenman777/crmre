@@ -91,6 +91,7 @@
         {% if offer.street %}<Street>{% if offer.city.name not in avito_city %}{{offer.city}}, {% endif %}{{offer.street}}</Street>{% endif %}
         <ObjectType>{{offer.object_type.avito_type}}</ObjectType>
         <Square>{{offer.total_space|floatformat}}</Square>
+        <LandArea>{% widthratio offer.total_space 100 1 %}</LandArea>
         <Secured>{% if offer.secured %}Да{% else %}Нет{% endif %}</Secured>
     {% endif %}
   </Ad>

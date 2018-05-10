@@ -3,6 +3,7 @@
 <html>
     <head>
     	<div id="user_id" style="display: none">{{ user.id|escapejs }}</div>
+        <div id="user_brigade" style="display: none">{{ user.brigade|escapejs }}</div>
     	<div id="user_firstname" style="display: none">{{ user.first_name|escapejs }}</div>
     	<div id="user_lastname" style="display: none">{{ user.last_name|escapejs }}</div>
     	<div id="user_perms" style="display: none">{{ user.get_all_permissions }}</div>
