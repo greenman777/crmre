@@ -380,16 +380,32 @@ Ext.define('CRMRE.view.orders_sale.Edit', {
 	            			valueField: 'id',
 	            			store: 'directory.City'
 	            		},{
-	                		fieldLabel: 'Микрорайон',
-	                		name: 'microdistrict',
-	                		itemId: 'microdistrict',
-	                		xtype: 'combobox',
-	                		autoSelect: true,
-	                		queryMode: 'local',
-	            			displayField: 'name',
-	            			valueField: 'id',
-	            			store: 'directory.Microdistrict'
-	            		},{
+	                    	xtype: 'fieldcontainer',
+	                    	layout: 'hbox',
+	                    	defaultType: 'textfield',
+							defaults: {flex: 1},
+	            			items:[
+                            {
+	                			fieldLabel: 'Микрорайон',
+                                name: 'microdistrict',
+                                itemId: 'microdistrict',
+                                xtype: 'combobox',
+                                autoSelect: true,
+                                queryMode: 'local',
+                                displayField: 'name',
+                                valueField: 'id',
+                                store: 'directory.Microdistrict',
+                                flex: 2,
+	                			margin: '0 10 0 0'
+		            		},{
+	                            fieldLabel: 'Дистрикт',
+	                			name: 'area',
+                                itemId: 'area',
+                                maxLength: 40,
+                                flex: 1.5,
+	                			margin: '0 10 0 0'
+	                        }]
+                        },{
 	                    	xtype: 'fieldcontainer',
 	                    	layout: 'hbox',
 	                    	defaultType: 'textfield',

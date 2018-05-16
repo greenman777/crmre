@@ -44,7 +44,7 @@ Start models directory
 class AvitoCategory(models.Model):
     name = models.CharField(max_length=50,verbose_name=u'Категория объекта Avito')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or 'u'
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Avito категория объекта недвижимости"
@@ -52,7 +52,7 @@ class AvitoCategory(models.Model):
 class YandexCategory(models.Model):
     name = models.CharField(max_length=50,verbose_name=u'Категория объекта Yandex')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Yandex категория объекта недвижимости"
@@ -60,7 +60,7 @@ class YandexCategory(models.Model):
 class AvitoType(models.Model):
     name = models.CharField(max_length=50,verbose_name=u'Тип объекта Avito',blank=True)
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Avito тип объекта недвижимости"
@@ -74,7 +74,7 @@ class ObjectCategory(models.Model):
     rate_transactions = models.IntegerField(verbose_name=u'Норма сделок')
      
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Категория объекта недвижимости"
@@ -86,7 +86,7 @@ class ObjectType(models.Model):
     avito_type = models.ForeignKey(AvitoType,blank=True,null=True)
     object_category = models.ForeignKey(ObjectCategory)
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Тип объекта недвижимости"
@@ -94,7 +94,7 @@ class ObjectType(models.Model):
 class AvitoCity(models.Model):
     name = models.CharField(max_length=40,verbose_name=u'Наименование')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Avito город"
@@ -102,7 +102,7 @@ class AvitoCity(models.Model):
 class AvitoDistrict(models.Model):
     name = models.CharField(max_length=40,verbose_name=u'Наименование')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Avito район"
@@ -110,7 +110,7 @@ class AvitoDistrict(models.Model):
 class City(models.Model):
     name = models.CharField(max_length=40,verbose_name=u'Наименование')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Город"
@@ -118,7 +118,7 @@ class City(models.Model):
 class Street(models.Model):
     name = models.CharField(max_length=40,verbose_name=u'Наименование')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Улица"
@@ -126,7 +126,7 @@ class Street(models.Model):
 class ResidentialComplex(models.Model):
     name = models.CharField(max_length=40,verbose_name=u'Жилой комплекс')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Жилой комплекс"
@@ -134,7 +134,7 @@ class ResidentialComplex(models.Model):
 class Priority(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Приоритет')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Пиоритет задачи"
@@ -142,7 +142,7 @@ class Priority(models.Model):
 class TaskStatus(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Статус задачи')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Статус задачи"
@@ -150,7 +150,7 @@ class TaskStatus(models.Model):
 class InfoSource(models.Model):
     name = models.CharField(max_length=50,verbose_name=u'Источник информации')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Источники информации"
@@ -158,7 +158,7 @@ class InfoSource(models.Model):
 class ObjectAccessory(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Принадлежность объекта')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Принадлежность объекта"
@@ -166,7 +166,7 @@ class ObjectAccessory(models.Model):
 class ContractType(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Тип договора')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Тип договора"
@@ -174,7 +174,7 @@ class ContractType(models.Model):
 class OrderStatus(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Статус заявки')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Статус заявки"
@@ -182,7 +182,7 @@ class OrderStatus(models.Model):
 class NdsType(models.Model):
     name = models.CharField(max_length=20,verbose_name=u'Тип НДС')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Тип НДС"
@@ -190,7 +190,7 @@ class NdsType(models.Model):
 class MethodPayment(models.Model):
     name = models.CharField(max_length=20,verbose_name=u'Способ оплаты')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Способ оплаты"
@@ -198,7 +198,7 @@ class MethodPayment(models.Model):
 class District(models.Model):
     name = models.CharField(max_length=40,verbose_name=u'Район')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Район"
@@ -206,7 +206,7 @@ class District(models.Model):
 class Microdistrict(models.Model):
     name = models.CharField(max_length=40,verbose_name=u'Микрорайон')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Микрорайон"
@@ -217,7 +217,7 @@ class MaterialWalls(models.Model):
     avito_wallstype = models.CharField(max_length=30,verbose_name=u'Материал стен Avito',blank=True)
     
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Материал стен"
@@ -225,7 +225,7 @@ class MaterialWalls(models.Model):
 class Planishing(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Планировка')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Планировка"
@@ -233,7 +233,7 @@ class Planishing(models.Model):
 class Condition(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Состояние')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Состояние"
@@ -241,7 +241,7 @@ class Condition(models.Model):
 class Refinishing(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Отделка')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Отделка"
@@ -249,7 +249,7 @@ class Refinishing(models.Model):
 class Heating(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Отопление')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Отопление"
@@ -257,7 +257,7 @@ class Heating(models.Model):
 class Balcony(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Балкон')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Балкон"
@@ -265,7 +265,7 @@ class Balcony(models.Model):
 class LayoutRooms(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Расположение комнат')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Расположение комнат"
@@ -273,7 +273,7 @@ class LayoutRooms(models.Model):
 class Bathroom(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Санузел')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Санузел"
@@ -281,7 +281,7 @@ class Bathroom(models.Model):
 class Flooring(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Пол')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Пол"
@@ -289,7 +289,7 @@ class Flooring(models.Model):
 class Windows(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Окна')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Окна"
@@ -297,7 +297,7 @@ class Windows(models.Model):
 class CategoryEarth(models.Model):
     name = models.CharField(max_length=50,verbose_name=u'Категория земли')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Категория земли"
@@ -305,7 +305,7 @@ class CategoryEarth(models.Model):
 class Road(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Дорога')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Дорога"
@@ -313,7 +313,7 @@ class Road(models.Model):
 class GreenPlantings(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Зеленые насаждения')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Зеленые насаждения"
@@ -321,7 +321,7 @@ class GreenPlantings(models.Model):
 class Constructions(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Постройки')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Постройки"
@@ -329,7 +329,7 @@ class Constructions(models.Model):
 class Fencing(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Оградение')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Ограждение"
@@ -337,7 +337,7 @@ class Fencing(models.Model):
 class OwnershipType(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Вид права')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Вид права"
@@ -345,7 +345,7 @@ class OwnershipType(models.Model):
 class ResultSentence(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Результат предложения')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Результат предложеня"
@@ -353,7 +353,7 @@ class ResultSentence(models.Model):
 class ResultShow(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Результат показа')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Результат показа"
@@ -362,7 +362,7 @@ class OperationType(models.Model):
     name = models.CharField(max_length=40,verbose_name=u'Название операции')
     heading = models.CharField(max_length=40, verbose_name=u'Краткое описание')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Тип операции"
@@ -370,7 +370,7 @@ class OperationType(models.Model):
 class Occupation(models.Model):
     name = models.CharField(max_length=50,verbose_name=u'Род занятий')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Род занятий"
@@ -378,7 +378,7 @@ class Occupation(models.Model):
 class Sphere(models.Model):
     name = models.CharField(max_length=110,verbose_name=u'Сфера деятельности')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Сфера деятельности"
@@ -386,7 +386,7 @@ class Sphere(models.Model):
 class Encumbrance(models.Model):
     name = models.CharField(max_length=20,verbose_name=u'Обременение')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Обременение"
@@ -394,7 +394,7 @@ class Encumbrance(models.Model):
 class Bank(models.Model):
     name = models.CharField(max_length=20,verbose_name=u'Банк')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Банки"
@@ -402,7 +402,7 @@ class Bank(models.Model):
 class Lease(models.Model):
     name = models.CharField(max_length=20,verbose_name=u'Срок аренды')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Срок аренды"
@@ -411,7 +411,7 @@ class ResultOperation(models.Model):
     name = models.CharField(max_length=40,verbose_name=u'Результат операции')
     heading = models.CharField(max_length=40, verbose_name=u'Краткое описание')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Результат операции"
@@ -419,7 +419,7 @@ class ResultOperation(models.Model):
 class MessageType(models.Model):
     name = models.CharField(max_length=30,verbose_name=u'Тип сообщения')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Тип сообщения"
@@ -431,7 +431,7 @@ class DocumentTemplates(models.Model):
     name = models.CharField(max_length=50,verbose_name=u'Наименование шаблона')
     content = HTMLField(verbose_name=u'Содержание')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Шаблоны документов"
@@ -448,7 +448,7 @@ class Tasks(models.Model):
     status = models.ForeignKey(TaskStatus,verbose_name=u'Статус')
     
     def __unicode__(self):
-        return self.heading
+        return unicode(self.heading) or u''
     class Meta:
         ordering = ['create_date']
         verbose_name_plural = u"Задачи"
@@ -463,7 +463,7 @@ class TaskHistory(models.Model):
     create_date = models.DateField(verbose_name=u'Дата создания')
     status = models.ForeignKey(TaskStatus,verbose_name=u'Статус',related_name='status',)
     def __unicode__(self):
-        return self.comment
+        return unicode(self.comment) or u''
     class Meta:
         ordering = ['pk']
         verbose_name_plural = u"История задачи"
@@ -474,7 +474,7 @@ class TaskComments(models.Model):
     comment = models.CharField(max_length=100,verbose_name=u'Комментарий')
     create_date = models.DateField(verbose_name=u'Дата создания')
     def __unicode__(self):
-        return self.comment
+        return unicode(self.comment) or u''
     class Meta:
         ordering = ['pk']
         verbose_name_plural = u"Комментарии к задаче"
@@ -534,7 +534,7 @@ class Clients(models.Model):
     pkg_sms_5 = models.BooleanField(default=False,verbose_name=u'Рассылка по SMS 5')
     
     def __unicode__(self):
-        return " ".join((self.index,self.client_name))
+        return unicode(" ".join((self.index,self.client_name)))
     
     class Meta:
         ordering = ['client_name','represent']
@@ -558,7 +558,7 @@ class ClientComments(models.Model):
     comment = models.CharField(max_length=300,verbose_name=u'Комментарий')
     create_date = models.DateField(verbose_name=u'Дата создания')
     def __unicode__(self):
-        return self.comment
+        return unicode(self.comment) or u''
     class Meta:
         ordering = ['pk']
         verbose_name_plural = u"Комментарии к клиенту"
@@ -567,7 +567,7 @@ class ConstructionOrganization(models.Model):
     name = models.CharField(max_length=60,verbose_name=u'Строительная организация')
     client = models.ForeignKey(Clients, verbose_name=u'Описание клиента')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Строительная организация"
@@ -618,7 +618,7 @@ class Buildings(models.Model):
     apartments = models.IntegerField(verbose_name=u'Количество квартир', blank=True, null=True)
 
     def __unicode__(self):
-        return self.heading
+        return unicode(self.heading) or u''
     class Meta:
         ordering = ['create_date']
         verbose_name_plural = u"Новостройки"
@@ -657,7 +657,7 @@ class BuildingPhotos(models.Model):
     directory_string_var = 'photos_building'
     
     def __unicode__(self):
-        return self.description
+        return unicode(self.description) or u''
     class Meta:
         ordering = ['description']
         verbose_name_plural = u"Фотографии планировок"
@@ -675,7 +675,7 @@ class Plan(models.Model):
     modification_date = models.DateTimeField(auto_now=True, verbose_name=u'Дата последней модификации')
 
     def __unicode__(self):
-        return self.number_rooms
+        return unicode(self.number_rooms) or u''
     class Meta:
         ordering = ['number_rooms','space','price']
         verbose_name_plural = u"Планировки"
@@ -710,7 +710,7 @@ class PlanPhotos(models.Model):
     directory_string_var = 'photos_plan'
     
     def __unicode__(self):
-        return self.description
+        return unicode(self.description) or u''
     class Meta:
         ordering = ['description']
         verbose_name_plural = u"Фотографии планировок"
@@ -783,6 +783,7 @@ class OrdersSale(models.Model):
     coordinates_label = models.CharField(max_length=15, verbose_name=u'Координаты метки',blank=True)
     city = models.ForeignKey(City,verbose_name=u'Город',blank=True,null=True)
     district = models.ForeignKey(District,verbose_name=u'Район',blank=True,null=True)
+    area = models.CharField(max_length=40, verbose_name=u'Дистрикт', blank=True)
     microdistrict = models.ForeignKey(Microdistrict,verbose_name=u'Микрорайон',blank=True,null=True)
     street = models.ForeignKey(Street,verbose_name=u'Город',blank=True,null=True)
     remoteness_center = models.IntegerField(verbose_name=u'Удаленность от центра',blank=True,null=True)
@@ -856,7 +857,7 @@ class OrdersSale(models.Model):
     secured = models.BooleanField(default=False, verbose_name=u'Охрана')
 
     def __unicode__(self):
-        return self.heading
+        return unicode(self.heading) or u''
     class Meta:
         ordering = ['-create_date']
         verbose_name_plural = u"Заявки на продажу"
@@ -901,7 +902,7 @@ class Photos(models.Model):
     directory_string_var = 'photos'
     
     def __unicode__(self):
-        return self.description
+        return unicode(self.description) or u''
     class Meta:
         ordering = ['description']
         verbose_name_plural = u"Фотографии объектов"
@@ -998,7 +999,7 @@ class OrdersBuy(models.Model):
     comment = models.CharField(max_length=300, verbose_name=u'Дополнительная информация',blank=True)
     
     def __unicode__(self):
-        return self.heading
+        return unicode(self.heading) or u''
     class Meta:
         ordering = ['-create_date']
         verbose_name_plural = u"Заявки на покупку"
@@ -1029,7 +1030,7 @@ class HystoryOrderBuyStatus(models.Model):
     order = models.ForeignKey(OrdersBuy,verbose_name=u'Заявка')
     status = models.ForeignKey(OrderStatus,verbose_name=u'Новый статус')
     def __unicode__(self):
-        return self.status
+        return unicode(self.status) or u''
     class Meta:
         ordering = ['date','pk']
         verbose_name_plural = u"История изменения статуса заявки"
@@ -1061,7 +1062,7 @@ class HystoryOrderSaleStatus(models.Model):
     order = models.ForeignKey(OrdersSale,verbose_name=u'Заявка')
     status = models.ForeignKey(OrderStatus,verbose_name=u'Новый статус')
     def __unicode__(self):
-        return self.status
+        return unicode(self.status) or u''
     class Meta:
         ordering = ['date','pk']
         verbose_name_plural = u"История изменения статуса заявки"
@@ -1122,7 +1123,7 @@ class HystoryOffer(models.Model):
     result = models.ForeignKey(ResultSentence,verbose_name=u'Результат предложения')
     comment = models.CharField(max_length=100,verbose_name=u'Комментарий',blank=True)
     def __unicode__(self):
-        return self.comment
+        return unicode(self.comment) or u''
     class Meta:
         ordering = ['date']
         verbose_name_plural = u"История предложений"
@@ -1134,7 +1135,7 @@ class HystoryShow(models.Model):
     result = models.ForeignKey(ResultShow,verbose_name=u'Результат показа',blank=True,null=True)
     comment = models.CharField(max_length=100,verbose_name=u'Комментарий',blank=True)
     def __unicode__(self):
-        return self.comment
+        return unicode(self.comment) or u''
     class Meta:
         ordering = ['date']
         verbose_name_plural = u"История показов"
@@ -1147,7 +1148,7 @@ class HystoryService(models.Model):
     comment = models.CharField(max_length=100,verbose_name=u'Комментарий',blank=True) 
     result_operation = models.ForeignKey(ResultOperation,verbose_name=u'Результат операции')
     def __unicode__(self):
-        return self.comment
+        return unicode(self.comment)or u''
     class Meta:
         ordering = ['date']
         verbose_name_plural = u"История ведения сделки"
@@ -1157,7 +1158,7 @@ class ListObjectType(models.Model):
     orders= models.ForeignKey(OrdersBuy,verbose_name=u'Заявка')
     object_type= models.ForeignKey(ObjectType,verbose_name=u'Тип объекта')
     def __unicode__(self):
-        return self.object_type
+        return unicode(self.object_type) or u''
     class Meta:
         ordering = ['object_type']
         verbose_name_plural = u"Тип объекта"
@@ -1166,7 +1167,7 @@ class ListDistrict(models.Model):
     orders= models.ForeignKey(OrdersBuy,verbose_name=u'Заявка')
     district= models.ForeignKey(District,verbose_name=u'Район')
     def __unicode__(self):
-        return self.district
+        return unicode(self.district) or u''
     class Meta:
         ordering = ['district']
         verbose_name_plural = u"Районы к заявке"
@@ -1175,7 +1176,7 @@ class ListCity(models.Model):
     orders= models.ForeignKey(OrdersBuy,verbose_name=u'Заявка')
     city = models.ForeignKey(City,verbose_name=u'Город')
     def __unicode__(self):
-        return self.city
+        return unicode(self.city) or u''
     class Meta:
         ordering = ['city']
         verbose_name_plural = u"Города к заявке"
@@ -1184,7 +1185,7 @@ class ListMicrodistrict(models.Model):
     orders= models.ForeignKey(OrdersBuy,verbose_name=u'Заявка')
     microdistrict = models.ForeignKey(Microdistrict,verbose_name=u'Микрорайон')
     def __unicode__(self):
-        return self.microdistrict
+        return unicode(self.microdistrict) or u''
     class Meta:
         ordering = ['microdistrict']
         verbose_name_plural = u"Микрорайоны к заявке"
@@ -1193,7 +1194,7 @@ class ListStreet(models.Model):
     orders= models.ForeignKey(OrdersBuy,verbose_name=u'Заявка')
     street = models.ForeignKey(Street,verbose_name=u'Улица')
     def __unicode__(self):
-        return self.street
+        return unicode(self.street) or u''
     class Meta:
         ordering = ['street']
         verbose_name_plural = u"Улицы к заявке"
@@ -1202,7 +1203,7 @@ class ListRooms(models.Model):
     orders= models.ForeignKey(OrdersBuy,verbose_name=u'Заявка')
     number_rooms = models.IntegerField(verbose_name=u'Количество комнат')
     def __unicode__(self):
-        return self.number_rooms
+        return unicode(self.number_rooms) or u''
     class Meta:
         ordering = ['number_rooms']
         verbose_name_plural = u"Количество комнат"
@@ -1215,7 +1216,7 @@ class Notifications(models.Model):
     read = models.BooleanField(default=False,verbose_name=u'Прочитано')
     sendsms = models.BooleanField(default=False,verbose_name=u'SMS сообщение')
     def __unicode__(self):
-        return self.message
+        return unicode(self.message) or u''
     class Meta:
         ordering = ['read','-date','-id']
         verbose_name_plural = u"Уведомления"
@@ -1243,7 +1244,7 @@ class SmsMessages(models.Model):
     name = models.CharField(max_length=300,verbose_name=u'Сообщение')
     type = models.ForeignKey(MessageType,verbose_name=u'Тип сообщения')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['pk']
         verbose_name_plural = u"СМС рассылка"
@@ -1252,7 +1253,7 @@ class EmailMessages(models.Model):
     name = models.TextField(verbose_name=u'Сообщение')
     type = models.ForeignKey(MessageType,verbose_name=u'Тип сообщения')
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['pk']
         verbose_name_plural = u"E-mail рассылка"
@@ -1265,7 +1266,7 @@ class TemplatesDoc(models.Model):
     file = models.FileField(upload_to=get_file_path,null=True,blank=True,verbose_name=u'Шаблон')
     directory_string_var = 'templates_doc'
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Шаблоны документов"
@@ -1282,7 +1283,7 @@ class Documents(models.Model):
     directory_string_var = 'documents'
 
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Шаблоны документов"
@@ -1297,7 +1298,7 @@ class Regulations(models.Model):
     directory_string_var = 'regulations'
 
     def __unicode__(self):
-        return self.name
+        return unicode(self.name) or u''
     class Meta:
         ordering = ['name']
         verbose_name_plural = u"Нормативные документы"

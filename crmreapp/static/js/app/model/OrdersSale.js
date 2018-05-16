@@ -40,6 +40,7 @@ Ext.define('CRMRE.model.OrdersSale', {
         {name: 'coordinates_label', type:'string'},//координаты метки
         {name: 'city', type:'auto'},//город
         {name: 'district', type:'auto'},//район
+        {name: 'area', type:'string'},//район
         {name: 'microdistrict', type:'auto'},//микрорайон
         {name: 'street', type:'auto'},//улица
         {name: 'house_number', type:'string'},//номер дома
