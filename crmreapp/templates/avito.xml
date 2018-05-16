@@ -30,7 +30,7 @@
         {% endfor %}          
     </Images>
     {% if offer.object_type.avito_category.name == "Комнаты" %}
-    	{% if offer.street %}<Street>{% if offer.city.name not in avito_city %}{{offer.city}}, {% endif %}{{offer.street}}{% if offer.house_number %} {{offer.house_number}}{% endif %}</Street>{% endif %}
+    	{% if offer.street %}<Street>{% if offer.city.name not in avito_city %}{{offer.city}}, {% endif %}{% if offer.area %}{{offer.area}}, {% endif %}{{offer.street}}{% if offer.house_number %} {{offer.house_number}}{% endif %}</Street>{% endif %}
         {% if offer.number_rooms %}<SaleRooms>{{offer.number_rooms}}</SaleRooms>{% endif%}
         {% if offer.number_rooms %}<Rooms>{{offer.number_rooms}}</Rooms>{% endif%}
         <Square>{{offer.total_space|floatformat}}</Square>
@@ -41,7 +41,7 @@
         {% if offer.material_walls.avito_housetype %}<HouseType>{{offer.material_walls.avito_housetype}}</HouseType>{% endif %}
     {% endif %}
     {% if offer.object_type.avito_category.name == "Квартиры" %}
-        {% if offer.street %}<Street>{% if offer.city.name not in avito_city %}{{offer.city}}, {% endif %}{{offer.street}}{% if offer.house_number %} {{offer.house_number}}{% endif %}</Street>{% endif %}
+        {% if offer.street %}<Street>{% if offer.city.name not in avito_city %}{{offer.city}}, {% endif %}{% if offer.area %}{{offer.area}}, {% endif %}{{offer.street}}{% if offer.house_number %} {{offer.house_number}}{% endif %}</Street>{% endif %}
         {% if offer.number_rooms %}
             {% if offer.number_rooms == 1 and  offer.planishing.name == "квартира-студия" %}
                 <Rooms>Студия</Rooms>
@@ -63,7 +63,7 @@
         {% endif %}
     {% endif %}
     {% if offer.object_type.avito_category.name == "Дома, дачи, коттеджи" %}
-        {% if offer.street %}<Street>{% if offer.city.name not in avito_city %}{{offer.city}}, {% endif %}{{offer.street}}</Street>{% endif %}
+        {% if offer.street %}<Street>{% if offer.city.name not in avito_city %}{{offer.city}}, {% endif %}{% if offer.area %}{{offer.area}}, {% endif %}{{offer.street}}</Street>{% endif %}
         <Square>{{offer.total_space|floatformat}}</Square>
         {% if offer.living_space %}<LivingSpace>{{offer.living_space|floatformat}}</LivingSpace>{% endif%}
         {% if offer.kitchen_space %}<KitchenSpace>{{offer.kitchen_space|floatformat}}</KitchenSpace>{% endif%}
@@ -77,18 +77,18 @@
         {% endif %}
     {% endif %}
     {% if offer.object_type.avito_category.name == "Земельные участки" %}
-        {% if offer.street %}<Street>{% if offer.city.name not in avito_city %}{{offer.city}}, {% endif %}{{offer.street}}</Street>{% endif %}
+        {% if offer.street %}<Street>{% if offer.city.name not in avito_city %}{{offer.city}}, {% endif %}{% if offer.area %}{{offer.area}}, {% endif %}{{offer.street}}</Street>{% endif %}
         <ObjectType>{{offer.object_type.avito_type}}</ObjectType>
         <LandArea>{% widthratio offer.total_space 100 1 %}</LandArea>
         <DistanceToCity>{% if offer.remoteness_center %}{{offer.remoteness_center|floatformat}}{% else %}0{% endif %}</DistanceToCity>
     {% endif %}
     {% if offer.object_type.avito_category.name == "Гаражи и стоянки" %}
-        {% if offer.street %}<Street>{% if offer.city.name not in avito_city %}{{offer.city}}, {% endif %}{{offer.street}}</Street>{% endif %}
+        {% if offer.street %}<Street>{% if offer.city.name not in avito_city %}{{offer.city}}, {% endif %}{% if offer.area %}{{offer.area}}, {% endif %}{{offer.street}}</Street>{% endif %}
         <ObjectType>{{offer.object_type.avito_type}}</ObjectType>
         <Square>{{offer.total_space|floatformat}}</Square>
     {% endif %}
     {% if offer.object_type.avito_category.name == "Коммерческая недвижимость" %}
-        {% if offer.street %}<Street>{% if offer.city.name not in avito_city %}{{offer.city}}, {% endif %}{{offer.street}}</Street>{% endif %}
+        {% if offer.street %}<Street>{% if offer.city.name not in avito_city %}{{offer.city}}, {% endif %}{% if offer.area %}{{offer.area}}, {% endif %}{{offer.street}}</Street>{% endif %}
         <ObjectType>{{offer.object_type.avito_type}}</ObjectType>
         <Square>{{offer.total_space|floatformat}}</Square>
         <LandArea>{% widthratio offer.total_space 100 1 %}</LandArea>
