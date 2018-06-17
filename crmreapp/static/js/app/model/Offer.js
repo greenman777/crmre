@@ -17,6 +17,7 @@ Ext.define('CRMRE.model.Offer', {
         {name: 'order_sale_object_type_name', type:'string'},
         {name: 'order_sale_performer_id', type:'auto'},
         {name: 'order_sale_performer_name', type:'string'},
+        {name: 'order_sale_performer_phone', type:'string'},
         {name: 'order_sale_create_date', dateFormat: 'Y-m-d H:i', type:"datetime"},
         {name: 'order_sale_index', type:'string'},
 
@@ -27,6 +28,7 @@ Ext.define('CRMRE.model.Offer', {
         {name: 'order_buy_price', type:'string'},
         {name: 'order_buy_performer_id', type:'auto'},
         {name: 'order_buy_performer_name', type:'string'},
+        {name: 'order_buy_performer_phone', type:'string'},
         {name: 'order_buy_create_date', dateFormat: 'Y-m-d H:i', type:"datetime"},
         {name: 'order_buy_index', type:'string'}
    ]

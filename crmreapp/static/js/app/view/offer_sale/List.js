@@ -45,14 +45,6 @@ Ext.define('CRMRE.view.offer_sale.List' ,{
                         tooltip: 'Информация о предложении'
                     }]
                 },{
-                    header: 'Клиент', 
-                    width: 100,
-                    dataIndex : 'order_buy_client_name',
-                    renderer: function (value, meta, record) {
-                        meta.tdAttr = 'data-qtip="' + value + '"';
-                        return value;
-                    }
-                },{
                     header: 'Заголовок', 
                     width: 150,
                     dataIndex: 'order_buy_heading',
@@ -159,6 +151,22 @@ Ext.define('CRMRE.view.offer_sale.List' ,{
                     header: 'Исполнитель', 
                     width: 100,
                     dataIndex : 'order_buy_performer_name',
+                    renderer: function (value, meta, record) {
+                        meta.tdAttr = 'data-qtip="' + value + '"';
+                        return value;
+                    }
+                },{
+                    header: 'Тел. исп-ля',
+                    width: 80,
+                    dataIndex : 'order_buy_performer_phone',
+                    renderer: function (value, meta, record) {
+                        meta.tdAttr = 'data-qtip="' + value + '"';
+                        return value;
+                    }
+                },{
+                    header: 'Клиент',
+                    width: 100,
+                    dataIndex : 'order_buy_client_name',
                     renderer: function (value, meta, record) {
                         meta.tdAttr = 'data-qtip="' + value + '"';
                         return value;
