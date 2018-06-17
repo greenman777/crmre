@@ -130,7 +130,7 @@ Ext.define('CRMRE.controller.Clients', {
         if (type.indexOf('partners_view') >= 0) {
             view.down('#add_order_buy').setVisible(false);
             view.down('#add_order_sale').setVisible(false);
-            view.down('#add').setText('Создать контрагента');
+            view.down('#add').setText('Создать клиента в резерве');
         }
         else {
             view.down('#make_client').setVisible(false);

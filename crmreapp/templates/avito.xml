@@ -29,6 +29,7 @@
             <Image url="http://office.rn43.ru/media{{MEDIA_ROOT}}/{{photo.photo}}"></Image>
         {% endfor %}          
     </Images>
+    {% if offer.tour3d %}<VideoURL>{{offer.tour3d}}</VideoURL>{% endif%}
     {% if offer.object_type.avito_category.name == "Комнаты" %}
     	{% if offer.street %}<Street>{% if offer.city.name not in avito_city %}{{offer.city}}, {% endif %}{% if offer.area %}{{offer.area}}, {% endif %}{{offer.street}}{% if offer.house_number %} {{offer.house_number}}{% endif %}</Street>{% endif %}
         {% if offer.number_rooms %}<SaleRooms>{{offer.number_rooms}}</SaleRooms>{% endif%}
@@ -88,6 +89,9 @@
         <Square>{{offer.total_space|floatformat}}</Square>
         <LandArea>{% widthratio offer.total_space 100 1 %}</LandArea>
         <Secured>{% if offer.secured %}Да{% else %}Нет{% endif %}</Secured>
+        автостоянка, машиноместо
+        гараж, бокс
+    <ObjectSubtype>{% if offer.object_type.name == "гараж, бокс" %}Кирпичный{% else %}Крытая стоянка{% endif %}</ObjectSubtype>
     {% endif %}
     {% if offer.object_type.avito_category.name == "Коммерческая недвижимость" %}
         {% if offer.street %}<Street>{% if offer.city.name not in avito_city %}{{offer.city}}, {% endif %}{% if offer.area %}{{offer.area}}, {% endif %}{{offer.street}}{% if offer.house_number %} {{offer.house_number}}{% endif %}</Street>{% endif %}

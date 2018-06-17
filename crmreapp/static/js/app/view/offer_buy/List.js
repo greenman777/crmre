@@ -66,14 +66,6 @@ Ext.define('CRMRE.view.offer_buy.List' ,{
                         }
 	                }
             	},{
-                    header: 'Клиент', 
-                    width: 100,
-                    dataIndex : 'order_sale_client_name',
-                    renderer: function (value, meta, record) {
-                        meta.tdAttr = 'data-qtip="' + value + '"';
-                        return value;
-                    }
-                },{
                     header: 'Заголовок', 
                     width: 120,
                     dataIndex: 'order_sale_heading',
@@ -141,6 +133,22 @@ Ext.define('CRMRE.view.offer_buy.List' ,{
 	                header: 'Исполнитель', 
 	                width: 100,
 	                dataIndex : 'order_sale_performer_name',
+                    renderer: function (value, meta, record) {
+                        meta.tdAttr = 'data-qtip="' + value + '"';
+                        return value;
+                    }
+                },{
+                    header: 'Тел. исп-ля',
+                    width: 80,
+                    dataIndex : 'order_sale_performer_phone',
+                    renderer: function (value, meta, record) {
+                        meta.tdAttr = 'data-qtip="' + value + '"';
+                        return value;
+                    }
+                },{
+                    header: 'Клиент',
+                    width: 100,
+                    dataIndex : 'order_sale_client_name',
                     renderer: function (value, meta, record) {
                         meta.tdAttr = 'data-qtip="' + value + '"';
                         return value;

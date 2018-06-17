@@ -426,13 +426,14 @@ def uploading(request):
     if request.method == 'POST':
         getparams = request.POST.copy()
         status_activ = models.OrderStatus.objects.get(name=u"активная")
+        status_deal = models.OrderStatus.objects.get(name=u"выход на сделку")
         objects_new = models.ObjectType.objects.filter(name=u"квартира в новостройке")
         type_uploading =  getparams.get('type_uploading')
         data = {}
         data['MEDIA_ROOT'] = settings.MEDIA_ROOT
         if (type_uploading == u"Выгрузка в газету ЯЖ"):
             data['type_uploading'] = type_uploading
-            data['object_list'] = models.OrdersSale.objects.filter(classified_resources=True,status=status_activ).exclude(object_type__in=objects_new).order_by('object_category__name','object_type__name','number_rooms','city__name','microdistrict__name','street__name')
+            data['object_list'] = models.OrdersSale.objects.filter(classified_resources=True,status__in=(status_activ,status_deal)).exclude(object_type__in=objects_new).order_by('object_category__name','object_type__name','number_rooms','city__name','microdistrict__name','street__name')
             (result,content_type,length) = generate_docx(data)
             response = HttpResponse(result,content_type=content_type)
             response['Content-Disposition']='attachment; filename="uploading.docx"'
@@ -457,7 +458,7 @@ def uploading(request):
             fields = []
             for field in (header['items'] for header in data_headers):
                 fields.extend(field)
-            data = models.OrdersSale.objects.filter(filter_Q).filter(status=status_activ).exclude(object_type__in=objects_new).order_by('object_category__name','object_type__name','number_rooms','city__name','microdistrict__name','street__name').values(*fields)
+            data = models.OrdersSale.objects.filter(filter_Q).filter(status__in=(status_activ,status_deal)).exclude(object_type__in=objects_new).order_by('object_category__name','object_type__name','number_rooms','city__name','microdistrict__name','street__name').values(*fields)
             return export_csv(data,data_headers)
 
 @csrf_exempt
@@ -660,6 +661,7 @@ def offer_news(request):
                             "order_sale_object_type_name": order.object_type.name if order.object_type else "",
                             "order_buy_performer_id": order.performer.id,
                             "order_sale_performer_name": " ".join((order.performer.last_name, order.performer.first_name)),
+                            "order_sale_performer_phone": order.performer.phone,
                             "order_sale_create_date": order.create_date,
                             "order_sale_index": order.index,
                         }]
@@ -732,6 +734,7 @@ def offer_news(request):
                                                (" ".join(('до', str(order.price_to))) if order.price_to else ""),
                             "order_buy_performer_id": order.performer.id,
                             "order_buy_performer_name": " ".join((order.performer.last_name, order.performer.first_name)),
+                            "order_buy_performer_phone": order.performer.phone,
                             "order_buy_create_date": order.create_date,
                             "order_buy_index": order.index,
                         }]

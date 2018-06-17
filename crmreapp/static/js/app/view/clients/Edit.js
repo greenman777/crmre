@@ -186,17 +186,15 @@ Ext.define('CRMRE.view.clients.Edit', {
                     uncheckedValue: false
 	                },{
 	                    xtype: 'combobox',
-	                    fieldLabel: 'Род занятий',
-                        labelWidth: 90,
-	                    name : 'occupation',
-	                    itemId: 'occupation',
+	                    name : 'info_source',
 	                    autoSelect: true,
 	                    editable: false,
 	                    forceSelection:true,
 	                    queryMode: 'local',
 	                    displayField: 'name',
 	                    valueField: 'id',
-	                    store: 'directory.Occupation'
+	                    fieldLabel: 'Источник информации',
+	                    store: 'directory.InfoSource'
 	                },{
 	                    xtype: 'combobox',
 	                    fieldLabel: 'Сфера деятельности',
@@ -517,15 +515,16 @@ Ext.define('CRMRE.view.clients.Edit', {
 	                defaultType: 'textfield',
 	                items :[{
 	                    xtype: 'combobox',
-	                    name : 'info_source',
+	                    fieldLabel: 'Род занятий',
+	                    name : 'occupation',
+	                    itemId: 'occupation',
 	                    autoSelect: true,
 	                    editable: false,
 	                    forceSelection:true,
 	                    queryMode: 'local',
 	                    displayField: 'name',
 	                    valueField: 'id',
-	                    fieldLabel: 'Источник информации',
-	                    store: 'directory.InfoSource'
+	                    store: 'directory.Occupation'
 	                },{
 	                    xtype: 'textareafield',
 	                    name : 'information',

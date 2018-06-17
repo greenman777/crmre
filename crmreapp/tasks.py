@@ -23,11 +23,12 @@ from celery import task, shared_task
 def create_portal_file():
     template = get_template('portal.xml')
     status_activ = models.OrderStatus.objects.get(name=u"активная")
+    status_deal = models.OrderStatus.objects.get(name=u"выход на сделку")
     object_category_comm = models.ObjectCategory.objects.get(name=u"Коммерческая недвижимость")
     xml = template.render(Context({
-                            'offers':models.OrdersSale.objects.filter(classified_resources=True,status=status_activ),
+                            'offers':models.OrdersSale.objects.filter(classified_resources=True,status__in=(status_activ,status_deal)),
                             'buildings':models.Buildings.objects.all(),
-                            'offers_buy':models.OrdersBuy.objects.filter(object_category=object_category_comm,classified_resources=True,status=status_activ),
+                            'offers_buy':models.OrdersBuy.objects.filter(object_category=object_category_comm,classified_resources=True,status__in=(status_activ,status_deal)),
                             }))
     xml = xml.encode('utf-8')
     with open(os.path.join(settings.MEDIA_ROOT,"uploading","uploading_portal_rn43.xml"), 'w') as f:
@@ -41,15 +42,16 @@ def create_portal_file():
 def create_avito_file():
     template = get_template('avito.xml')
     status_activ = models.OrderStatus.objects.get(name=u"активная")
+    status_deal = models.OrderStatus.objects.get(name=u"выход на сделку")
     contract_normal = models.ContractType.objects.get(name=u"обычный")
     contract_exl = models.ContractType.objects.get(name=u"эксклюзивный")
     delta = datetime.timedelta(days=30)
     now_date = datetime.datetime.now() - delta
-    models.OrdersSale.objects.filter(toll_resources=True,status=status_activ,contract_type__in=(contract_normal, contract_exl),contract_number__isnull=False,
+    models.OrdersSale.objects.filter(toll_resources=True,status__in=(status_activ,status_deal),contract_type__in=(contract_normal, contract_exl),contract_number__isnull=False,
                              contract_date__isnull=False,toll_resources_date__lt=now_date).update(toll_resources=False, toll_resources_date=None)
-    models.OrdersSale.objects.filter(toll_resources=True, status=status_activ,contract_type__in=(contract_normal, contract_exl),contract_number__isnull=False,
+    models.OrdersSale.objects.filter(toll_resources=True, status__in=(status_activ,status_deal),contract_type__in=(contract_normal, contract_exl),contract_number__isnull=False,
                              contract_date__isnull=False,toll_resources_date=None).update(toll_resources_date=datetime.datetime.now())
-    offers_start = models.OrdersSale.objects.filter(toll_resources=True, status=status_activ,
+    offers_start = models.OrdersSale.objects.filter(toll_resources=True, status__in=(status_activ,status_deal),
                               contract_type__in=(contract_normal, contract_exl),
                               contract_number__isnull=False, contract_date__isnull=False,toll_resources_date__gte=now_date)
     xml = template.render(Context({
@@ -69,8 +71,9 @@ def create_avito_file():
 def create_yandex_file():
     template = get_template('yandex.xml')
     status_activ = models.OrderStatus.objects.get(name=u"активная")
+    status_deal = models.OrderStatus.objects.get(name=u"выход на сделку")
     xml = template.render(Context({
-                            'offers':models.OrdersSale.objects.filter(toll_resources=True,status=status_activ)
+                            'offers':models.OrdersSale.objects.filter(toll_resources=True,status__in=(status_activ,status_deal))
                             }))
     xml = xml.encode('utf-8')
     with open(os.path.join(settings.MEDIA_ROOT,"uploading","uploading_yandex_rn43.xml"), 'w') as f:
