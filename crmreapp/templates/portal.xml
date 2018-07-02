@@ -20,6 +20,7 @@
     {% if offer.district %}<District>{{offer.district}}</District>{% endif %}
     {% if offer.microdistrict %}<Microdistrict>{{offer.microdistrict}}</Microdistrict>{% endif %}
     {% if offer.street %}<Street>{{offer.street}}</Street>{% endif %}
+    {% if offer.area %}<Area>{{offer.area}}</Area>{% endif %}
     {% if offer.house_number %}<HouseNumber>{{offer.house_number}}</HouseNumber>{% endif %}
     {% if offer.number_rooms %}<Rooms>{{offer.number_rooms}}</Rooms>{% endif%}
     {% if offer.house_apartment %}<HouseApartment>{{offer.house_apartment}}</HouseApartment>{% endif%}

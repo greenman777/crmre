@@ -89,8 +89,6 @@
         <Square>{{offer.total_space|floatformat}}</Square>
         <LandArea>{% widthratio offer.total_space 100 1 %}</LandArea>
         <Secured>{% if offer.secured %}Да{% else %}Нет{% endif %}</Secured>
-        автостоянка, машиноместо
-        гараж, бокс
     <ObjectSubtype>{% if offer.object_type.name == "гараж, бокс" %}Кирпичный{% else %}Крытая стоянка{% endif %}</ObjectSubtype>
     {% endif %}
     {% if offer.object_type.avito_category.name == "Коммерческая недвижимость" %}
