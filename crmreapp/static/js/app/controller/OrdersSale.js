@@ -1032,7 +1032,8 @@ Ext.define('CRMRE.controller.OrdersSale', {
                                 form = view.down('form');
                                 form.down('#client_name').setFieldLabel('Клиент');
                                 if ((Ext.getCmp('tabpanel').getActiveTab().typeapp.indexOf('_my') == -1)&&
-                                    (Ext.getCmp('tabpanel').getActiveTab().typeapp.indexOf('_completed') == -1)){
+                                    (Ext.getCmp('tabpanel').getActiveTab().typeapp.indexOf('_completed') == -1)&&
+                                    (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'can_change_all_clients') == -1)){
                                     view.down('#client_save').setVisible(false);
                                 }
                                 else {
