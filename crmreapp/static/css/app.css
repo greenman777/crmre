@@ -189,6 +189,12 @@
 .icon-orders_sale_info {
     background-image: url(../images/orders_sale_info.png) !important;
 }
+.icon-orders_buy_all {
+    background-image: url(../images/orders_buy_all.png) !important;
+}
+.icon-orders_sale_all {
+    background-image: url(../images/orders_sale_all.png) !important;
+}
 .icon-info {
     background-image: url(../images/info.png) !important;
 }
