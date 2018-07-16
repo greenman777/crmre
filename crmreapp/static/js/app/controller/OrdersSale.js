@@ -384,6 +384,11 @@ Ext.define('CRMRE.controller.OrdersSale', {
 	        if (record.get('performer')==parseInt(CRMRE.global.Vars.user_id)||
 	           (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'change_all_orders-sale')!=-1)) {
 	            var view = Ext.widget('appOrdersSaleEdit');
+	            if (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'change_all_orders-sale')==-1){
+                    view.down('#toll_resources').setVisible(false);
+                    view.down('#hot_offer').setVisible(false);
+                    view.down('#luxury_housing').setVisible(false);
+                }
 	            if(record){
 	                form = view.down('form');
 	                var object_category_name = Ext.data.StoreManager.lookup('directory.ObjectCategory').getById(record.get('object_category')).get('name');
@@ -471,6 +476,11 @@ Ext.define('CRMRE.controller.OrdersSale', {
             return;
         }
         var view_order_sale = Ext.widget('appOrdersSaleEdit');
+        if (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'change_all_orders-sale')==-1){
+            view_order_sale.down('#toll_resources').setVisible(false);
+            view_order_sale.down('#hot_offer').setVisible(false);
+            view_order_sale.down('#luxury_housing').setVisible(false);
+        }
         var form_order_sale = view_order_sale.down('form');
         //заполяем у формы обязательные поля
         var record_object_category = Ext.data.StoreManager.lookup('directory.ObjectCategory').getById(object_category);
