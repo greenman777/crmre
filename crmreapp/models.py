@@ -852,6 +852,7 @@ class OrdersSale(models.Model):
     classified_resources = models.BooleanField(default=False,verbose_name=u'Выгрузка в бесплатные ресурсы')
     toll_resources = models.BooleanField(default=False,verbose_name=u'Выгрузка в платные ресурсы')
     toll_resources_date = models.DateField(verbose_name=u'Дата начала выгрузки в платные ресурсы',blank=True,null=True)
+    toll_resources_date_end = models.DateField(verbose_name=u'Дата конца выгрузки в платные ресурсы', blank=True,null=True)
     tour3d = models.URLField(verbose_name=u'3D тур',blank=True)
     developmentid = models.CharField(max_length=30, verbose_name=u'Код новостройки Авито', blank=True)
     secured = models.BooleanField(default=False, verbose_name=u'Охрана')

@@ -8,6 +8,7 @@
     <Category>{{offer.object_type.avito_category}}</Category>
     <Region>Кировская область</Region>
     <City>{% if offer.city.name in avito_city %}{{offer.city}}{% else %}Киров{% endif %}</City>
+    {% if offer.toll_resources_date_end %}<DateEnd>{{offer.toll_resources_date_end|date:"Y-m-d" }}</DateEnd>{% endif %}
     {% if offer.district.name in avito_district %}<District>{{offer.district}}</District>{% endif %}
     <Description>{{offer.description|avitohtml}}</Description>
     {% if offer.coordinates_label %}<Latitude>{{offer.coordinates_label|splitstr:","|first}}</Latitude>{% endif %}
