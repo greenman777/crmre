@@ -361,6 +361,12 @@ Ext.define('CRMRE.view.orders_sale.List' ,{
                 dataIndex: 'toll_resources_date',
                 renderer: Ext.util.Format.dateRenderer('Y-m-d')
             },{
+                header: 'Дата окончания Avito',
+                width: 85,
+                stateId: 'column_toll_resources_date_end',
+                dataIndex: 'toll_resources_date_end',
+                renderer: Ext.util.Format.dateRenderer('Y-m-d')
+            },{
                 header: 'Дата модификации',
                 width: 85,
                 stateId: 'column_orders_sale_modification_date',

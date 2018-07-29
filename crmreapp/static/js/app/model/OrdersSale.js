@@ -123,6 +123,7 @@ Ext.define('CRMRE.model.OrdersSale', {
         {name: 'classified_resources', type:'boolean'},//Выгрузка в бесплатные ресурсы
         {name: 'toll_resources', type:'boolean'},//Выгрузка в платные ресурсы
         {name: 'toll_resources_date', dateFormat: 'Y-m-d', type:"date"},//дата выгрузки
+        {name: 'toll_resources_date_end', dateFormat: 'Y-m-d', type:"date"},//дата окончания выгрузки
         {name: 'luxury_housing', type:'boolean'},//Выгрузка в платные ресурсы
         {name: 'tour3d', type:'auto'},
         {name: 'apartments', type:'integer'},
