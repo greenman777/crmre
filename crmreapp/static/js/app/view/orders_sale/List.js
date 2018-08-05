@@ -406,6 +406,11 @@ Ext.define('CRMRE.view.orders_sale.List' ,{
 	            tooltip: 'Сбросить фильтр',
 	            action: 'filter_delete'
 	        },'->',{
+                iconCls: 'icon-open_report',
+                itemId: 'report',
+                text: 'Открыть',
+                action: 'report'
+            },{
 	            iconCls: 'icon-close_order',
 	            itemId: 'close_order',
 	            tooltip: 'Снять заявку',

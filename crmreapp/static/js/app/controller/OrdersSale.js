@@ -111,6 +111,9 @@ Ext.define('CRMRE.controller.OrdersSale', {
             'appOrdersSaleList button[action=templatesdoc]': {
                 click: this.selectTemplatesdoc
             },
+            'appOrdersSaleList button[action=report]': {
+                click: this.openReport
+            },
             'appOrdersSaleList pagingtoolbar': {
                 change: this.changePage
             },
@@ -1061,6 +1064,39 @@ Ext.define('CRMRE.controller.OrdersSale', {
 			            Ext.Msg.alert('Предупреждение', 'Запись о клиенте не найдена!');    
 			        }
                 }
+            }
+        });
+    },
+    openReport: function(button) {
+        var my = this;
+        var formPanel = Ext.create('Ext.form.Panel', {
+            items: []
+        });
+        Ext.MessageBox.confirm('Подтвердите действие!', 'Вы действительно хотите открыть предложения?', function(btn){
+            if (btn == 'yes') {
+                var grid = button.up('grid');
+		        var store = grid.getStore();
+		        store.getProxy().extraParams = {};
+		        var select = grid.getSelectionModel().getSelection();
+		        var arr_offer = [];
+		        if (select.length) {
+		        	orderssale_id = select[0].get('id');
+		        	formPanel.submit({
+			            url: '/open_orderssale_pdf/',
+			            timeout : 12000,
+			            headers: { 'Content-Type': 'application/pdf' },
+			            method: 'POST',
+			            csrf_token: CRMRE.global.Vars.csrf_token,
+			            standardSubmit: true,
+			            target : '_blank',
+			            params:{
+			               orderssale_id: orderssale_id
+			            }
+			        });
+		        }
+		        else {
+		            Ext.Msg.alert('Предупреждение', 'Нет выбранных предложений!');
+		        }
             }
         });
     },
