@@ -240,7 +240,6 @@ Ext.define('CRMRE.controller.Offer', {
 			                arr_offer.push([record.get('order_buy'),record.get('order_sale')]);
 			            });
 		        	};
-                    console.log(arr_offer);
 		        	formPanel.submit({
 			            url: '/open_offer/',
 			            timeout : 12000,

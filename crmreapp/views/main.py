@@ -291,6 +291,23 @@ def open_offer(request):
             response['Content-Disposition'] = 'attachment'
             return response
 
+@csrf_exempt
+def open_orderssale_pdf(request):
+    if request.method == 'POST':
+        model = models.DocumentTemplates
+        orderssale_id = int(request.POST['orderssale_id'])
+        data = {}
+        order_sale_list = [models.OrdersSale.objects.get(id=orderssale_id)]
+        data['client'] = models.OrdersSale.objects.get(id=orderssale_id).client
+        data['user'] = models.OrdersSale.objects.get(id=orderssale_id).performer
+        data['object_list'] = order_sale_list
+        data['MEDIA_ROOT'] = settings.MEDIA_ROOT
+        data['date'] = datetime.now()
+        document = model.objects.get(name=u"Предложения для клиента")
+        (result,content_type) = generate_pdf(data,document)
+        response = HttpResponse(result, content_type=content_type)
+        response['Content-Disposition'] = 'attachment'
+        return response
 
 def change_field(value, item):
     if item == 'planishing__name' and value:

@@ -112,6 +112,7 @@ urlpatterns = [
     url(r'^manager/$', main.manager),
     url(r'^send_offer/$', main.send_offer),
     url(r'^open_offer/$', main.open_offer),
+    url(r'^open_orderssale_pdf/$', main.open_orderssale_pdf),
     url(r'^reports/$', reports.reports),
     url(r'^uploading/$', main.uploading),
     url(r'^uploading_orders/$', main.uploading_orders),
