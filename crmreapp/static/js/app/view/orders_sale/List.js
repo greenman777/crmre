@@ -367,6 +367,26 @@ Ext.define('CRMRE.view.orders_sale.List' ,{
                 dataIndex: 'toll_resources_date_end',
                 renderer: Ext.util.Format.dateRenderer('Y-m-d')
             },{
+                header: 'Бригада',
+                width: 65,
+                stateId: 'column_orders_sale_brigade',
+                dataIndex : 'brigade',
+                renderer: function(value, meta, record, rowIndex, colIndex, store, view) {
+                    var store = Ext.data.StoreManager.lookup('Users');
+                    user_rec = store.getById(record.get('performer'));
+                    if (user_rec != null){
+                        brigade = user_rec.get('brigade');
+                        record.data.brigade = brigade;
+                        meta.tdAttr = 'data-qtip="' + brigade + '"';
+                        return brigade;
+                    }
+                }
+            },{
+                header: 'Оценка',
+                width: 65,
+                stateId: 'column_orders_sale_rating',
+                dataIndex: 'rating',
+            },{
                 header: 'Дата модификации',
                 width: 85,
                 stateId: 'column_orders_sale_modification_date',

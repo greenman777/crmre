@@ -50,7 +50,7 @@ def create_avito_file():
     models.OrdersSale.objects.filter(toll_resources=True,status__in=(status_activ,status_deal),contract_type__in=(contract_normal, contract_exl),contract_number__isnull=False,
                              contract_date__isnull=False,toll_resources_date__lt=now_date).update(toll_resources=False, toll_resources_date=None, toll_resources_date_end=None,)
     models.OrdersSale.objects.filter(toll_resources=True, status__in=(status_activ,status_deal),contract_type__in=(contract_normal, contract_exl),contract_number__isnull=False,
-                             contract_date__isnull=False,toll_resources_date=None,toll_resources_date_end=None).update(toll_resources_date=datetime.datetime.now(), toll_resources_date_end=datetime.datetime.now()+delta)
+                             contract_date__isnull=False,toll_resources_date=None).update(toll_resources_date=datetime.datetime.now(), toll_resources_date_end=datetime.datetime.now()+delta)
     offers_start = models.OrdersSale.objects.filter(toll_resources=True, status__in=(status_activ,status_deal),
                               contract_type__in=(contract_normal, contract_exl),
                               contract_number__isnull=False, contract_date__isnull=False,toll_resources_date__gte=now_date)
