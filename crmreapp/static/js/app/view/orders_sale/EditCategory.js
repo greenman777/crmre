@@ -22,7 +22,15 @@ Ext.define('CRMRE.view.orders_sale.EditCategory', {
     			valueField: 'id',
     			fieldLabel: 'Тип объекта недвижимости',
     			store: 'directory.ObjectCategory',
-                allowBlank:false
+                allowBlank:false,
+                listeners: {
+                    'expand': function(combo){
+                        store = combo.getStore();
+                        store.clearFilter(true);
+                        console.log("Фильтр!");
+                        store.filter(([{filterFn: function(item) { return item.get("id") != 5; }}]));
+                    }
+                }
     		}]
         }];
         this.buttons = [{
