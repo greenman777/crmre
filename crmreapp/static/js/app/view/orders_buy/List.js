@@ -39,7 +39,7 @@ Ext.define('CRMRE.view.orders_buy.List' ,{
   			{	
                 xtype:'rownumberer',
                 stateId:  'column_orders_buy_rownumberer',
-                width:30
+                width:50
             },{
                 xtype:'actioncolumn',
                 width:22,
@@ -391,7 +391,7 @@ Ext.define('CRMRE.view.orders_buy.List' ,{
                     return "<input type='checkbox'" + (value ? "checked='checked'" : "") + ">";
                 }
             },{
-                header: 'Бригада',
+                header: 'Группа',
                 width: 65,
                 stateId: 'column_orders_buy_brigade',
                 dataIndex : 'brigade',

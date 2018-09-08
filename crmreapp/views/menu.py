@@ -137,42 +137,42 @@ def menutree(request):
             rootchildren[node_id]["children"].append(children_last(
                 name=u'Все в работе', app="appOrdersBuy",
                 filterapp='{status: ' + status_all_id + '}',
-                title=" - ".join([u'Продажа', u'все кат.', u'все в работе']),
+                title=" - ".join([u'Покупка', u'все кат.', u'все в работе']),
                 typeapp="_".join(['orders_buy', 'all_cat', 'all'])))
         if request.user.has_perm('crmreapp.view_free_orders-buy'):
             rootchildren[node_id]["children"].append(children_last(
                 name=u'Свободные', app="appOrdersBuy",
                 filterapp='{status: ' + status_free_id + '}',
-                title=" - ".join([u'Продажа', u'все кат.', u'свободные']),
+                title=" - ".join([u'Покупка', u'все кат.', u'свободные']),
                 typeapp="_".join(['orders_buy', 'all_cat', 'free'])))
         if request.user.has_perm('crmreapp.view_my_orders-buy'):
             rootchildren[node_id]["children"].append(children_last(
                 name=u'Мои в работе', app="appOrdersBuy",
                 filterapp='{performer: ' + str(user_id) + ',status: ' + status_my_id + '}',
-                title=" - ".join([u'Продажа', u'все кат.', u'мои в работе']),
+                title=" - ".join([u'Покупка', u'все кат.', u'мои в работе']),
                 typeapp="_".join(['orders_buy', 'all_cat', 'my'])))
             rootchildren[node_id]["children"].append(children_last(
                 name=u'Мои завершенные', app="appOrdersBuy",
                 filterapp='{performer: ' + str(user_id) + ',status: ' + status_completed_id + '}',
-                title=" - ".join([u'Продажа', u'все кат.', u'завершенные']),
+                title=" - ".join([u'Покупка', u'все кат.', u'завершенные']),
                 typeapp="_".join(['orders_buy', 'all_cat', 'completed'])))
         if request.user.has_perm('crmreapp.brigadier'):
             rootchildren[node_id]["children"].append(children_last(
                 name=u'Заявки моей группы', app="appOrdersBuy",
                 filterapp='{brigade: ' + str(request.user.brigade) + ',status: ' + status_my_id + '}',
-                title=" - ".join([u'Продажа', u'все кат.', u'заявки моей группы']),
+                title=" - ".join([u'Покупка', u'все кат.', u'заявки моей группы']),
                 typeapp="_".join(['orders_buy', 'all_cat', 'brigadier'])))
         if request.user.has_perm('crmreapp.show_support'):
             rootchildren[node_id]["children"].append(children_last(
                 name=u'Сопровождение', app="appOrdersBuy",
                 filterapp='{show_support: true' + ',status: ' + status_all_id + '}',
-                title=" - ".join([u'Продажа', u'все кат.', u'сопровождение']),
+                title=" - ".join([u'Покупка', u'все кат.', u'сопровождение']),
                 typeapp="_".join(['orders_buy', 'all_cat', 'support'])))
         if request.user.has_perm('crmreapp.view_all_orders-buy'):
             rootchildren[node_id]["children"].append(children_last(
                 name=u'Архивные', app="appOrdersBuy",
                 filterapp='{status: ' + status_archive_id + '}',
-                title=" - ".join([u'Продажа', u'все кат.', u'архивные']),
+                title=" - ".join([u'Покупка', u'все кат.', u'архивные']),
                 typeapp="_".join(['orders_buy', 'all_cat', 'archive'])))
 
         node_id += 1
