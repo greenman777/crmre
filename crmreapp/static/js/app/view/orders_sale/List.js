@@ -39,7 +39,7 @@ Ext.define('CRMRE.view.orders_sale.List' ,{
   			{  
                 xtype:'rownumberer',
                 stateId: 'column_orders_sale_rownumberer',
-                width:30
+                width:50
             },{
                 xtype:'actioncolumn',
                 stateId: 'column_orders_sale_client_info',
@@ -367,7 +367,7 @@ Ext.define('CRMRE.view.orders_sale.List' ,{
                 dataIndex: 'toll_resources_date_end',
                 renderer: Ext.util.Format.dateRenderer('Y-m-d')
             },{
-                header: 'Бригада',
+                header: 'Группа',
                 width: 65,
                 stateId: 'column_orders_sale_brigade',
                 dataIndex : 'brigade',

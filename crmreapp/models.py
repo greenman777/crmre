@@ -1067,8 +1067,22 @@ class HystoryOrderSaleStatus(models.Model):
     class Meta:
         ordering = ['date','pk']
         verbose_name_plural = u"История изменения статуса заявки"
-        
+
+class PriceChanges(models.Model):
+    order = models.ForeignKey(OrdersSale,verbose_name=u'Заявка на продажу')
+    price = models.DecimalField(max_digits=11, decimal_places=2, verbose_name=u'Старая цена', blank=True, null=True)
+    date_change = models.DateTimeField(auto_now=True, verbose_name=u'Дата модификации цены')
+
+    class Meta:
+        ordering = ['order']
+        verbose_name_plural = u"Динамика цен"
+
 def pre_orders_sale_save(sender, instance, **kwargs):
+    try:
+        if instance.id and (instance.price != instance.__class__.objects.get(id=instance.id).price):
+            PriceChanges.objects.create(order=instance,price=instance.__class__.objects.get(id=instance.id).price)
+    except:
+        pass
     try:
         if instance.id:
             instance.status_old = instance.__class__.objects.get(id=instance.id).status
@@ -1076,6 +1090,7 @@ def pre_orders_sale_save(sender, instance, **kwargs):
         return
 
 def post_orders_sale_save(sender, instance, created, **kwargs):
+
     try:
         status_hyst_last = HystoryOrderSaleStatus.objects.filter(order=instance.id).latest("pk").status
     except (HystoryOrderSaleStatus.DoesNotExist):

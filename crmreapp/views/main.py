@@ -299,11 +299,11 @@ def open_orderssale_pdf(request):
         data = {}
         order_sale_list = [models.OrdersSale.objects.get(id=orderssale_id)]
         data['client'] = models.OrdersSale.objects.get(id=orderssale_id).client
-        data['user'] = models.OrdersSale.objects.get(id=orderssale_id).performer
+        data['user'] = request.user
         data['object_list'] = order_sale_list
         data['MEDIA_ROOT'] = settings.MEDIA_ROOT
         data['date'] = datetime.now()
-        document = model.objects.get(name=u"Предложения для клиента")
+        document = model.objects.get(name=u"Предложения для клиента 2")
         (result,content_type) = generate_pdf(data,document)
         response = HttpResponse(result, content_type=content_type)
         response['Content-Disposition'] = 'attachment'
