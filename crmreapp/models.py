@@ -1074,13 +1074,14 @@ class PriceChanges(models.Model):
     date_change = models.DateTimeField(auto_now=True, verbose_name=u'Дата модификации цены')
 
     class Meta:
-        ordering = ['order']
+        ordering = ['-id']
         verbose_name_plural = u"Динамика цен"
 
 def pre_orders_sale_save(sender, instance, **kwargs):
     try:
-        if instance.id and (instance.price != instance.__class__.objects.get(id=instance.id).price):
-            PriceChanges.objects.create(order=instance,price=instance.__class__.objects.get(id=instance.id).price)
+        if instance.id:
+            if (instance.price != instance.__class__.objects.get(id=instance.id).price):
+                PriceChanges.objects.create(order=instance,price=instance.price)
     except:
         pass
     try:
@@ -1090,6 +1091,12 @@ def pre_orders_sale_save(sender, instance, **kwargs):
         return
 
 def post_orders_sale_save(sender, instance, created, **kwargs):
+
+    try:
+        if created and (instance.price != 0):
+            PriceChanges.objects.create(order=instance, price=instance.price)
+    except:
+        pass
 
     try:
         status_hyst_last = HystoryOrderSaleStatus.objects.filter(order=instance.id).latest("pk").status
