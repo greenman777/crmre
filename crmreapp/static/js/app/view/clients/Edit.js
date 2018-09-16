@@ -71,22 +71,49 @@ Ext.define('CRMRE.view.clients.Edit', {
                     },
                     items:[
 	                {	
-	                    fieldLabel: 'Представитель',
+	                    fieldLabel: 'Клиент',
                         labelWidth: 90,
 	                    name: 'represent',
 	                    maxLength: 80,
                         margin: '0 5 0 0',
 	                    allowBlank:false
-	                },{	
-	                    fieldLabel: 'Телефон представителя',
-                        labelWidth: 150,
-	                    name: 'phone_represent',
-	                    maxLength: 11,
-	                    vtype: 'alphanum',
-	                    allowBlank:false
 	                }]
                 }]
         	},{
+                    xtype: 'fieldcontainer',
+                    layout: 'hbox',
+                    defaultType: 'textfield',
+					defaults: {flex: 1,labelAlign: 'top'},
+            		items:[,{
+	                    fieldLabel: 'Телефон 1',
+	                    name: 'phone_represent',
+						itemId: 'phone_1',
+	                    maxLength: 11,
+	                    vtype: 'alphanum',
+	                    allowBlank:false,
+						margin: '0 5 0 0'
+					},{
+                		fieldLabel: 'Телефон 2',
+                		name: 'phone_main',
+                        itemId: 'phone_2',
+						maxLength: 11,
+                        vtype: 'alphanum',
+                		margin: '0 5 0 0'
+            		},{
+                		fieldLabel: 'Телефон 3',
+                		name: 'phone_additional',
+                        itemId: 'phone_3',
+						maxLength: 11,
+                        vtype: 'alphanum',
+                		margin: '0 5 0 0'
+            		},{
+                		fieldLabel: 'Телефон 4',
+                		name: 'fax',
+						itemId: 'phone_4',
+                        maxLength: 11,
+                        vtype: 'alphanum'
+            		}]
+            },{
             	xtype:'fieldset',
             	title: 'Основная информация',
             	collapsible: true,
@@ -101,7 +128,7 @@ Ext.define('CRMRE.view.clients.Edit', {
                     defaults: {flex: 1,labelAlign: 'top'},
                     items:[
                     {   
-	                    fieldLabel: 'Клиент',
+	                    fieldLabel: 'Собственник',
 	                    name: 'client_name',
 	                    itemId: 'client_name',
 	                    maxLength: 100,
@@ -112,29 +139,6 @@ Ext.define('CRMRE.view.clients.Edit', {
 	                    itemId: 'fullname_gen',
 	                    maxLength: 100
 	                }]
-                },{
-                    xtype: 'fieldcontainer',
-                    layout: 'hbox',
-                    defaultType: 'textfield',
-					defaults: {flex: 1,labelAlign: 'top'},
-            		items:[{
-                		fieldLabel: 'Основной телефон',
-                		name: 'phone_main',
-                        maxLength: 11,
-                        vtype: 'alphanum',
-                		margin: '0 5 0 0'
-            		},{
-                		fieldLabel: 'Дополнительный телефон',
-                		name: 'phone_additional',
-                        maxLength: 11,
-                        vtype: 'alphanum',
-                		margin: '0 5 0 0'
-            		},{
-                		fieldLabel: 'Факс',
-                		name: 'fax',
-                        maxLength: 11,
-                        vtype: 'alphanum'
-            		}]
                 },{
                     xtype: 'fieldcontainer',
                     layout: 'hbox',
