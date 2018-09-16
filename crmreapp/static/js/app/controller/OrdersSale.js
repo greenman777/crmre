@@ -399,7 +399,7 @@ Ext.define('CRMRE.controller.OrdersSale', {
 	                this.configForm(object_category_name,form);
 	                form.loadRecord(record);
 	                view.setTitle('Новая заявка в категории: ' +  object_category_name);
-	                form.getForm().setValues({id:"",index:""});
+	                form.getForm().setValues({id:"",index:"",toll_resources:false,toll_resources_date:"",toll_resources_date_end:"",hot_offer:false,classified_resources:false});
 	                view.show();
 	            }
 	        }

@@ -56,6 +56,12 @@
     <DistanceToCity>{% if offer.remoteness_center %}{{offer.remoteness_center|floatformat}}{% else %}0{% endif %}</DistanceToCity>
     <OperationType>{% if offer.transaction_type %}Продам{% else %}Сдам{% endif %}</OperationType>
     <Price>{{offer.price|floatformat}}</Price>
+    <PriceChanges>
+        {% for pricechange in offer.pricechanges_set.all %}
+            <Price>pricechange.price</Price>
+            <DateChange>pricechange.date_change</DateChange>
+        {% endfor %}
+    </PriceChanges>
     {% if offer.pricechanges_set.all.1 %}<OldPrice>{{ offer.pricechanges_set.all.1 }}</OldPrice>{% endif%}
     <Square>{{offer.total_space|floatformat}}</Square>
     {% if offer.developmentid %}<DevelopmentId>{{offer.developmentid}}</DevelopmentId>{% endif%}

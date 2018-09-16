@@ -156,7 +156,7 @@ Ext.define('CRMRE.controller.Clients', {
 	        if(record){
 	        	form = view.down('form');
                 if (type.indexOf('client') >= 0) {
-		            form.down('#client_name').setFieldLabel('Клиент');
+		            form.down('#client_name').setFieldLabel('Собственник');
 		            view.setTitle('Данные по клиенту');
 		        }
 		        else {
@@ -166,6 +166,21 @@ Ext.define('CRMRE.controller.Clients', {
         			view.down('#edit_add_order_sale').hide();
 		        };
 		        form.loadRecord(record);
+		        console.log(CRMRE.global.Vars.user_perms);
+		        if (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'can_change_all_clients')==-1) {
+                    if (form.down('#phone_1').getValue().toString().length>5) {
+                        form.down('#phone_1').setReadOnly(true);
+                    }
+                    if (form.down('#phone_2').getValue().toString().length>5) {
+                        form.down('#phone_2').setReadOnly(true);
+                    }
+                    if (form.down('#phone_3').getValue().toString().length>5) {
+                        form.down('#phone_3').setReadOnly(true);
+                    }
+		            if (form.down('#phone_4').getValue().toString().length>5) {
+                        form.down('#phone_4').setReadOnly(true);
+                    }
+                }
 	            view.show();
 	      	}
 	    }
@@ -188,7 +203,7 @@ Ext.define('CRMRE.controller.Clients', {
         	is_client = eOpts.params.is_client;
         };
         if (is_client) {
-            form.down('#client_name').setFieldLabel('Клиент');
+            form.down('#client_name').setFieldLabel('Собственник');
             view.setTitle('Данные по клиенту');
         }
         else {
