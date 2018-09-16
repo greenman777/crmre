@@ -32,7 +32,7 @@ Ext.define('CRMRE.view.clients.List' ,{
                     flex: 1,
                     dataIndex: 'index'
                 },{
-                    header: 'Представитель', 
+                    header: 'Клиент',
                     flex: 1,
                     dataIndex: 'represent',
                     renderer: function (value, meta, record) {
@@ -40,11 +40,15 @@ Ext.define('CRMRE.view.clients.List' ,{
                         return value;
                     }
                 },{
-                    header: 'Телефон представителя', 
+                    header: 'Телефон 1',
                     flex: 1,
                     dataIndex: 'phone_represent'
                 },{
-					header: 'Клиент', 
+                    header: 'Телефон 2',
+                    flex: 1,
+                    dataIndex: 'phone_main'
+                },{
+					header: 'Собственник',
                     itemId: 'client_name',
 					flex: 1,
 					dataIndex: 'client_name',
@@ -61,11 +65,7 @@ Ext.define('CRMRE.view.clients.List' ,{
 	                        }
 	                    }
                     } 
-				},{   
-                    header: 'Основной телефон', 
-                    flex: 1, 
-                    dataIndex: 'phone_main'
-                },{
+				},{
 	                header: 'Создатель',
 	                flex: 1,
 	                dataIndex : 'author_fullname',
