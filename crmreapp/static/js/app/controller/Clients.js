@@ -166,7 +166,6 @@ Ext.define('CRMRE.controller.Clients', {
         			view.down('#edit_add_order_sale').hide();
 		        };
 		        form.loadRecord(record);
-		        console.log(CRMRE.global.Vars.user_perms);
 		        if (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'can_change_all_clients')==-1) {
                     if (form.down('#phone_1').getValue().toString().length>5) {
                         form.down('#phone_1').setReadOnly(true);

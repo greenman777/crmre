@@ -313,12 +313,12 @@ Ext.define('CRMRE.view.orders_sale.List' ,{
                     }
                 }
             },{
-                header: 'Клиент', 
+                header: 'Собственник',
                 width: 120,
                 stateId: 'column_orders_sale_client_name',
                 dataIndex : 'client_name',
             },{
-                header: 'Представитель', 
+                header: 'Клиент',
                 width: 120,
                 stateId: 'column_orders_sale_represent_name',
                 dataIndex : 'represent_name',
