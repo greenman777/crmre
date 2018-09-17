@@ -1001,6 +1001,20 @@ Ext.define('CRMRE.controller.OrdersBuy', {
                                     view.down('#client_save').action = "save_performer";
                                 };
                                 form.loadRecord(record);
+                                if (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'can_change_all_clients')==-1) {
+                                    if (form.down('#phone_1').getValue().toString().length>5) {
+                                        form.down('#phone_1').setReadOnly(true);
+                                    }
+                                    if (form.down('#phone_2').getValue().toString().length>5) {
+                                        form.down('#phone_2').setReadOnly(true);
+                                    }
+                                    if (form.down('#phone_3').getValue().toString().length>5) {
+                                        form.down('#phone_3').setReadOnly(true);
+                                    }
+                                    if (form.down('#phone_4').getValue().toString().length>5) {
+                                        form.down('#phone_4').setReadOnly(true);
+                                    }
+                                }
                                 view.setTitle('Данные по клиенту');
                                 view.show();
 			            }

@@ -58,11 +58,10 @@
     <Price>{{offer.price|floatformat}}</Price>
     <PriceChanges>
         {% for pricechange in offer.pricechanges_set.all %}
-            <Price>pricechange.price</Price>
-            <DateChange>pricechange.date_change</DateChange>
+            <Price>{{pricechange.price}}</Price>
+            <DateChange>{{pricechange.date_change}}</DateChange>
         {% endfor %}
     </PriceChanges>
-    {% if offer.pricechanges_set.all.1 %}<OldPrice>{{ offer.pricechanges_set.all.1 }}</OldPrice>{% endif%}
     <Square>{{offer.total_space|floatformat}}</Square>
     {% if offer.developmentid %}<DevelopmentId>{{offer.developmentid}}</DevelopmentId>{% endif%}
     {% if offer.living_space %}<LivingSpace>{{offer.living_space|floatformat}}</LivingSpace>{% endif%}
