@@ -13,7 +13,7 @@ Ext.define('CRMRE.view.task_comments.Edit', {
             {   xtype: 'combobox',name : 'id',hidden:true},
             {   xtype: 'combobox',name : 'task',hidden:true},
             {   xtype: 'combobox',name : 'author',hidden:true},
-			{   xtype: 'datefield',name : 'create_date',format: 'Y-m-d',hidden:true},
+			{   xtype: 'datefield',name : 'create_date',format: 'Y-m-d H:i',hidden:true},
             {
                 xtype: 'textareafield',
                 name : 'comment',

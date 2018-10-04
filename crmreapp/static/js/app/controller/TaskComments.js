@@ -7,23 +7,12 @@ Ext.define('CRMRE.controller.TaskComments', {
  		{ ref: 'appTasksList',selector: 'appTasksList' }
  	],
     init: function() {
-        this.listen({
-            controller: {
-                '*': {
-                   updateTasks: this.updateRecord,
-                   deleteTasks: this.updateRecord
-                }
-            }
-        });
         this.control({
             'appTaskCommentsList actioncolumn[action=edit]': {
                 click: this.editRecord
             },
             'appTaskCommentsList actioncolumn[action=delete]': {
                 click: this.deleteRecord
-            }, 
-            'appTaskCommentsList button[action=update]': {
-                click: this.updateRecord
             },
             'appTaskCommentsList button[action=add]': {
             	click: this.addRecord
@@ -51,36 +40,6 @@ Ext.define('CRMRE.controller.TaskComments', {
                 Ext.Msg.alert('Предупреждение', 'Редактировать комментарий может только автор!');    
             }
       	}
-    },
-    //Обнавляем список комментариев
-    updateRecord: function(button) {
-        var grid_tasks = Ext.getCmp('tabpanel').getActiveTab().down('appTasksList');
-        var selection_tasks = grid_tasks.getSelectionModel().getSelection();
-        var grid = Ext.getCmp('tabpanel').getActiveTab().down('appTaskCommentsList');
-        var store = grid.getStore();
-        //если выбрана задача, то обновляем комментарии
-        if (selection_tasks.length > 0) {
-	        grid.focus();
-	        var selection = grid.getSelectionModel().getSelection();
-	        store.load({
-	            scope: this,
-	            callback: function(records, operation, success) {
-	                if (success) {
-	                    if (selection.length > 0) {
-                            var record_id = selection[0].getId();
-	                        var record_select = store.getById(record_id);
-                            grid.getSelectionModel().select(record_select);
-                            grid.getView().focusRow(record_select);
-	                    }
-	                    else {
-	                        grid.getSelectionModel().select(0);
-                            grid.getView().focusRow(0);
-	                    }
-	                        
-	                }
-	            }
-	         });
-        }
     },
     //Открываем форму для изменения статуса задачи  
     addRecord: function(button) {

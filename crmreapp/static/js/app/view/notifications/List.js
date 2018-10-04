@@ -34,7 +34,6 @@ Ext.define('CRMRE.view.notifications.List' ,{
                 grid.focus();
                 new Ext.util.DelayedTask(function(){
 					grid.getSelectionModel().select(0);
-					console.log(grid.getSelectionModel());
 				}).delay(500);
             }
         }

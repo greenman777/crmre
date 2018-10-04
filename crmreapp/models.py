@@ -436,49 +436,6 @@ class DocumentTemplates(models.Model):
         ordering = ['name']
         verbose_name_plural = u"Шаблоны документов"
 
-class Tasks(models.Model):
-    priority = models.ForeignKey(Priority,verbose_name=u'Приоритет')
-    author = models.ForeignKey(settings.AUTH_USER_MODEL,verbose_name=u'Автор',related_name='author')
-    performer = models.ForeignKey(settings.AUTH_USER_MODEL,verbose_name=u'Исполнитель',related_name='performer')
-    heading = models.CharField(max_length=80,verbose_name=u'Заголовок')
-    description = models.CharField(max_length=160,verbose_name=u'Описание')
-    create_date = models.DateField(verbose_name=u'Дата создания')
-    execution_date = models.DateField(verbose_name=u'Дата выполнения')
-    notification = models.BooleanField(default=False,verbose_name=u'Сделано оповещение')
-    status = models.ForeignKey(TaskStatus,verbose_name=u'Статус')
-    
-    def __unicode__(self):
-        return unicode(self.heading) or u''
-    class Meta:
-        ordering = ['create_date']
-        verbose_name_plural = u"Задачи"
-        permissions = (
-            ("view_all_tasks", "View all tasks"),
-        )
-
-class TaskHistory(models.Model):
-    task = models.ForeignKey(Tasks,verbose_name=u'Задача')
-    corrector = models.ForeignKey(settings.AUTH_USER_MODEL,verbose_name=u'Корректор')
-    comment = models.CharField(max_length=100,verbose_name=u'Комментарий')
-    create_date = models.DateField(verbose_name=u'Дата создания')
-    status = models.ForeignKey(TaskStatus,verbose_name=u'Статус',related_name='status',)
-    def __unicode__(self):
-        return unicode(self.comment) or u''
-    class Meta:
-        ordering = ['pk']
-        verbose_name_plural = u"История задачи"
-
-class TaskComments(models.Model):
-    task = models.ForeignKey(Tasks,verbose_name=u'Задача')
-    author = models.ForeignKey(settings.AUTH_USER_MODEL,verbose_name=u'Автор')
-    comment = models.CharField(max_length=100,verbose_name=u'Комментарий')
-    create_date = models.DateField(verbose_name=u'Дата создания')
-    def __unicode__(self):
-        return unicode(self.comment) or u''
-    class Meta:
-        ordering = ['pk']
-        verbose_name_plural = u"Комментарии к задаче"
-
 class Clients(models.Model):
     index = models.CharField(max_length=9,verbose_name=u'Номер', blank=True, unique=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL,verbose_name=u'Автор')
@@ -1340,6 +1297,52 @@ def pre_file_delete(sender, instance, **kwargs):
         rec.file.delete()
     except (sender.DoesNotExist, ValueError):
         pass
+
+class Tasks(models.Model):
+    priority = models.ForeignKey(Priority, verbose_name=u'Приоритет')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=u'Автор', related_name='author')
+    performer = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=u'Исполнитель', related_name='performer')
+    description = models.CharField(max_length=200, verbose_name=u'Описание')
+    create_date = models.DateTimeField(verbose_name=u'Время создания')
+    execution_date = models.DateTimeField(verbose_name=u'Время выполнения')
+    notification = models.BooleanField(default=False, verbose_name=u'Сделано оповещение')
+    client = models.ForeignKey(Clients, verbose_name=u'Клиент', blank=True, null=True)
+    order_sale = models.ForeignKey(OrdersSale, verbose_name=u'Заявка на покупку', blank=True, null=True)
+    order_buy = models.ForeignKey(OrdersBuy,verbose_name=u'Заявка на продажу', blank=True, null=True)
+    status = models.ForeignKey(TaskStatus, verbose_name=u'Статус', blank=True, null=True)
+
+    def __unicode__(self):
+        return unicode(self.description) or u''
+
+    class Meta:
+        ordering = ['create_date']
+        verbose_name_plural = u"Задачи"
+        permissions = (
+            ("view_all_tasks", "View all tasks"),
+        )
+
+class TaskHistory(models.Model):
+    task = models.ForeignKey(Tasks,verbose_name=u'Задача')
+    corrector = models.ForeignKey(settings.AUTH_USER_MODEL,verbose_name=u'Корректор')
+    comment = models.CharField(max_length=100,verbose_name=u'Комментарий')
+    create_date = models.DateTimeField(verbose_name=u'Время создания')
+    status = models.ForeignKey(TaskStatus,verbose_name=u'Статус',related_name='status',)
+    def __unicode__(self):
+        return unicode(self.comment) or u''
+    class Meta:
+        ordering = ['pk']
+        verbose_name_plural = u"История задачи"
+
+class TaskComments(models.Model):
+    task = models.ForeignKey(Tasks,verbose_name=u'Задача')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL,verbose_name=u'Автор')
+    comment = models.CharField(max_length=100,verbose_name=u'Комментарий')
+    create_date = models.DateTimeField(verbose_name=u'Время создания')
+    def __unicode__(self):
+        return unicode(self.comment) or u''
+    class Meta:
+        ordering = ['pk']
+        verbose_name_plural = u"Комментарии к задаче"
 
 pre_save.connect(pre_file_save, sender=TemplatesDoc)
 pre_delete.connect(pre_file_delete, sender=TemplatesDoc)

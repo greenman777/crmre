@@ -12,27 +12,21 @@ Ext.define('CRMRE.view.tasks.Edit', {
         	defaults: {anchor: '100%',padding: '5 5 5 5'},
             items: [
             {   xtype: 'combobox',name: 'id',hidden: true},
-            {   xtype: 'datefield',name: 'create_date',format: 'Y-m-d',hidden: true},
+            {   xtype: 'datefield',name: 'create_date',format: 'Y-m-d H:i',hidden: true},
             {   xtype: 'combobox',name: 'author',hidden: true},
             {   xtype: 'combobox',name: 'performer',hidden: true},
             {   xtype: 'combobox',name: 'status',hidden: true},
             {
-                xtype: 'textfield',
-                name: 'heading',
-                fieldLabel: 'Заголовок',
-                maxLength: 80,
-                allowBlank:false
-            },{
                 xtype: 'textareafield',
                 name: 'description',
                 fieldLabel: 'Описание',
-                maxLength: 160,
+                maxLength: 200,
                 allowBlank:false
             },{
                 xtype: 'datefield',
                 name: 'execution_date',
                 fieldLabel: 'Дата выполнения',
-                format: 'Y-m-d',
+                format: 'Y-m-d H:i',
                 allowBlank:false
             },{
                 xtype: 'combobox',

@@ -454,7 +454,7 @@ Ext.define('CRMRE.controller.OrdersBuy', {
                                         client = records[0];
                                         var message = 'Вам новая заявка № '+selection_orders_buy[0].get('index')+": "+selection_orders_buy[0].get('heading')+", от "+client.get('represent')+" т."+client.get('phone_represent');
                                         my.fireEvent('addNotifications',performer,message.slice(0,150));
-                                        //my.fireEvent('addTask',performer,'Отработать заявку № '+selection_orders_buy[0].get('index'),'Посмотреть, сфотографировать, заполнить данные заявки');
+                                        //my.fireEvent('addTask',performer,'Отработать заявку № '+selection_orders_buy[0].get('index')+', Посмотреть, сфотографировать, заполнить данные заявки');
                                     }
                                 }});
 		                    },
@@ -617,7 +617,7 @@ Ext.define('CRMRE.controller.OrdersBuy', {
 				            var credit_manager = obj.messages['credit_manager'];
 				            if (credit_manager != 0) {
 				                my.fireEvent('addNotifications',credit_manager,'Для Вас новая задача!<br>Проработать оформление кредита по заявке № '+record.get('index'));
-                    			my.fireEvent('addTask',credit_manager,'Проработать оформление кредита по заявке № '+record.get('index'),'Проработать оформление кредита по заявке № '+record.get('index'));
+                    			my.fireEvent('addTask',credit_manager,'Проработать оформление кредита по заявке № '+record.get('index')+', Проработать оформление кредита по заявке № '+record.get('index'));
 				            }
 					    }
 					});
@@ -644,7 +644,7 @@ Ext.define('CRMRE.controller.OrdersBuy', {
                                     my.fireEvent('addNotifications',record.get('performer'),message.slice(0,150));
                                     var message = 'Вам новая заявка № '+record.get('index')+": "+record.get('heading')+", от "+client.get('represent')+" т."+client.get('phone_represent');
                                     my.fireEvent('addNotifications',record.get('performer'),message.slice(0,150));
-                                    //my.fireEvent('addTask',record.get('performer'),'Отработать заявку № '+record.get('index'),'Посмотреть, сфотографировать, заполнить данные заявки');
+                                    //my.fireEvent('addTask',record.get('performer'),'Отработать заявку № '+record.get('index')+', Посмотреть, сфотографировать, заполнить данные заявки');
                                 }
                             }});
                         }
@@ -656,7 +656,7 @@ Ext.define('CRMRE.controller.OrdersBuy', {
 						            var credit_manager = obj.messages['credit_manager'];
 						            if (credit_manager != 0) {
 						                my.fireEvent('addNotifications',credit_manager,'Для Вас новая задача!<br>Проработать оформление кредита по заявке № '+record.get('index'));
-		                    			my.fireEvent('addTask',credit_manager,'Проработать оформление кредита по заявке № '+record.get('index'),'Проработать оформление кредита по заявке № '+record.get('index'));
+		                    			my.fireEvent('addTask',credit_manager,'Проработать оформление кредита по заявке № '+record.get('index')+', Проработать оформление кредита по заявке № '+record.get('index'));
 						            }
 							    }
 							});    

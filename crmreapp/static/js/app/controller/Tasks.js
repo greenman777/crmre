@@ -27,9 +27,6 @@ Ext.define('CRMRE.controller.Tasks', {
             'appTasksList actioncolumn[action=delete]': {
                 click: this.deleteRecord
             },
-            'appTasksList button[action=update]': {
-                click: this.updateRecord
-            },
             'appTasksList button[action=filter_status]': {
                 click: this.filterRecord
             },
@@ -41,7 +38,10 @@ Ext.define('CRMRE.controller.Tasks', {
             },
             'appTasksEdit button[action=cancel]': {
             	click: this.closeForm
-            }
+            },
+            'appTasksList pagingtoolbar': {
+                change: this.changePage
+            },
         });
         this.callParent(arguments);
     }, 
@@ -66,37 +66,6 @@ Ext.define('CRMRE.controller.Tasks', {
         	view.down('form').loadRecord(record);
             view.show();
       	}
-    },
-    //Обнавляем список задач
-    updateRecord: function(button) {
-        var grid = button.up('appTasksList');
-        var store = grid.getStore();
-        grid.focus();
-        var my = this;
-        var selection = grid.getSelectionModel().getSelection();
-        store.load({
-            scope: this,
-            callback: function(records, operation, success) {
-                if (success) {
-                    var store_hyst = Ext.getCmp('tabpanel').getActiveTab().down('appTaskHistoryList').getStore();
-                    var store_comm = Ext.getCmp('tabpanel').getActiveTab().down('appTaskCommentsList').getStore();
-                    store_hyst.loadData([],false);
-                    store_comm.loadData([],false);
-                    if (selection.length > 0) {
-                        var record_id = selection[0].getId();
-                        var record_select = store.getById(record_id);
-                        grid.getSelectionModel().deselectAll();
-                        grid.getSelectionModel().select(record_select);
-                        grid.getView().focusRow(record_select);
-                    }
-                    else {
-                        grid.getSelectionModel().deselectAll();
-                        grid.getSelectionModel().select(0);
-                        grid.getView().focusRow(0);
-                    }
-                }
-            }
-         });
     },
     //Открываем форму для назначения задачи пользователю    
     addRecord: function(button) {
@@ -127,10 +96,9 @@ Ext.define('CRMRE.controller.Tasks', {
         record.set('priority',Ext.data.StoreManager.lookup('directory.Priority').findRecord('name','средний').getId());
         record.set('status',Ext.data.StoreManager.lookup('directory.TaskStatus').findRecord('name','в работе').getId());
         record.set('author',parseInt(CRMRE.global.Vars.user_id));
-        record.set('create_date',Ext.Date.format(new Date(), "Y-m-d"));
-        record.set('execution_date',Ext.Date.format(Ext.Date.add(new Date(), Ext.Date.DAY, 3), "Y-m-d"));
+        record.set('create_date',Ext.Date.format(new Date(), "Y-m-d H:i"));
+        record.set('execution_date',Ext.Date.format(Ext.Date.add(new Date(), Ext.Date.DAY, 3), "Y-m-d H:i"));
         record.set('performer',performer);
-        record.set('heading',heading);
         record.set('description',description);
         store.add(record);
         var my = this;
@@ -225,7 +193,7 @@ Ext.define('CRMRE.controller.Tasks', {
     },
     //фильтруем записи при старте
     filterShow: function(store) {
-        this.filterStore(Ext.getCmp('tabpanel').getActiveTab().down('appTasksList').down('#filter_status'),false);
+        //this.filterStore(Ext.getCmp('tabpanel').getActiveTab().down('appTasksList').down('#filter_status'),false);
     },
     //фильтр при нажатии кнопки фильтрации
     filterRecord: function(button) {
@@ -270,5 +238,8 @@ Ext.define('CRMRE.controller.Tasks', {
         store_status.clearFilter(true);
         status_id = store_status.findRecord('name',status_name).getId(); 
         return status_id;
-    }
+    },
+    changePage: function(pagingtoolbar, pageData, eOpts) {
+        pagingtoolbar.up('grid').getSelectionModel().select(0);
+    },
 });

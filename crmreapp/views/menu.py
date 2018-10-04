@@ -39,9 +39,10 @@ def menutree(request):
                                                                                      title=u'Мои клиенты активные',typeapp='clients_view_my'))
     rootchildren[node_id]["children"].append(children_last(name=u"Мои клиенты в резерве",app="appClients",filterapp='{is_client:0,performer_id: '+str(user_id)+'}',
                                                                                      title=u'Мои клиенты в резерве',typeapp='partners_view_my'))
-    rootchildren[node_id]["children"].append(children_last(name=u"Клиенты активные",app="appClients",filterapp='{is_client:1}',
-                                                                                     title=u'Клиенты активные',typeapp='clients_view'))
-    rootchildren[node_id]["children"].append(children_last(name=u"Клиенты в резерве",app="appClients",filterapp='{is_client:0}',
+    if request.user.has_perm('crmreapp.can_change_all_clients'):
+        rootchildren[node_id]["children"].append(children_last(name=u"Клиенты активные",app="appClients",filterapp='{is_client:1}',
+                                                                                         title=u'Клиенты активные',typeapp='clients_view'))
+        rootchildren[node_id]["children"].append(children_last(name=u"Клиенты в резерве",app="appClients",filterapp='{is_client:0}',
                                                                                      title=u'Клиенты в резерве',typeapp='partners_view'))
     node_id += 1
 

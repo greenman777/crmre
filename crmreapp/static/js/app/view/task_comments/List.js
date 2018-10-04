@@ -30,7 +30,7 @@ Ext.define('CRMRE.view.task_comments.List' ,{
             },{
                 header: 'Дата создания', 
                 dataIndex: 'create_date',
-                renderer: Ext.util.Format.dateRenderer('Y-m-d')
+                renderer: Ext.util.Format.dateRenderer('Y-m-d H:i')
             },{xtype:'actioncolumn',
         		width:22,
         		action:'delete',
@@ -57,11 +57,6 @@ Ext.define('CRMRE.view.task_comments.List' ,{
 	            itemId: 'add',
 	            text: 'Добавить комментарий',
 	            action: 'add'
-            },{
-                iconCls: 'icon-update',
-                itemId: 'update',
-                tooltip: 'Обновить',
-                action: 'update'
             }]
         }];
         
