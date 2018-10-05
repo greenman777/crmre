@@ -830,6 +830,7 @@ class OrdersSale(models.Model):
             ("uploading_orders-all", "Uploading Orders All"),
             ("change_advertising", "Change advertising"),
             ("ability_change_olddate", "Аbility to change the old date"),
+            ("free_resources_show", "Free resources show"),
         )
     
     def save(self, force_insert=False, force_update=False, using=None):

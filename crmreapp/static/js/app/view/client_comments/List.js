@@ -55,6 +55,11 @@ Ext.define('CRMRE.view.client_comments.List' ,{
 	            text: 'Добавить действие',
 	            action: 'add'
             },{
+	            iconCls: 'icon-task_add',
+	            itemId: 'task_add',
+	            text: 'Дать задание',
+	            action: 'task_add'
+	        },{
                 iconCls: 'icon-update',
                 itemId: 'update',
                 tooltip: 'Обновить',
