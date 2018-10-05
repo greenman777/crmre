@@ -125,6 +125,7 @@ Ext.define('CRMRE.controller.Interface', {
         				new Ext.util.DelayedTask(function(){
     						grid.getSelectionModel().select(0);
 						}).delay(1000);
+        				console.log("Test!!!")
         			}
     			}
 			});

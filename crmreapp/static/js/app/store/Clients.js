@@ -4,6 +4,7 @@ Ext.define('CRMRE.store.Clients', {
     autoLoad: false,
     remoteFilter: true,
     pageSize: 50,
+
     proxy: {
         type: 'rest',
         pageParam: 'page',

@@ -63,21 +63,38 @@ Ext.define('CRMRE.view.orders_buy.EditFilter', {
                 minValue: 0,
                 maxValue: 99999999,
             },{
+                xtype: 'fieldcontainer',
+                layout: 'hbox',
+                defaultType: 'textfield',
+                defaults: {flex: 1},
+                items:[{
                 xtype: 'comboboxselect',
-                "multiSelect": false,
-                fieldLabel: 'Исполнитель',
-                name: 'performer',
-                autoSelect: true,
-                queryMode: 'local',
-                labelTpl: "{last_name} {first_name}",
-                displayField: 'last_name',
-                listConfig: {
-                    getInnerTpl: function(){
-                        return '{last_name} {first_name}';
-                    }
-                },
-                valueField: 'id',
-                store: 'Users'
+                    "multiSelect": false,
+                    fieldLabel: 'Исполнитель',
+                    name: 'performer',
+                    flex: 3,
+                    autoSelect: true,
+                    queryMode: 'local',
+                    labelTpl: "{last_name} {first_name}",
+                    displayField: 'last_name',
+                    listConfig: {
+                        getInnerTpl: function(){
+                            return '{last_name} {first_name}';
+                        }
+                    },
+                    margin: '0 5 0 0',
+                    valueField: 'id',
+                    store: 'Users'
+                },{
+                    xtype: 'numberfield',
+                    fieldLabel: 'Номер группы',
+                    labelWidth: 100,
+                    flex: 1.3,
+                    name: 'brigade',
+                    margin: '0 5 0 0',
+                    minValue: 0,
+                    maxValue: 999,
+                }]
             },{
                 xtype: 'comboboxselect',
                 "multiSelect": true,

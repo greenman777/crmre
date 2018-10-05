@@ -1,9 +1,23 @@
 Ext.define('CRMRE.view.tasks.List' ,{
 	extend: 'Ext.grid.Panel',
     xtype: 'appTasksList',
+    autoScroll:true,
  	header: false,
+ 	animate: false,
  	columnLines: true,
+    plugins: [{
+        ptype: 'bufferedrenderer',
+        variableRowHeight: false
+    },{
+        ptype: 'rowexpander',
+        rowBodyTpl : [
+            '<p><b>Описание:</b> {description}</p>'
+        ],
+        pluginId: 'rowexpand',
+    }],
     viewConfig: {
+	    enableTextSelection: true,
+        stripeRows: true,
         getRowClass: function (record, rowIndex, rowParams, store) {
             store_status = Ext.data.StoreManager.lookup('directory.TaskStatus');
             store_status.clearFilter(true);
@@ -22,14 +36,6 @@ Ext.define('CRMRE.view.tasks.List' ,{
         this.columns = [
   			{xtype:'rownumberer',width:40},
         	{
-                header: 'Заголовок',
-                flex: 1,
-                dataIndex: 'heading',
-                renderer: function (value, meta, record) {
-                    meta.tdAttr = "data-qtip='" + value + "'";
-                    return value;
-                }
-            },{
                 header: 'Описание',
                 flex: 1,
                 dataIndex: 'description',
@@ -68,12 +74,18 @@ Ext.define('CRMRE.view.tasks.List' ,{
 			},{
                 header: 'Дата создания',
                 dataIndex: 'create_date',
-                renderer: Ext.util.Format.dateRenderer('Y-m-d')
+                renderer: Ext.util.Format.dateRenderer('Y-m-d H:i')
             },{
                 header: 'Дата выполнения',
                 dataIndex: 'execution_date',
-                renderer: Ext.util.Format.dateRenderer('Y-m-d')
+                renderer: Ext.util.Format.dateRenderer('Y-m-d H:i')
             },{
+				header: 'Клиент',
+				dataIndex : 'client_name',
+			},{
+				header: 'Заявка',
+				dataIndex : 'client_name',
+			},{
 				header: 'Приоритет', 
 				dataIndex : 'priority_name',
 				renderer: function(value, meta, record, rowIndex, colIndex, store, view) {
@@ -150,12 +162,15 @@ Ext.define('CRMRE.view.tasks.List' ,{
 	                text = 'Показать ' + (activ_tab.complet ? 'выполненные' : 'рабочие') + ' заявки';
 	                button.setText(text);
 	            }
-	        },{
-	                iconCls: 'icon-update',
-	                itemId: 'update',
-	                tooltip: 'Обновить',
-	                action: 'update'
 	        }]
+        },{
+            xtype: 'pagingtoolbar',
+            store: this.store,
+            dock: 'bottom',
+            displayInfo: true,
+            beforePageText: 'Страница',
+            afterPageText: 'из {0}',
+            displayMsg: 'Задачи {0} - {1} из {2}',
         }];
         this.callParent(arguments);
     }

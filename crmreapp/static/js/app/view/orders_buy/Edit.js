@@ -337,6 +337,7 @@ Ext.define('CRMRE.view.orders_buy.Edit', {
                             xtype: 'checkboxfield',
                             boxLabel: 'Выгрузка в бесплатные ресурсы',
                             name: 'classified_resources',
+                            name: 'free_resources',
                             inputValue: 'true',
                             uncheckedValue: 'false'
                         },{

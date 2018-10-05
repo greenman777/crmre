@@ -389,6 +389,7 @@ Ext.define('CRMRE.controller.OrdersSale', {
 	            var view = Ext.widget('appOrdersSaleEdit');
 	            if (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'change_all_orders-sale')==-1){
                     view.down('#toll_resources').setVisible(false);
+                    view.down('#free_resources').setVisible(false);
                     view.down('#hot_offer').setVisible(false);
                     view.down('#luxury_housing').setVisible(false);
                 }
@@ -399,7 +400,7 @@ Ext.define('CRMRE.controller.OrdersSale', {
 	                this.configForm(object_category_name,form);
 	                form.loadRecord(record);
 	                view.setTitle('Новая заявка в категории: ' +  object_category_name);
-	                form.getForm().setValues({id:"",index:"",toll_resources:false,toll_resources_date:"",toll_resources_date_end:"",hot_offer:false,classified_resources:false});
+	                form.getForm().setValues({id:"",index:"",toll_resources:false,free_resources:false,toll_resources_date:"",toll_resources_date_end:"",hot_offer:false,classified_resources:false});
 	                view.show();
 	            }
 	        }
@@ -435,6 +436,7 @@ Ext.define('CRMRE.controller.OrdersSale', {
 	        };
             if (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'change_all_orders-sale')==-1){
                 view.down('#toll_resources').setVisible(false);
+                view.down('#free_resources').setVisible(false);
                 view.down('#hot_offer').setVisible(false);
                 view.down('#luxury_housing').setVisible(false);
             }
@@ -481,6 +483,7 @@ Ext.define('CRMRE.controller.OrdersSale', {
         var view_order_sale = Ext.widget('appOrdersSaleEdit');
         if (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'change_all_orders-sale')==-1){
             view_order_sale.down('#toll_resources').setVisible(false);
+            view_order_sale.down('#free_resources').setVisible(false);
             view_order_sale.down('#hot_offer').setVisible(false);
             view_order_sale.down('#luxury_housing').setVisible(false);
         }
@@ -610,7 +613,7 @@ Ext.define('CRMRE.controller.OrdersSale', {
                                         client = records[0];
                                         var message = 'Вам новая заявка № '+selection_orders_sale[0].get('index')+": "+selection_orders_sale[0].get('heading')+", от "+client.get('represent')+" т."+client.get('phone_represent');
                                         my.fireEvent('addNotifications',performer,message.slice(0,150));
-                                        //my.fireEvent('addTask',performer,'Отработать заявку № '+selection_orders_sale[0].get('index'),'Посмотреть, сфотографировать, заполнить данные заявки');
+                                        //my.fireEvent('addTask',performer,'Отработать заявку № '+selection_orders_sale[0].get('index')+', Посмотреть, сфотографировать, заполнить данные заявки');
                                     }
                                 }});
                             },
@@ -635,7 +638,7 @@ Ext.define('CRMRE.controller.OrdersSale', {
                                         client = records[0];
                                         var message = 'Вам новая заявка № '+selection_orders_sale[0].get('index')+": "+selection_orders_sale[0].get('heading')+", от "+client.get('represent')+" т."+client.get('phone_represent');
                                         my.fireEvent('addNotifications',performer,message.slice(0,150));
-                                        //my.fireEvent('addTask',performer,'Отработать заявку № '+selection_orders_sale[0].get('index'),'Посмотреть, сфотографировать, заполнить данные заявки');
+                                        //my.fireEvent('addTask',performer,'Отработать заявку № '+selection_orders_sale[0].get('index')+', Посмотреть, сфотографировать, заполнить данные заявки');
                                     }
                                 }});
                             },

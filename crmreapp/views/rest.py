@@ -270,24 +270,6 @@ class ConstructionOrganizationViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = serializers.ConstructionOrganizationSerializer
 
 
-class TasksViewSet(viewsets.ModelViewSet):
-    queryset = models.Tasks.objects.all()
-    serializer_class = serializers.TasksSerializer
-
-    def list(self, request):
-        getparams = self.request.GET.copy()
-        author_id = getparams.get('author_id')
-        performer_id = getparams.get('performer_id')
-        filters = Q()
-        if author_id is not None:
-            filters = filters | Q(author=author_id)
-        if performer_id is not None:
-            filters = filters | Q(performer=performer_id)
-        queryset = self.queryset.filter(filters)
-        serializer = self.serializer_class(queryset, many=True)
-        return Response(serializer.data)
-
-
 class TaskHistoryViewSet(viewsets.ModelViewSet):
     queryset = models.TaskHistory.objects.all()
     serializer_class = serializers.TaskHistorySerializer
@@ -323,6 +305,54 @@ class ResultsJSONRenderer(JSONRenderer):
     def render(self, data, accepted_media_type=None, renderer_context=None):
         data = {'results': data}
         return super(ResultsJSONRenderer, self).render(data, accepted_media_type, renderer_context)
+
+class TasksViewSet(viewsets.ModelViewSet):
+    queryset = models.Tasks.objects.all()
+    serializer_class = serializers.TasksSerializer
+    pagination_class = StandardResultsSetPagination
+
+    def get_filter(self, request):
+
+        getparams = self.request.GET.copy()
+        author_id = getparams.get('author_id')
+        performer_id = getparams.get('performer_id')
+        filters = Q()
+        if author_id is not None:
+            filters = filters | Q(author=author_id)
+        if performer_id is not None:
+            filters = filters | Q(performer=performer_id)
+        return filters
+
+    def list(self, request):
+
+        queryset = self.get_queryset()
+        filters = self.get_filter(request)
+        queryset = queryset.filter(filters).distinct()
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        page_size = self.paginator.page_size
+
+        filters = self.get_filter(request)
+        queryset = self.queryset.filter(filters).distinct()
+        page_number = (list(queryset.values_list('id', flat=True)).index(serializer.data['id']))/page_size+1
+        return Response({'results': serializer.data, 'page': page_number}, status=status.HTTP_201_CREATED, headers=headers)
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', True)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response({'results': serializer.data})
+
 
 class ClientsViewSet(viewsets.ModelViewSet):
     queryset = models.Clients.objects.all()
@@ -596,6 +626,8 @@ class OrdersSaleViewSet(viewsets.ModelViewSet):
                     order_sale_filter = order_sale_filter & Q(kitchen_space__gte=filter['value'])
                 if filter['property'] == 'space_kitchen_to':
                     order_sale_filter = order_sale_filter & Q(kitchen_space__lte=filter['value'])
+                if filter['property'] == 'brigade':
+                    order_sale_filter = order_sale_filter & Q(performer__brigade=filter['value'])
                 if filter['property'] == 'create_date_from':
                     if filter['value']:
                         delta = timedelta(days=int(filter['value']))
@@ -742,6 +774,8 @@ class OrdersBuyViewSet(viewsets.ModelViewSet):
                     order_buy_filter = order_buy_filter & Q(client__phone_represent__contains=filter['value'])
                 if filter['property'] == 'info_source':
                     order_buy_filter = order_buy_filter & Q(client__info_source__in=filter['value'])
+                if filter['property'] == 'brigade':
+                    order_buy_filter = order_buy_filter & Q(performer__brigade=filter['value'])
                 if filter['property'] == 'vip':
                     if filter['value']:
                         order_buy_filter = order_buy_filter & Q(client__vip=True)

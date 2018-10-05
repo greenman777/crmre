@@ -30,7 +30,7 @@ Ext.define('CRMRE.view.task_history.List' ,{
             },{
                 header: 'Дата создания', 
                 dataIndex: 'create_date',
-                renderer: Ext.util.Format.dateRenderer('Y-m-d')
+                renderer: Ext.util.Format.dateRenderer('Y-m-d H:i')
             },{
 				header: 'Статус задачи', 
 				renderer: function(value, meta, record, rowIndex, colIndex, store, view) {
@@ -95,11 +95,6 @@ Ext.define('CRMRE.view.task_history.List' ,{
                     }
                 }
             }
-        },{
-            iconCls: 'icon-update',
-            itemId: 'update',
-            tooltip: 'Обновить',
-            action: 'update'
         }]);
     }
 });
