@@ -389,9 +389,11 @@ Ext.define('CRMRE.controller.OrdersSale', {
 	            var view = Ext.widget('appOrdersSaleEdit');
 	            if (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'change_all_orders-sale')==-1){
                     view.down('#toll_resources').setVisible(false);
-                    view.down('#free_resources').setVisible(false);
                     view.down('#hot_offer').setVisible(false);
                     view.down('#luxury_housing').setVisible(false);
+                }
+                if (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'free_resources_show')==-1){
+                    view.down('#free_resources').setVisible(false);
                 }
 	            if(record){
 	                form = view.down('form');
@@ -436,10 +438,13 @@ Ext.define('CRMRE.controller.OrdersSale', {
 	        };
             if (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'change_all_orders-sale')==-1){
                 view.down('#toll_resources').setVisible(false);
-                view.down('#free_resources').setVisible(false);
                 view.down('#hot_offer').setVisible(false);
                 view.down('#luxury_housing').setVisible(false);
             }
+            if (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'free_resources_show')==-1){
+                view.down('#free_resources').setVisible(false);
+            }
+
 
             view.show();
       	}
@@ -483,9 +488,11 @@ Ext.define('CRMRE.controller.OrdersSale', {
         var view_order_sale = Ext.widget('appOrdersSaleEdit');
         if (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'change_all_orders-sale')==-1){
             view_order_sale.down('#toll_resources').setVisible(false);
-            view_order_sale.down('#free_resources').setVisible(false);
             view_order_sale.down('#hot_offer').setVisible(false);
             view_order_sale.down('#luxury_housing').setVisible(false);
+        }
+        if (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'free_resources_show')==-1){
+            view.down('#free_resources').setVisible(false);
         }
         var form_order_sale = view_order_sale.down('form');
         //заполяем у формы обязательные поля
