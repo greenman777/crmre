@@ -492,7 +492,7 @@ Ext.define('CRMRE.controller.OrdersSale', {
             view_order_sale.down('#luxury_housing').setVisible(false);
         }
         if (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'free_resources_show')==-1){
-            view.down('#free_resources').setVisible(false);
+            view_order_sale.down('#free_resources').setVisible(false);
         }
         var form_order_sale = view_order_sale.down('form');
         //заполяем у формы обязательные поля
