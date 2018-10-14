@@ -3,6 +3,7 @@ Ext.define('CRMRE.view.clients.List' ,{
     xtype: 'appClientsList',
     autoScroll:true,
     animate: false,
+    itemId: 'Clients',
  	columnLines: true,
 	plugins: [{
         ptype: 'bufferedrenderer',

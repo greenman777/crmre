@@ -14,6 +14,9 @@ Ext.define('CRMRE.view.tasks.Edit', {
             {   xtype: 'combobox',name: 'id',hidden: true},
             {   xtype: 'datefield',name: 'create_date',format: 'Y-m-d H:i',hidden: true},
             {   xtype: 'combobox',name: 'author',hidden: true},
+            {   xtype: 'combobox',name: 'client',hidden: true},
+            {   xtype: 'combobox',name: 'order_sale',hidden: true},
+            {   xtype: 'combobox',name: 'order_buy',hidden: true},
             {   xtype: 'combobox',name: 'performer',hidden: true},
             {   xtype: 'combobox',name: 'status',hidden: true},
             {
