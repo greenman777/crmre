@@ -1046,12 +1046,25 @@ Ext.define('CRMRE.controller.OrdersSale', {
                     if(record){
 
                         var store_user = Ext.data.StoreManager.lookup('Users');
-                        var agent_id = rec.get('performer');
-                        var record_agent = store_user.getById(agent_id);
-                        brigade = record_agent.get('brigade')
 
-			            if (((record.get('author')==parseInt(CRMRE.global.Vars.user_id))||
-                            (rec.get('performer')==parseInt(CRMRE.global.Vars.user_id))||
+                        try {
+                            var author = record.get('author');
+                        }
+                         catch (err) {
+                            var author = null;
+                        }
+                        try {
+                            var performer = record.get('performer');
+                            var agent_id = rec.get('performer');
+                            var record_agent = store_user.getById(agent_id);
+                            var brigade = record_agent.get('brigade')
+                        }
+                         catch (err) {
+                            var performer = null;
+                            var brigade = null;
+                        }
+			            if (((author==parseInt(CRMRE.global.Vars.user_id))||
+                            (performer==parseInt(CRMRE.global.Vars.user_id))||
                             ((brigade==parseInt(CRMRE.global.Vars.user_brigade))&&(Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'view_hidden_clients_brigade')!=-1))||
                             (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'view_hidden_fields_clients')!=-1))||
                             (rec.get('status') == store_status.findRecord('name','свободная').getId())) {
