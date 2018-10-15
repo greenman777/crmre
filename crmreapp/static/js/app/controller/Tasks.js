@@ -33,6 +33,9 @@ Ext.define('CRMRE.controller.Tasks', {
             'appUsersList button[action=task_add]': {
                 click: this.addRecord
             },
+            'appClientCommentsList button[action=task_add]': {
+                click: this.addRecord
+            },
             'appTasksEdit button[action=save]': {
                 click: this.saveRecord
             },
@@ -71,21 +74,43 @@ Ext.define('CRMRE.controller.Tasks', {
     addRecord: function(button) {
         var view_tasks = Ext.widget('appTasksEdit');
         var grid_users = button.up('appUsersList');
-        var selection_users = grid_users.getSelectionModel().getSelection();
-        // проверяем что пользователь выбран
-        if (selection_users.length > 0) {
-            var form_tasks = view_tasks.down('form');
-            //заполяем у формы обязательные поля
-            store_status = Ext.data.StoreManager.lookup('directory.TaskStatus');
-            store_status.clearFilter(true);
-            form_tasks.getForm().setValues({performer: selection_users[0].getId(),create_date: new Date(),
-                                      author: parseInt(CRMRE.global.Vars.user_id),
-                                      status: store_status.findRecord('name','в работе').getId()        
-                                    });
-            view_tasks.show();
+        if (grid_users){
+            var selection_users = grid_users.getSelectionModel().getSelection();
+            // проверяем что пользователь выбран
+            if (selection_users.length > 0) {
+                var form_tasks = view_tasks.down('form');
+                //заполяем у формы обязательные поля
+                store_status = Ext.data.StoreManager.lookup('directory.TaskStatus');
+                store_status.clearFilter(true);
+                form_tasks.getForm().setValues({performer: selection_users[0].getId(),create_date: new Date(),
+                                          author: parseInt(CRMRE.global.Vars.user_id),
+                                          status: store_status.findRecord('name','в работе').getId()
+                                        });
+                view_tasks.show();
+            }
+            else {
+                Ext.Msg.alert('Предупреждение', 'Не выбран пользователь!');
+            }
         }
         else {
-            Ext.Msg.alert('Предупреждение', 'Не выбран пользователь!');    
+            var grid = Ext.getCmp('tabpanel').getActiveTab().down("#OrdersSale");
+            if (grid){
+                console.log(grid);
+            }
+            else {
+                var grid = Ext.getCmp('tabpanel').getActiveTab().down("#OrdersBuy");
+                if (grid){
+                    console.log(grid);
+                }
+                else {
+                    var grid = Ext.getCmp('tabpanel').getActiveTab().down("#Clients");
+                    if (grid){
+                        console.log(grid);
+                    }
+                }
+            }
+
+            console.log(order_grid);
         }
     },
     //Сохраняем полученную от системы задачу

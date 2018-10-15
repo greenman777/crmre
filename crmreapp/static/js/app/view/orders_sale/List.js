@@ -6,6 +6,7 @@ Ext.define('CRMRE.view.orders_sale.List' ,{
     autoScroll:true,
     animate: false,
  	columnLines: true,
+    itemId: 'OrdersSale',
  	stateful: true,
     stateId: 'state_orders_sale',
     stateEvents: ['columnresize', 'columnmove', 'show', 'hide'],
