@@ -915,11 +915,23 @@ Ext.define('CRMRE.controller.OrdersSale', {
         if (selection.length > 0) {
 
             var store_user = Ext.data.StoreManager.lookup('Users');
-            var agent_id = selection[0].get('performer');
-            var record_agent = store_user.getById(agent_id);
-            brigade = record_agent.get('brigade')
 
-            if (selection[0].get('performer')==parseInt(CRMRE.global.Vars.user_id)||
+            try {
+                var performer = selection[0].get('performer');
+            }
+             catch (err) {
+                var performer = null;
+            }
+            try {
+                var agent_id = selection[0].get('performer');
+                var record_agent = store_user.getById(agent_id);
+                brigade = record_agent.get('brigade')
+            }
+             catch (err) {
+                var brigade = null;
+            }
+
+            if (performer==parseInt(CRMRE.global.Vars.user_id)||
                 ((brigade==parseInt(CRMRE.global.Vars.user_brigade))&&(Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'view_hidden_clients_brigade')!=-1))||
                (Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'change_all_orders-sale')!=-1)) {
                 Ext.MessageBox.confirm('Подтвердите действие!', 'Вы действительно хотите пометить заявку как отказную?', function(btn){
