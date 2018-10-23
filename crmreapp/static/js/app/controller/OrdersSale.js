@@ -184,6 +184,9 @@ Ext.define('CRMRE.controller.OrdersSale', {
         if (type.indexOf('orders_sale_free') >= 0||type.indexOf('orders_sale_complet') >= 0||type.indexOf('orders_sale_archive') >= 0||type.indexOf('orders_sale_activ') >= 0) {
         	view.down('#templatesdoc').setVisible(false);
         }
+        if (type.indexOf('_completed') >= 0||type.indexOf('_activ') >= 0) {
+        	view.down('#report').setVisible(true);
+        }
         else {
             view.down('#to_archive').setVisible(false);
             view.down('#return_active').setVisible(false);
