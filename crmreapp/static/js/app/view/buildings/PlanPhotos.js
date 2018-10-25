@@ -114,7 +114,7 @@ Ext.define('CRMRE.view.buildings.PlanPhotos',{
 	                '<tpl for=".">',
 	                    '<div class="thumb-wrap" id="{description}">',
 	                        '<div class="thumb">',
-	                            '<img src="{photo}" height=75 width=100 title="{description}">',
+	                            '<img src="{photo}" height=75 title="{description}">',
 	                        '</div>',
 	                        '<span class="x-editable">{shortName}</span>',
 	                    '</div>',
@@ -144,7 +144,7 @@ Ext.define('CRMRE.view.buildings.PlanPhotos',{
 	                },
 	                itemdblclick: function (dv, record, item, index, e, eOpts) {
 						var win = new Ext.Window({
-						    html: '<img src="'+record.get("photo")+'" height=600 width=800  />',
+						    html: '<img src="'+record.get("photo")+'" height=600  />',
 						    height: 600,
 						    width: 800
 						});

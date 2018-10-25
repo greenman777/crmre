@@ -6,8 +6,8 @@ from django.db import models
 from crmre import settings
 from django.db.models.signals import pre_save,post_save,pre_delete
 from django.contrib.auth.models import Group
-from imagekit.models import ProcessedImageField,ImageSpecField
-from pilkit.processors import ResizeToFill,ResizeToFit
+from imagekit.models import ProcessedImageField
+from pilkit.processors import ResizeToFit
 from crmreapp import watermark
 from tinymce.models import HTMLField
 from django.utils.crypto import get_random_string
@@ -609,7 +609,7 @@ class BuildingPhotos(models.Model):
     
     building = models.ForeignKey(Buildings,verbose_name=u'Новостройка')
     description = models.CharField(max_length=60, verbose_name=u'Описание')
-    photo = ProcessedImageField(upload_to=get_building_photo_name,processors=[ResizeToFit(width=800, height=600, upscale=True, mat_color=None),Watermark()],
+    photo = ProcessedImageField(upload_to=get_building_photo_name,processors=[ResizeToFit(width=None, height=600, upscale=True, mat_color=None),Watermark()],
                                 format='JPEG',options={'quality': 60})
     directory_string_var = 'photos_building'
     
@@ -662,7 +662,7 @@ class PlanPhotos(models.Model):
     
     plan = models.ForeignKey(Plan,verbose_name=u'Планировка')
     description = models.CharField(max_length=60, verbose_name=u'Описание')
-    photo = ProcessedImageField(upload_to=get_plan_photo_name,processors=[ResizeToFit(width=800, height=600, upscale=True, mat_color=255),Watermark()],
+    photo = ProcessedImageField(upload_to=get_plan_photo_name,processors=[ResizeToFit(width=None, height=600, upscale=True, mat_color=255),Watermark()],
                                 format='JPEG',options={'quality': 60})
     directory_string_var = 'photos_plan'
     
@@ -832,7 +832,7 @@ class OrdersSale(models.Model):
             ("ability_change_olddate", "Аbility to change the old date"),
             ("free_resources_show", "Free resources show"),
         )
-    
+
     def save(self, force_insert=False, force_update=False, using=None):
         self.description = htmlfield_format(self.description)
         if self.toll_resources == False: self.toll_resources_date = None
@@ -854,19 +854,21 @@ class Photos(models.Model):
     
     object = models.ForeignKey(OrdersSale,verbose_name=u'Объект')
     description = models.CharField(max_length=60, verbose_name=u'Описание')
-    photo = ProcessedImageField(upload_to=get_file_name,processors=[ResizeToFit(width=800, height=600, upscale=True, mat_color=255)],
-                                format='JPEG',options={'quality': 60})
-    #photo_logo = ImageSpecField(source='photo',processors=[ResizeToFit(width=800, height=600, upscale=True, mat_color=255),Watermark()],
-    #                            format='JPEG',options={'quality': 60})
+    photo = ProcessedImageField(upload_to=get_file_name,
+                                processors=[ResizeToFit(width=None, height=600, upscale=True, mat_color=None),
+                                            Watermark()],format='JPEG', options={'quality': 60})
     directory_string_var = 'photos'
-    
+
+    #def save(self):
+    #    photo = Image.open(self.photo)
+    #    print(photo.size)
+    #    super(Photos, self).save()
+
     def __unicode__(self):
         return unicode(self.description) or u''
     class Meta:
         ordering = ['description']
         verbose_name_plural = u"Фотографии объектов"
-    #photo_thumbnail = ImageSpecField(source='photo',processors=[ResizeToFit(100, 50)],format='JPEG',
-    #                                options={'quality': 60})
 
 def pre_photo_save(sender, instance, **kwargs):
     try:
