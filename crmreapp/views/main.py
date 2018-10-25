@@ -588,8 +588,8 @@ def offer_news(request):
         if order_id != None:
             filter_Q = Q()
             user_groups = request.user.groups.values_list('name',flat=True)
-            if (u"_Внешние агенты" in user_groups) :
-                filter_Q = filter_Q & Q(other_agency = True)
+            #if (u"_Внешние агенты" in user_groups) :
+            #    filter_Q = filter_Q & Q(other_agency = True)
             if order_type == 'appOfferBuyList':
                 """
                 Поиск объектов для заявки (спрос)
