@@ -140,7 +140,7 @@ Ext.define('CRMRE.view.Photos', {
             		dataIndex: 'photo',
 					width: 120,
             		renderer:function(v){
-            			return '<a href="'+v+'" target="_blank"><img src="'+v+'" height=90 width=120/></a>';
+            			return '<a href="'+v+'" target="_blank"><img src="'+v+'" height=90/></a>';
             		}
             	},{
             		xtype:'actioncolumn',

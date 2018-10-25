@@ -86,10 +86,10 @@ Ext.define('CRMRE.view.orders_sale.List' ,{
                     var store_photo = Ext.data.StoreManager.lookup('Photos');
                     record_photo = store_photo.findRecord('object',record.getId(),0,false,true,true);
                     if (record_photo != null){
-                        return '<a href="'+record_photo.get('photo')+'" target="_blank"><img src="'+record_photo.get('photo')+'" height=24 width=32/></a>';
+                        return '<a href="'+record_photo.get('photo')+'" target="_blank"><img src="'+record_photo.get('photo')+'" height=24/></a>';
                     }
                     else {
-                        return '<img src="'+CRMRE.global.Vars.media_url+'no_pictures.png'+'" height=24 width=32/>';
+                        return '<img src="'+CRMRE.global.Vars.media_url+'no_pictures.png'+'" height=24 />';
                     }
                 }
             },{
