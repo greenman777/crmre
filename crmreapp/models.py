@@ -855,8 +855,7 @@ class Photos(models.Model):
     object = models.ForeignKey(OrdersSale,verbose_name=u'Объект')
     description = models.CharField(max_length=60, verbose_name=u'Описание')
     photo = ProcessedImageField(upload_to=get_file_name,
-                                processors=[ResizeToFit(width=None, height=600, upscale=True, mat_color=None),
-                                            Watermark()],format='JPEG', options={'quality': 60})
+                                processors=[ResizeToFit(width=None, height=600, upscale=True, mat_color=None)],format='JPEG', options={'quality': 60})
     directory_string_var = 'photos'
 
     #def save(self):
