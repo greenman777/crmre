@@ -997,20 +997,23 @@ Ext.define('CRMRE.controller.OrdersBuy', {
 			            try {
                             var author = record.get('author');
                         }
-                         catch (err) {
+                        catch (err) {
                             var author = null;
                         }
                         try {
                             var performer = record.get('performer');
+                        }
+                        catch (err) {
+                            var performer = null;
+                        }
+                        try {
                             var agent_id = rec.get('performer');
                             var record_agent = store_user.getById(agent_id);
                             var brigade = record_agent.get('brigade')
                         }
-                         catch (err) {
-                            var performer = null;
+                        catch (err) {
                             var brigade = null;
                         }
-
 			            if (((author==parseInt(CRMRE.global.Vars.user_id))||
                             (performer==parseInt(CRMRE.global.Vars.user_id))||
                             ((brigade==parseInt(CRMRE.global.Vars.user_brigade))&&(Ext.Array.indexOf(CRMRE.global.Vars.user_perms,'view_hidden_clients_brigade')!=-1))||
