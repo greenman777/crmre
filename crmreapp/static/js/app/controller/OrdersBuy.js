@@ -1001,14 +1001,13 @@ Ext.define('CRMRE.controller.OrdersBuy', {
                             var author = null;
                         }
                         try {
-                            var performer = record.get('performer');
+                            var performer = rec.get('performer');
                         }
                         catch (err) {
                             var performer = null;
                         }
                         try {
-                            var agent_id = rec.get('performer');
-                            var record_agent = store_user.getById(agent_id);
+                            var record_agent = store_user.getById(performer);
                             var brigade = record_agent.get('brigade')
                         }
                         catch (err) {
