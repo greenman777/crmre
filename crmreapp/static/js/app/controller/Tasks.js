@@ -95,7 +95,23 @@ Ext.define('CRMRE.controller.Tasks', {
         else {
             var grid = Ext.getCmp('tabpanel').getActiveTab().down("#OrdersSale");
             if (grid){
-                console.log(grid);
+                var selection_order = grid.getSelectionModel().getSelection();
+                if (selection_order.length > 0) {
+                    var order = selection_order[0];
+                    var order_sale = order.get('id');
+                    var client = order.get('client');
+                    var performer = order.get('performer');
+                    var form_tasks = view_tasks.down('form');
+                    //заполяем у формы обязательные поля
+                    store_status = Ext.data.StoreManager.lookup('directory.TaskStatus');
+                    store_status.clearFilter(true);
+                    form_tasks.getForm().setValues({performer: performer,create_date: new Date(),
+                                              author: parseInt(CRMRE.global.Vars.user_id),
+                                              status: store_status.findRecord('name','в работе').getId(),
+                                              client: client, order_sale: order_sale, order_buy: null
+                                            });
+                    view_tasks.show();
+                }
             }
             else {
                 var grid = Ext.getCmp('tabpanel').getActiveTab().down("#OrdersBuy");
@@ -109,8 +125,6 @@ Ext.define('CRMRE.controller.Tasks', {
                     }
                 }
             }
-
-            console.log(order_grid);
         }
     },
     //Сохраняем полученную от системы задачу
@@ -140,6 +154,7 @@ Ext.define('CRMRE.controller.Tasks', {
         var form = win.down('form');
         var record = form.getRecord();
         var values = form.getValues();
+        console.log(values);
         //если форма заполнена корректно
         if (form.isValid()) {
 	        //если запись уже существует, обновляем
