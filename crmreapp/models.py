@@ -1204,6 +1204,13 @@ class Notifications(models.Model):
         ordering = ['read','-date','-id']
         verbose_name_plural = u"Уведомления"
 
+def pre_notifications_delete(sender, instance, **kwargs):
+    if len(instance.phone)>0:
+        raise Exception('Do not delete notifications')  # cancel the deletion
+    # else continue with the deletion
+
+pre_delete.connect(pre_notifications_delete, sender=Notifications)
+
 def post_notifications_save(sender, instance, created, **kwargs):
     try:
         if (created):
