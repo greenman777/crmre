@@ -33,7 +33,12 @@ Ext.define('CRMRE.view.notifications.Edit', {
                 },
                 valueField: 'id',
                 store: 'Users'
-            },{  
+            },{
+                xtype: 'numberfield',
+                name: 'phone',
+                fieldLabel: 'Телефон',
+                maxLength: 11,
+            },{
             	xtype: 'checkbox',
                 boxLabel: 'Отправить SMS',
                 name: 'sendsms',

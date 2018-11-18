@@ -115,13 +115,46 @@ Ext.define('CRMRE.controller.Tasks', {
             }
             else {
                 var grid = Ext.getCmp('tabpanel').getActiveTab().down("#OrdersBuy");
-                if (grid){
-                    console.log(grid);
-                }
-                else {
-                    var grid = Ext.getCmp('tabpanel').getActiveTab().down("#Clients");
-                    if (grid){
-                        console.log(grid);
+                if (grid) {
+                    var selection_order = grid.getSelectionModel().getSelection();
+                    if (selection_order.length > 0) {
+                        var order = selection_order[0];
+                        var order_buy = order.get('id');
+                        var client = order.get('client');
+                        var performer = order.get('performer');
+                        var form_tasks = view_tasks.down('form');
+                        //заполяем у формы обязательные поля
+                        store_status = Ext.data.StoreManager.lookup('directory.TaskStatus');
+                        store_status.clearFilter(true);
+                        form_tasks.getForm().setValues({
+                            performer: performer, create_date: new Date(),
+                            author: parseInt(CRMRE.global.Vars.user_id),
+                            status: store_status.findRecord('name', 'в работе').getId(),
+                            client: client, order_buy: order_buy, order_sale: null
+                        });
+                        view_tasks.show();
+                    }
+                    else {
+                        var grid = Ext.getCmp('tabpanel').getActiveTab().down("#Clients");
+                        if (grid) {
+                            var selection_client = grid.getSelectionModel().getSelection();
+                            if (selection_client.length > 0) {
+                                var client = selection_order[0];
+                                var client_id = client.get('id');
+                                var performer = order.get('author');
+                                var form_tasks = view_tasks.down('form');
+                                //заполяем у формы обязательные поля
+                                store_status = Ext.data.StoreManager.lookup('directory.TaskStatus');
+                                store_status.clearFilter(true);
+                                form_tasks.getForm().setValues({
+                                    performer: performer, create_date: new Date(),
+                                    author: parseInt(CRMRE.global.Vars.user_id),
+                                    status: store_status.findRecord('name', 'в работе').getId(),
+                                    client: client_id, order_buy: null, order_sale: null
+                                });
+                                view_tasks.show();
+                            }
+                        }
                     }
                 }
             }

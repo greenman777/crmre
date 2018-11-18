@@ -88,6 +88,10 @@ Ext.define('CRMRE.view.notifications.List' ,{
 	                    return user_name;
    					}
 				},{
+	                header: 'Телефон',
+	                dataIndex: 'phone',
+	                flex: 1,
+	            },{
                     header: 'Дата отправки', 
                     flex: 1,
                     dataIndex: 'date',

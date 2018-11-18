@@ -5,7 +5,8 @@ Ext.define('CRMRE.model.Notifications', {
     	{name: 'sender', type:'auto'},
 		{name: 'user', type:'auto'},
 		{name: 'date', dateFormat: 'Y-m-d', type:"date"},
-    	{name: 'message', type:'string'},
+    	{name: 'phone', type:'string'},
+        {name: 'message', type:'string'},
         {name: 'read', type:'boolean'},
         {name: 'sendsms', type:'boolean'}
    ]
