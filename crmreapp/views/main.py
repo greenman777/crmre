@@ -764,13 +764,17 @@ def send_notification(request):
         getparams = request.POST.copy()
         recipients =  json.loads(getparams.get('recipients'))
         message =  getparams.get('message')
+        phone = getparams.get('phone')
         sendsms = json.loads(getparams.get('sendsms'))
-        if len(recipients) == 0:
-            recipients = User.objects.filter(is_active=True)
-        else:
+        if len(recipients) > 0:
             recipients = [User.objects.get(id=recipient) for recipient in recipients]
+
+        elif len(phone) == 0:
+            recipients = User.objects.filter(is_active=True)
         for recipient in recipients:
             models.Notifications.objects.create(user=recipient,sender=request.user,message=message,sendsms=sendsms)
+        if len(phone) == 11:
+            models.Notifications.objects.create(phone=phone, sender=request.user, message=message, sendsms=sendsms)
         response = JSONResponse({'success':True,'messages':u'Сообщение успешно отправлено!'})
         return response
 

@@ -83,8 +83,11 @@ Ext.define('CRMRE.view.tasks.List' ,{
 				header: 'Клиент',
 				dataIndex : 'client_name',
 			},{
-				header: 'Заявка',
-				dataIndex : 'client_name',
+				header: 'Заявка на продажу',
+				dataIndex : 'order_sale_index',
+			},{
+				header: 'Заявка на покупку',
+				dataIndex : 'order_buy_index',
 			},{
 				header: 'Приоритет', 
 				dataIndex : 'priority_name',

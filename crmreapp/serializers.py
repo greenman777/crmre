@@ -7,6 +7,15 @@ from django.contrib.auth.models import Group
 from crmreauth.models import User
 
 class TasksSerializer(serializers.ModelSerializer):
+    def to_representation(self, instance):
+        ret = super(TasksSerializer, self).to_representation(instance)
+        if (ret['client']):
+            ret['client_name'] = models.Clients.objects.get(pk=ret['client']).client_name
+        if (ret['order_sale']):
+            ret['order_sale_index'] = models.OrdersSale.objects.get(pk=ret['order_sale']).index
+        if (ret['order_buy']):
+            ret['order_buy_index'] = models.OrdersBuy.objects.get(pk=ret['order_buy']).index
+        return ret
     class Meta:
         model = models.Tasks
         fields = '__all__'

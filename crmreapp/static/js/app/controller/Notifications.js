@@ -206,7 +206,9 @@ Ext.define('CRMRE.controller.Notifications', {
 	            url: '/send_notification/',
 	            params:{
 	               message: form.getValues().name,
-	               sendsms: form.getValues().sendsms,
+                   phone: form.getValues().phone,
+                   sendsms: form.getValues().sendsms,
+
 	               recipients: Ext.JSON.encode(form.getValues().recipients)
 	            },
 	            success: function(response, opts) {

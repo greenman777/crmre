@@ -1191,9 +1191,10 @@ class ListRooms(models.Model):
         verbose_name_plural = u"Количество комнат"
 
 class Notifications(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='user',verbose_name=u'Получатель')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='user',verbose_name=u'Получатель',blank=True,null=True)
     sender = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='sender',verbose_name=u'Отправитель',blank=True,null=True)
     date = models.DateField(verbose_name=u'Дата операции',auto_now_add=True)
+    phone = models.CharField(max_length=11,verbose_name=u'Телефон',blank=True)
     message = models.CharField(max_length=150,verbose_name=u'Сообщение') 
     read = models.BooleanField(default=False,verbose_name=u'Прочитано')
     sendsms = models.BooleanField(default=False,verbose_name=u'SMS сообщение')
@@ -1206,17 +1207,23 @@ class Notifications(models.Model):
 def post_notifications_save(sender, instance, created, **kwargs):
     try:
         if (created):
-            if (instance.user.sms_notification and (len(instance.user.phone)==11)):
-                #try:
-                phone = "".join(("7",instance.user.phone[1:]))
-                if ((not instance.sender) or (instance.sendsms)):
-                    text = instance.message[:168]
-                    #sms = smssend.AtomParkSMS()
-                    #sms.send_sms(text, [phone])
-                    connections = lookup_connections(backend="kannel-beeline-smpp",identities=[phone])
-                    send(text, connections=connections)
-                #except:
-                #    pass
+            if instance.user:
+                if (instance.user.sms_notification and (len(instance.user.phone)==11)):
+                    #try:
+                    phone = "".join(("7",instance.user.phone[1:]))
+                    if ((not instance.sender) or (instance.sendsms)):
+                        text = instance.message[:168]
+                        #sms = smssend.AtomParkSMS()
+                        #sms.send_sms(text, [phone])
+                        connections = lookup_connections(backend="kannel-beeline-smpp",identities=[phone])
+                        send(text, connections=connections)
+                    #except:
+                    #    pass
+            elif len(instance.phone)==11:
+                phone = "".join(("7", instance.phone[1:]))
+                text = instance.message[:168]
+                connections = lookup_connections(backend="kannel-beeline-smpp", identities=[phone])
+                send(text, connections=connections)
     except (sender.DoesNotExist):
         return
            
