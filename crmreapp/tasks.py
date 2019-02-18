@@ -130,6 +130,6 @@ def task_notification():
     date_now = datetime.datetime.now()
     tasks = models.Tasks.objects.filter(notification=False,execution_date__lte=date_now)
     for task in tasks:
-        notification_new = models.Notifications.objects.create(user=task.performer,sender=task.author,message=task.heading,sendsms=True)
+        notification_new = models.Notifications.objects.create(user=task.performer,sender=task.author,message=task.description[:150],sendsms=True)
         task.notification = True
         task.save()
