@@ -44,9 +44,13 @@ Ext.define('CRMRE.view.buildings.PlanList' ,{
                     flex: 1,
                     dataIndex: 'entrance'
                 },{
-                    header: 'Цена', 
+                    header: 'Цена за кв.м. (руб)',
                     flex: 1,
                     dataIndex: 'price'
+                },{
+                    header: 'Цена квартиры (руб)',
+                    flex: 1,
+                    dataIndex: 'price_full'
                 },{
                     header: '3D тур', 
                     flex: 1,

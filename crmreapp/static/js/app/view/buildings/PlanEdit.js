@@ -60,8 +60,16 @@ Ext.define('CRMRE.view.buildings.PlanEdit', {
                     vtype: 'IntervalNumber'
                 },{   
                     xtype: 'numberfield',
-                    fieldLabel: 'Цена (руб)',
+                    fieldLabel: 'Цена за кв.м. (руб)',
                     name: 'price',
+                    minValue: 0,
+                    maxValue: 99999999,
+                    decimalPrecision : 2,
+                    allowBlank:false
+                },{
+                    xtype: 'numberfield',
+                    fieldLabel: 'Цена квартиры (руб)',
+                    name: 'price_full',
                     minValue: 0,
                     maxValue: 99999999,
                     decimalPrecision : 2,
