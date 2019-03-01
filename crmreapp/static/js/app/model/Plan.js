@@ -8,6 +8,7 @@ Ext.define('CRMRE.model.Plan', {
     	{name: 'floor', type:'string'},
     	{name: 'entrance', type:'string'},
     	{name: 'price', type: 'float' },
+		{name: 'price_full', type: 'float' },
     	{name: 'tour3d', type:'auto'},
 		{name: 'prompt', type:'string'},
 		{name: 'commission', type: 'float' },

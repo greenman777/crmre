@@ -172,6 +172,7 @@
     		{% if plan.floor %}<Floor>{{plan.floor}}</Floor>{% endif%}
     		{% if plan.entrance %}<Entrance>{{plan.entrance}}</Entrance>{% endif%}
     		{% if plan.price|floatformat %}<Price>{{plan.price}}</Price>{% endif%}
+            {% if plan.price_full|floatformat %}<PriceFull>{{plan.price_full}}</PriceFull>{% endif%}
     		{% if plan.tour3d %}<Tour3d>{{plan.tour3d}}</Tour3d>{% endif%}
             {% if plan.prompt %}<Prompt>{{plan.prompt}}</Prompt>{% endif%}
             {% if plan.commission|floatformat %}<Commission>{{plan.commission}}</Commission>{% endif%}
