@@ -73,7 +73,7 @@ Ext.define('CRMRE.view.buildings.PlanEdit', {
                     minValue: 0,
                     maxValue: 99999999,
                     decimalPrecision : 2,
-                    allowBlank:false
+                    allowBlank:true
                 },{
                     fieldLabel: 'Подсказка',
                     name: 'prompt',
